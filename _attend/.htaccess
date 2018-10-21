@@ -1,0 +1,8 @@
+DirectoryIndex /public/index.php
+RewriteEngine On
+
+RewriteRule ^$ public/ [L]
+RewriteRule ((?s).*) public/$1 [L]
+
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^(.+) $1 [L]
