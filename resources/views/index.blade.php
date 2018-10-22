@@ -32,7 +32,7 @@
         <div class="menu menu_left-bottom"></div>
         <div class="menu menu_right-bottom"></div>
         <div class="menu-content">
-            <div class="menu-content_left-top">
+            <div class="menu-content_left-top" {{--style="background: red;"--}}>
                 <h2 class="animated fadeInDown faster" style="display: none;">Веб-дизайн и&nbsp;разработка</h2>
                 <p style="display: none;">
                     <span class="animated fadeInLeftBig faster">Готовые сайты,</span><br>

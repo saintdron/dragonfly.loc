@@ -32,10 +32,35 @@ body {
     width: 560px;
     height: 560px;
     position: absolute;
-    top: 55%;
-    left: 50%;
+    top: 55vh;
+    left: 50vw;
     margin: -280px 0 0 -280px;
+    transition: all 1s ease-out;
 }
+
+.navigation_left-top {
+    left: 0;
+    top: 0;
+}
+
+.navigation_right-top {
+    left: 100vw;
+    top: 0;
+}
+
+.navigation_left-bottom {
+    left: 0;
+    top: 100vh;
+}
+
+.navigation_right-bottom {
+    left: 100vw;
+    top: 100vh;
+}
+
+/*.navigation.icon-reduced .menu-content div {*/
+    /*background-size: 0 0;*/
+/*}*/
 
 .lily_back,
 .lily_front,
@@ -177,6 +202,7 @@ body {
     background-size: 45px 45px;
     z-index: 10;
     overflow: hidden;
+    /*transition: background-size 1s ease-out;*/
 }
 
 .menu-content h2 {
