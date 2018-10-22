@@ -1,12 +1,14 @@
 jQuery(document).ready(function ($) {
 
-    // console.log('er');
+    let timerId = null;
 
-    $('.navigation').on('click', '.menu', function(e){
-        console.log($(this));
-        // if ($(this).hasClass('checked')) {
-        //     $(this).removeClass(;)
-        // }
-        // $(this).toggleClass('checked');
+    $('.menu').hover(function () {
+        let $elem = $(this);
+        timerId = setTimeout(function ($elem) {
+            $elem.addClass('show');
+        }, 300, $elem);
+    }, function () {
+        $(this).removeClass('show');
+        clearTimeout(timerId);
     });
 });
