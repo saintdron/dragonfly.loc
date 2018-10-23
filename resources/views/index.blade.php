@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/home.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/navigation.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/animate.min.css"/>
 
     <!-- Fonts -->
