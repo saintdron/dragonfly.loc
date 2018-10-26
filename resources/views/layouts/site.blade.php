@@ -15,7 +15,7 @@
     <!-- Style -->
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/common.css"/>
-    {{--<link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/index.css"/>--}}
+    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/index.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/animate.min.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/navigation.css"/>
 
@@ -23,9 +23,9 @@
     <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=cyrillic-ext" rel="stylesheet">
 </head>
-<body class="{{ $template }}">
+<body>
 <!-- Content -->
-<div class="container-fluid">
+<div id="content">
     @yield('content')
 </div>
 <!-- Navigation -->

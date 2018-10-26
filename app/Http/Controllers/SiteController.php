@@ -39,7 +39,7 @@ class SiteController extends Controller
             'keywords' => $this->keywords,
             'meta_desc' => $this->meta_desc,
             'title' => $this->title,
-            'template' => $this->template
+//            'template' => $this->template
         ]);
 
         return view($this->template)

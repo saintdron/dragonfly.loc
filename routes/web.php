@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', ['uses' => 'IndexController@index', 'as' => 'index']);
+Route::match(['get', 'post'], '/', ['uses' => 'IndexController@index', 'as' => 'index']);
 
 Route::group(['prefix' => 'web-development'], function () {
     Route::get('sites/{alias?}', ['uses' => 'WebDevelopmentController@sites', 'as' => 'sites']);

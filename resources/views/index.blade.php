@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.site')
 
 @section('navigation')
     {!! $navigation_view !!}

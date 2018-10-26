@@ -3,7 +3,8 @@
         <img src="{{ asset('assets') }}/images/water_lily_back.png">
     </div>
     <div class="menu menu_left-top"><a
-                href="{{ ($navPosition === 'right-bottom') ? route('index') : ($menu[0] ?? '#')}}"
+{{--                href="{{ ($navPosition === 'right-bottom') ? route('index') : ($menu[0] ?? '#')}}"--}}
+                href="{{ $menu[0] ?? '#' }}"
                 draggable='false'></a></div>
     <div class="menu menu_right-top"><a href="{{ $menu[1] ?? '#'}}" draggable='false'></a></div>
     <div class="menu menu_left-bottom"><a href="{{ $menu[2] ?? '#'}}" draggable='false'></a></div>

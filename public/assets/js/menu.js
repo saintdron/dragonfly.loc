@@ -17,34 +17,58 @@ jQuery(document).ready(function ($) {
     });
 
     $('.menu').on('click', function (e) {
+        e.preventDefault();
         let $elem = $(this);
+        let url = $(e.target).attr('href');
         let $navigation = $(this).closest('.navigation');
+
         if ($navigation.hasClass('inCorner')) {
-            $navigation.removeClass('navigation_left-top')
+
+            history.pushState({ url: url }, "DragonFly", '/');
+
+            $navigation.addClass('navigation_center')
+                .removeClass('navigation_left-top')
                 .removeClass('navigation_right-top')
                 .removeClass('navigation_left-bottom')
                 .removeClass('navigation_right-bottom');
             $('.menu-content_house').fadeOut(350, function () {
-                $(this).removeClass('menu-content_house').fadeIn(350, function () {
-                    // $navigation.removeClass('inCorner');
-                    location.href = '/';
-                });
+                $navigation.removeClass('inCorner');
+                $(this).removeClass('menu-content_house').fadeIn(350);
             });
-            return false;
-        }
 
-        const pass = (e, sel) => {
-            e.preventDefault();
             console.log(e.target);
             $.ajax({
-                url: $(e.target).attr('href'),
+                url: '/',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: 'POST',
                 success: function (result) {
                     console.log(result);
-                    $('.container-fluid').html(result);
+                    $('#content').html(result);
+                },
+                error: function () {
+                    console.log('error');
+                }
+            });
+
+            return false;
+        }
+
+        history.pushState({ url: url }, "DragonFly", url);
+
+        const pass = (e, sel) => {
+            $navigation.removeClass('navigation_center');
+            console.log(e.target);
+            $.ajax({
+                url: url,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                success: function (result) {
+                    console.log(result);
+                    $('#content').html(result);
                 },
                 error: function () {
                     console.log('error');
@@ -53,8 +77,11 @@ jQuery(document).ready(function ($) {
 
             // $('.menu.show').removeClass('show');
             timerNavigationId = setTimeout(function () {
-                let href = $elem.find('a').attr('href');
+                // let href = $elem.find('a').attr('href');
                 $navigation.addClass('inCorner');
+                $(sel).fadeOut(200, function () {
+                    $(this).addClass('menu-content_house').fadeIn(200);
+                });
                 // location.href = href;
                 /*$(sel).animate({
                     opacity: 0
@@ -70,6 +97,8 @@ jQuery(document).ready(function ($) {
                     // });
                 });*/
             }, 800);
+
+            return false;
         };
 
         if ($elem.hasClass('menu_left-top')) {
@@ -85,5 +114,7 @@ jQuery(document).ready(function ($) {
             $navigation.addClass('navigation_left-top');
             pass(e, '.menu-content_right-bottom');
         }
+
+        return false;
     });
 });

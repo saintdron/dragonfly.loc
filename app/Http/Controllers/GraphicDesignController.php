@@ -10,7 +10,7 @@ class GraphicDesignController extends SiteController
     {
         parent::__construct();
 
-        $this->template = 'graphic-design';
+        $this->template = 'common';
         $this->navPosition = 'right-bottom';
     }
 
@@ -18,7 +18,7 @@ class GraphicDesignController extends SiteController
     {
         $branding = false;
 
-        $content_view = view($this->template . '_content')
+        $content_view = view('graphic-design_content')
             ->with(['branding' => $branding, 'partition' => 'branding'])
             ->render();
 
