@@ -1,119 +1,126 @@
 jQuery(document).ready(function ($) {
 
+    // console.log('href', window.location.href);
+    history.replaceState({url: window.location.href}, "", window.location.href);
+
     let timerHoverId = null,
         timerNavigationId = null;
+
+    window.onpopstate = function (e) {
+        // console.log(e.state.url);
+        // alert("location: " + document.location + ", state: " + JSON.stringify(event.state));
+        // console.log("location: " + document.location + ", state: " + JSON.stringify(e.state));
+        if (e.state && e.state.url) {
+            window.location = e.state.url;
+        }
+        return true;
+    };
+
+    function loadContent(url) {
+        $.ajax({
+            url: url,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'POST',
+            success: function (result) {
+                $('#content').html(result);
+            },
+            error: function () {
+                console.log('error');
+            }
+        });
+    }
 
     $('.menu').hover(function () {
         let $elem = $(this);
         let $navigation = $(this).closest('.navigation');
-        // if (!($navigation.hasClass('navigation_right-bottom'))) {
         timerHoverId = setTimeout(function ($elem) {
             $elem.addClass('show');
         }, 300, $elem);
-        // }
     }, function () {
         $(this).removeClass('show');
         clearTimeout(timerHoverId);
     });
 
     $('.menu').on('click', function (e) {
+
+        // From Home page transition function
+        const pass = (sel) => {
+            $navigation.removeClass('navigation_center');
+            loadContent(url);
+            timerNavigationId = setTimeout(function () {
+                $navigation.addClass('inCorner');
+                $(sel).fadeOut(200, function () {
+                    $(this).addClass('menu-content_house').fadeIn(200);
+                });
+            }, 800);
+        };
+
         e.preventDefault();
+
         let $elem = $(this);
-        let url = $(e.target).attr('href');
+        let url = $elem.find('a').attr('href');
         let $navigation = $(this).closest('.navigation');
 
+        // Not from Home page
         if ($navigation.hasClass('inCorner')) {
 
-            history.pushState({ url: url }, "DragonFly", '/');
+            // alert("location: " + document.location + ", state: " + JSON.stringify(e.state));
+            // history.pushState({url: url}, "DragonFly", 'http://dragonfly.loc/');
+            // history.pushState({url: '/'}, "DragonFly", '/');
+            // console.log('url', url);
+            /*            if (e.state) {
+                            // history.pushState({url: '/'}, "DragonFly", '/');
+                        } else {
+                            // history.pushState({url: url}, "DragonFly", url);
+                            history.pushState({url: '/'}, "", '/');
+                        }*/
 
             $navigation.addClass('navigation_center')
                 .removeClass('navigation_left-top')
                 .removeClass('navigation_right-top')
                 .removeClass('navigation_left-bottom')
                 .removeClass('navigation_right-bottom');
+
             $('.menu-content_house').fadeOut(350, function () {
                 $navigation.removeClass('inCorner');
                 $(this).removeClass('menu-content_house').fadeIn(350);
             });
 
-            console.log(e.target);
-            $.ajax({
-                url: '/',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'POST',
-                success: function (result) {
-                    console.log(result);
-                    $('#content').html(result);
-                },
-                error: function () {
-                    console.log('error');
-                }
-            });
+            loadContent('/');
+
+            history.pushState({url: '/'}, "", '/');
 
             return false;
         }
 
-        history.pushState({ url: url }, "DragonFly", url);
-
-        const pass = (e, sel) => {
-            $navigation.removeClass('navigation_center');
-            console.log(e.target);
-            $.ajax({
-                url: url,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'POST',
-                success: function (result) {
-                    console.log(result);
-                    $('#content').html(result);
-                },
-                error: function () {
-                    console.log('error');
-                }
-            });
-
-            // $('.menu.show').removeClass('show');
-            timerNavigationId = setTimeout(function () {
-                // let href = $elem.find('a').attr('href');
-                $navigation.addClass('inCorner');
-                $(sel).fadeOut(200, function () {
-                    $(this).addClass('menu-content_house').fadeIn(200);
-                });
-                // location.href = href;
-                /*$(sel).animate({
-                    opacity: 0
-                }, 150, function () {
-                    // $navigation.addClass('inCorner');
-                    location.href = href;
-                });*/
-                /*$navigation.addClass('inCorner');
-                $(sel).fadeOut(200, function () {
-                    // $(this).addClass('menu-content_house').fadeIn(200, function() {
-                    let href = $elem.find('a').attr('href');
-                    location.href = href;
-                    // });
-                });*/
-            }, 800);
-
-            return false;
-        };
+        // From Home page
+        // history.pushState({url: url}, "DragonFly", url);
+        // alert("location: " + document.location + ", state: " + JSON.stringify(e.state));
+        // history.pushState({url: '/'}, "DragonFly", url);
+        /*        if (e.state) {
+                    // history.pushState({url: url}, "DragonFly", url);
+                } else {
+                    // history.pushState({url: '/'}, "DragonFly", '/');
+                    history.pushState({url: url}, "DragonFly", url);
+                }*/
 
         if ($elem.hasClass('menu_left-top')) {
             $navigation.addClass('navigation_right-bottom');
-            pass(e, '.menu-content_left-top');
+            pass('.menu-content_left-top');
         } else if ($elem.hasClass('menu_right-top')) {
             $navigation.addClass('navigation_left-bottom');
-            pass(e, '.menu-content_right-top');
+            pass('.menu-content_right-top');
         } else if ($elem.hasClass('menu_left-bottom')) {
             $navigation.addClass('navigation_right-top');
-            pass(e, '.menu-content_left-bottom');
+            pass('.menu-content_left-bottom');
         } else if ($elem.hasClass('menu_right-bottom')) {
             $navigation.addClass('navigation_left-top');
-            pass(e, '.menu-content_right-bottom');
+            pass('.menu-content_right-bottom');
         }
+
+        history.pushState({url: url}, "", url);
 
         return false;
     });
