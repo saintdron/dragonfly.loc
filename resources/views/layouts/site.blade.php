@@ -14,9 +14,10 @@
 
     <!-- Style -->
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/common.css"/>
-    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/index.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/animate.min.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/extra/fontawesome-free-5.4.1-web/css/all.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/extra/lightbox2-master/dist/css/lightbox.min.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/style.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/navigation.css"/>
 
     <!-- Fonts -->
@@ -33,6 +34,7 @@
 <!-- Script -->
 <script type="text/javascript" src="{{ asset('assets') }}/js/jquery.min.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ asset('assets') }}/extra/lightbox2-master/dist/js/lightbox.min.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/menu.js"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@
     height: 560px;
     margin: -280px 0 0 -280px;
     transition: all 0.7s ease-in-out;
+    pointer-events: none;
 }
 
 .navigation_center {
@@ -59,6 +60,7 @@
     transition: all 0.3s ease-out;
     cursor: pointer;
     transform-style: preserve-3d;
+    pointer-events: auto;
 }
 
 .menu_left-top {
@@ -123,6 +125,10 @@
     height: 100%;
 }
 
+/*.menu-content * {*/
+    /*pointer-events: none;*/
+/*}*/
+
 .menu_left-top a,
 .menu-content_left-top,
 .menu_right-bottom a,
@@ -141,7 +147,7 @@
     width: 50%;
     height: 50%;
     font-family: Philosopher, sans-serif;
-    color: white;
+    color: #fff9c7;
     background-size: 45px 45px;
     z-index: 10;
     overflow: hidden;
@@ -158,7 +164,7 @@
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     line-height: 17px;
-    color: #fff9c7;
+    color: #ffffff;
 }
 
 .navigation:not(.inCorner) .menu_left-top.show ~ .menu-content > .menu-content_left-top > h2,

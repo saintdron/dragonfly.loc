@@ -14,17 +14,17 @@
 Route::match(['get', 'post'], '/', ['uses' => 'IndexController@index', 'as' => 'index']);
 
 Route::group(['prefix' => 'web-development'], function () {
-    Route::get('sites/{alias?}', ['uses' => 'WebDevelopmentController@sites', 'as' => 'sites']);
-    Route::get('services/{alias?}', ['uses' => 'WebDevelopmentController@services', 'as' => 'services']);
-    Route::get('animations/{alias?}', ['uses' => 'WebDevelopmentController@animations', 'as' => 'webAnimations']);
+    Route::match(['get', 'post'], 'sites/{alias?}', ['uses' => 'WebDevelopmentController@sites', 'as' => 'sites']);
+    Route::match(['get', 'post'], 'services/{alias?}', ['uses' => 'WebDevelopmentController@services', 'as' => 'services']);
+    Route::match(['get', 'post'], 'animations/{alias?}', ['uses' => 'WebDevelopmentController@webAnimations', 'as' => 'webAnimations']);
 });
 
 Route::group(['prefix' => 'graphic-design'], function () {
     Route::match(['get', 'post'], 'branding/{alias?}', ['uses' => 'GraphicDesignController@branding', 'as' => 'branding']);
-    Route::get('printing-products/{alias?}', ['uses' => 'GraphicDesignController@printing', 'as' => 'printing']);
-    Route::get('animations/{alias?}', ['uses' => 'GraphicDesignController@animations', 'as' => 'graphicAnimations']);
+    Route::match(['get', 'post'], 'printing-products/{alias?}', ['uses' => 'GraphicDesignController@printing', 'as' => 'printing']);
+    Route::match(['get', 'post'], 'animations/{alias?}', ['uses' => 'GraphicDesignController@graphicAnimations', 'as' => 'graphicAnimations']);
 });
 
-Route::get('skills', ['uses' => 'SkillsController@index', 'as' => 'skills']);
-Route::get('cv', ['uses' => 'CVController@index', 'as' => 'cv']);
-Route::post('cv', ['uses' => 'CVController@mail', 'as' => 'cv']);
+Route::match(['get', 'post'], 'skills', ['uses' => 'SkillsController@index', 'as' => 'skills']);
+Route::match(['get', 'post'], 'cv', ['uses' => 'CVController@index', 'as' => 'cv']);
+Route::post('cv/mail', ['uses' => 'CVController@mail', 'as' => 'mail']);

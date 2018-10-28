@@ -21,7 +21,7 @@ abstract class Repository
             $builder->where($where[0], $where[1]);
         }
 
-        return $this->prepare($builder->get());
+        return $this->unpack($builder->get());
     }
 
     public function one($alias, $select = '*')
@@ -33,7 +33,7 @@ abstract class Repository
         return $result;
     }
 
-    protected function prepare($result)
+    protected function unpack($result)
     {
         if ($result->isEmpty()) {
             return false;

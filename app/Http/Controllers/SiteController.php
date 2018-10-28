@@ -6,9 +6,16 @@ use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
-    protected $g_rep; // GraphicRepository
-    protected $w_rep; // WebRepository
-    protected $s_rep; // SkillsRepository
+    protected $br_rep; // BrandingRepository
+    protected $pr_rep; // PrintingRepository
+    protected $ga_rep; // GraphicAnimationsRepository
+
+    protected $si_rep; // SitesRepository
+    protected $se_rep; // ServicesRepository
+    protected $wa_rep; // WebAnimationsRepository
+
+    protected $sk_rep; // SkillsRepository
+
     protected $cv_rep; // CVRepository
 
     protected $keywords;
@@ -49,8 +56,8 @@ class SiteController extends Controller
     protected function getMenu()
     {
         $menu = [];
-        $menu[] = route(session('webDevelopmentLast', 'branding'));
-        $menu[] = route(session('graphicDesignLast', 'sites'));
+        $menu[] = route(session('webDevelopmentLast', 'sites'));
+        $menu[] = route(session('graphicDesignLast', 'branding'));
         $menu[] = route('skills');
         $menu[] = route('cv');
         return $menu;
