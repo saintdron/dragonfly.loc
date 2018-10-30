@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\BrandingRepository;
 use Illuminate\Http\Request;
 
 class GraphicDesignController extends SiteController
 {
-
     protected $partition; // the name of current partition
-//    protected $template_content; // the name of the returned content template
-//    protected $works; // collection of displayed works
 
-    public function __construct()
+    public function __construct(BrandingRepository $br_rep)
     {
         parent::__construct();
 
         $this->template = 'common';
         $this->navPosition = 'left-bottom';
+
+        $this->br_rep = $br_rep;
     }
 
     public function branding(Request $request, $alias = false)
@@ -24,10 +24,17 @@ class GraphicDesignController extends SiteController
         $this->partition = 'branding';
         session(['graphicDesignLast' => $this->partition]);
 
-        $works = $this->getBranding();
+        $works = $this->getBrandings();
+        $selected = $this->getBranding($alias ?: $works[0]->alias);
+
+        $key = $works->search(function ($item) use ($selected) {
+            return $item->alias === $selected->alias;
+        });
+        $selected->prevAlias = ($key === 0) ? $works[count($works) - 1]->alias : $works[$key - 1]->alias;
+        $selected->nextAlias = ($key === count($works) - 1) ? $works[0]->alias : $works[$key + 1]->alias;
 
         $content_view = view('graphic-design_content')
-            ->with(['works' => $works, 'partition' => $this->partition])
+            ->with(['partition' => $this->partition, 'selected' => $selected, 'works' => $works])
             ->render();
 
         if ($request->isMethod('post')) {
@@ -79,113 +86,14 @@ class GraphicDesignController extends SiteController
         return $this->renderOutput();
     }
 
-
-    /*
-    public function __construct(MenuRepository $m_rep, PortfolioRepository $p_rep, ArticleRepository $a_rep, CommentRepository $c_rep, CategoryRepository $cat_rep)
+    protected function getBrandings()
     {
-        parent::__construct($m_rep);
-
-        $this->template = 'articles';
-        $this->bar = 'right';
-        $this->p_rep = $p_rep;
-        $this->a_rep = $a_rep;
-        $this->c_rep = $c_rep;
-        $this->cat_rep = $cat_rep;
+        return $this->br_rep->get(['img', 'title', 'alias']);
     }
 
-    public function index($cat_alias = false)
+    protected function getBranding($alias)
     {
-        $category = $this->getCategory($cat_alias);
-        $this->title = $category->title;
-        $this->keywords = $category->keywords;
-        $this->meta_desc = $category->meta_desc;
-
-        $articles = $this->getArticles($cat_alias);
-
-        $content_view = view(config('settings.theme') . '.articles_content')
-            ->with('articles', $articles)
-            ->render();
-        $this->vars = array_add($this->vars, 'content_view', $content_view);
-
-        $this->formContentRightBar();
-
-        return $this->renderOutput();
-    }
-
-    public function show($alias)
-    {
-        $article = $this->getArticle($alias);
-        if ($article) {
-            $this->title = $article->title;
-            $this->keywords = $article->keywords;
-            $this->meta_desc = $article->meta_desc;
-            $this->stickyBar = true;
-
-            $content_view = view(config('settings.theme') . '.article_content')
-                ->with('article', $article)
-                ->render();
-        } else {
-            $content_view = "<p>Указанный материал не найден</p>";
-        }
-        $this->vars = array_add($this->vars, 'content_view', $content_view);
-
-        $this->formContentRightBar();
-
-        return $this->renderOutput();
-    }
-
-    protected function getArticles($cat_alias = false)
-    {
-        $where = false;
-        if ($cat_alias) {
-            $id = Category::select('id')->where('alias', $cat_alias)->first()->id;
-            $where = ['category_id', $id];
-        }
-
-        return $this->a_rep->get(['id', 'title', 'text', 'desc', 'alias', 'img', 'created_at', 'user_id', 'category_id', 'keywords', 'meta_desc'],
-            false, Config::get('settings.articles_paginate'), $where);
-    }
-
-    protected function getArticle($alias)
-    {
-        return $this->a_rep->one($alias);
-    }
-
-    protected function formContentRightBar()
-    {
-        $comments = $this->getComments(config('settings.recent_comments'));
-        $portfolios = $this->getPortfolios(config('settings.recent_portfolios'));
-        $this->contentRightBar = view(config('settings.theme') . '.articlesBar')
-            ->with(['comments' => $comments, 'portfolios' => $portfolios]);
-    }
-
-    protected function getComments($take)
-    {
-        $comments = $this->c_rep->get(['name', 'email', 'text', 'site', 'article_id', 'user_id'], $take);
-        if ($comments) {
-            $comments->load('article', 'user');
-        }
-        return $comments;
-    }
-
-    protected function getPortfolios($take)
-    {
-        return $this->p_rep->get(['title', 'text', 'alias', 'customer', 'img', 'filter_alias'], $take);
-    }
-
-    protected function getCategory($alias)
-    {
-        return $this->cat_rep->one($alias, ['title', 'alias', 'keywords', 'meta_desc']);
-    }*/
-
-    protected function render()
-    {
-
-    }
-
-    protected function getBranding()
-    {
-        return [];
+        return $this->br_rep->one($alias, ['img', 'title', 'alias', 'text', 'customer', 'techs', 'created_at']);
     }
 
     protected function getPrinting()

@@ -72,10 +72,10 @@ body {
     /*width: auto;*/
     max-width: 780px;
     line-height: 0;
-/*    border: 5px solid white;
-    box-shadow: 0 0 0 1px hsl(0, 0%, 80%);
-    border-radius: 0 65px;
-    cursor: pointer;*/
+    /*    border: 5px solid white;
+        box-shadow: 0 0 0 1px hsl(0, 0%, 80%);
+        border-radius: 0 65px;
+        cursor: pointer;*/
 }
 
 .graphic-design .main-work .work::after {
@@ -100,7 +100,11 @@ body {
     min-width: 250px;
     /*min-height: 390px;*/
     margin-left: 20px;
-    padding-top: 45px;
+    padding-top: 50px;
+}
+
+.graphic-design .desc_header a {
+    text-decoration: none;
 }
 
 .graphic-design .main-work h2 {
@@ -229,7 +233,7 @@ body {
     width: 177px;
     height: 177px;
     border: 5px solid white;
-    border-radius: 0 25px;
+    border-radius: 0 20px;
     background: #34b3a0;
     opacity: 0.2;
     pointer-events: none;
@@ -253,6 +257,10 @@ body {
     color: #238576;
     cursor: pointer;
 }*/
+
+.graphic-design .another-works a {
+    text-decoration: none;
+}
 
 /*Home*/
 .home-wrapper {

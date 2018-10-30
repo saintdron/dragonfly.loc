@@ -9,6 +9,8 @@
 namespace App\Http\Repositories;
 
 
+use App\Branding;
+
 class BrandingRepository extends Repository
 {
     public function __construct(Branding $model)

@@ -35,7 +35,8 @@ return [
 
         'sqlite' => [
             'driver' => 'sqlite',
-            'database' => env('DB_DATABASE', database_path('database.sqlite')),
+            'database' => env('DB_DATABASE', database_path('dragonfly.sqlite')),
+//            'database' => env('DB_DATABASE', 'C:\Users\Dron\OSPanel\domains\dragonfly.loc\database\dragonfly.sqlite'),
             'prefix' => '',
         ],
 

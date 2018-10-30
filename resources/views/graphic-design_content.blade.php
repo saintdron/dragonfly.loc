@@ -15,49 +15,49 @@
             </li>
         </ul>
     </section>
-    <section class="main-work">
-        <a href="/assets/images/portfolio/graphic-design/branding/YG_Team.png" data-lightbox="image-1"
-           data-title="Тестовое заглавие">
-            <img src="/assets/images/portfolio/graphic-design/branding/YG_Team_big.png">
-        </a>
-        <div class="description">
-            <div class="desc_header">
-                <span class="fas fa-arrow-circle-left arrow arrow-left"></span>
-                <span class="fas fa-arrow-circle-right arrow arrow-right"></span>
-                <h2>Тестовое заглавие</h2>
+    @if($partition)
+        <section class="main-work">
+            <a href="{{ asset(config('settings.branding_dir')) . '/' . $selected->img->original }}"
+               data-lightbox="image-1"
+               data-title="{{ $selected->title }}">
+                <img src="{{ asset(config('settings.branding_dir')) . '/' . $selected->img->big }}">
+            </a>
+            <div class="description">
+                <div class="desc_header">
+                    <a href="{{ route('branding', $selected->prevAlias) }}">
+                        <span class="fas fa-arrow-circle-left arrow arrow-left"></span>
+                    </a>
+                    <a href="{{ route('branding', $selected->nextAlias) }}">
+                        <span class="fas fa-arrow-circle-right arrow arrow-right"></span>
+                    </a>
+                    <h2>{{ $selected->title }}</h2>
+                </div>
+                <div class="desc_text">
+                    <p>{{ $selected->text }}</p>
+                </div>
+                <div class="desc_meta">
+                    <p><strong>Заказчик:</strong> {{ $selected->customer }}</p>
+                    <p><strong>Технологии:</strong> {{ $selected->techs }}</p>
+                    <p><strong>Дата:</strong> {{ $selected->created_at }}</p>
+                </div>
             </div>
-            <div class="desc_text">
-                <p>При разработке сайта мы старались широко раскрыть все преимущества продукции и магазина, а так же
-                    реализовать удобный функционал. На главной странице удачно размещен каталог товаров, который разбит
-                    на 16 категорий, что сужает поиск и просмотр интересующего товара.</p>
-            </div>
-            <div class="desc_meta">
-                <p><strong>Заказчик:</strong> ТОВ «Ковальська Майстерня»</p>
-                <p><strong>Технологии:</strong> Adobe Photoshop, Illustrator</p>
-                <p><strong>Дата:</strong> Июнь 2014</p>
-            </div>
-        </div>
-    </section>
-    <section class="another-works">
-        <h3>Другие работы в этом разделе:</h3>
-        <ul>
-            <li>
-                <img src="/assets/images/portfolio/graphic-design/branding/YG_Team_small.png">
-                <h4>Тестовое заглавие</h4>
-            </li>
-            <li>
-                <img src="/assets/images/portfolio/graphic-design/branding/YG_Team_small.png">
-                <h4>Donsifon fedrtfew dfewrwr</h4>
-            </li>
-            <li>
-                <img src="/assets/images/portfolio/graphic-design/branding/YG_Team_small.png">
-                <h4>Тестовое</h4>
-            </li>
-            <li><img src="/assets/images/portfolio/graphic-design/branding/YG_Team_small.png"></li>
-            <li><img src="/assets/images/portfolio/graphic-design/branding/YG_Team_small.png"></li>
-            <li><img src="/assets/images/portfolio/graphic-design/branding/YG_Team_small.png"></li>
-            <li><img src="/assets/images/portfolio/graphic-design/branding/YG_Team_small.png"></li>
-            <li><img src="/assets/images/portfolio/graphic-design/branding/YG_Team_small.png"></li>
-        </ul>
-    </section>
+        </section>
+    @endif
+    @if($works)
+        <section class="another-works">
+            <h3>Другие работы в этом разделе:</h3>
+            <ul>
+                @foreach($works as $k => $work)
+                    @if($work->alias !== $selected->alias)
+                        <li>
+                            <a href="{{ route('branding', $work->alias) }}">
+                                <img src="{{ asset(config('settings.branding_dir')) . '/' . $work->img->small }}">
+                                <h4>{{ $work->title }}</h4>
+                            </a>
+                        </li>
+                    @endif
+                @endforeach
+            </ul>
+        </section>
+    @endif
 </div>

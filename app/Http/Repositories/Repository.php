@@ -8,7 +8,6 @@
 
 namespace App\Http\Repositories;
 
-
 abstract class Repository
 {
     protected $model = null;
@@ -21,40 +20,57 @@ abstract class Repository
             $builder->where($where[0], $where[1]);
         }
 
-        return $this->unpack($builder->get());
+        return $builder->get();
     }
 
     public function one($alias, $select = '*')
     {
         $result = $this->model->select($select)->where('alias', $alias)->first();
 
-        $this->imgDecode($result);
-
         return $result;
     }
 
-    protected function unpack($result)
+
+
+/*    protected function unpack($result)
     {
         if ($result->isEmpty()) {
             return false;
         }
 
         $result->transform(function ($item) {
-            return $this->imgDecode($item);
+            return $this->imgTransform($item);
         });
+
 
         return $result;
     }
 
-    protected function imgDecode($item)
+    protected function imgTransform($item)
     {
         if (isset($item->img) && is_object(json_decode($item->img)) && json_last_error() === JSON_ERROR_NONE) {
             $item->img = json_decode($item->img);
         }
         return $item;
-    }
+    }*/
 
-    public function transliterate($string)
+/*    protected function createAtTransform($item)
+    {
+//        dd($item);
+//        $item->title = '300';
+/*        $date = $this->formatCreatedAtDate("%B %Y", $item->created_at->format('U') / 1000);
+//        $item->created_at = $date;
+        dump($date);
+        dd($item->created_at);
+        if (isset($item->created_at)) {
+            $item->created_at = $this->formatCreatedAtDate('%B %Y', $item->created_at->format('U') / 1000);
+        }*/
+//dd($item->created_at);
+//        $item->created_at = '300';
+//        return $item;
+//    }*/
+
+/*    public function transliterate($string)
     {
         $str = mb_strtolower($string, 'UTF-8');
 
@@ -98,5 +114,5 @@ abstract class Repository
         }
         $str = preg_replace('/(\s|[^\w])+/', '-', $str);
         return trim($str, '-');
-    }
+    }*/
 }

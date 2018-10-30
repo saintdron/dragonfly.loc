@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Branding;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -26,6 +27,10 @@ class RouteServiceProvider extends ServiceProvider
         Route::pattern('alias', '[\w-]+');
 
         parent::boot();
+
+/*        Route::bind('branding', function ($value) {
+            return Branding::where('alias', $value)->first();
+        });*/
     }
 
     /**
