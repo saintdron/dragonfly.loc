@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBrandingsTable extends Migration
+class CreateGraphicAnimationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateBrandingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('brandings', function (Blueprint $table) {
+        Schema::create('graphic_animations', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('video');
             $table->string('img');
             $table->string('title', 40);
             $table->string('alias', 40)->unique();
@@ -32,6 +33,6 @@ class CreateBrandingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('brandings');
+        Schema::dropIfExists('graphic_animations');
     }
 }

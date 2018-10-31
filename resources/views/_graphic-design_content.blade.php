@@ -2,33 +2,32 @@
     <section class="partitions">
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('branding') }}">Брендирование</a>
+                <a class="nav-link {{ ($partition === 'branding') ? 'active' : ''}}"
+                   href="{{ route('branding') }}">Брендирование</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('printing') }}">Полиграфическая продукция</a>
+                <a class="nav-link {{ ($partition === 'printing') ? 'active' : ''}}"
+                   href="{{ route('printing') }}">Полиграфическая продукция</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('graphicAnimations') }}">Видео и gif-анимация</a>
+                <a class="nav-link {{ ($partition === 'graphicAnimations') ? 'active' : ''}}"
+                   href="{{ route('graphicAnimations') }}">Видео и gif-анимация</a>
             </li>
         </ul>
     </section>
-    @if($selected)
+    @if($partition)
         <section class="main-work">
-            <div class="work">
-                <video width="100%" preload="auto" loop="loop" controls="controls"
-                       poster="{{ asset(config('settings.graphicAnimations_dir')) . '/' . $selected->alias . '/' . $selected->img->poster }}">
-                    <source src="{{ asset(config('settings.graphicAnimations_dir')) . '/' . $selected->alias . '/' . $selected->video->mp4 }}"
-                            type='video/mp4;'>
-                    <source src="{{ asset(config('settings.graphicAnimations_dir')) . '/' . $selected->alias . '/' . $selected->video->webm }}"
-                            type='video/webm;'>
-                </video>
-            </div>
+            <a href="{{ asset(config('settings.branding_dir')) . '/' . $selected->img->original }}"
+               data-lightbox="image-1"
+               data-title="{{ $selected->title }}">
+                <img src="{{ asset(config('settings.branding_dir')) . '/' . $selected->img->big }}">
+            </a>
             <div class="description">
                 <div class="desc_header">
-                    <a href="{{ route('graphicAnimations', $selected->prev->alias) }}">
+                    <a href="{{ route('branding', $selected->prev->alias) }}">
                         <span class="fas fa-arrow-circle-left arrow arrow-left"></span>
                     </a>
-                    <a href="{{ route('graphicAnimations', $selected->next->alias) }}">
+                    <a href="{{ route('branding', $selected->next->alias) }}">
                         <span class="fas fa-arrow-circle-right arrow arrow-right"></span>
                     </a>
                     <h2>{{ $selected->title }}</h2>
@@ -48,11 +47,11 @@
         <section class="another-works">
             <h3>Другие работы в этом разделе:</h3>
             <ul>
-                @foreach($works as $work)
+                @foreach($works as $k => $work)
                     @if($work->alias !== $selected->alias)
                         <li>
-                            <a href="{{ route('graphicAnimations', $work->alias) }}">
-                                <img src="{{ asset(config('settings.graphicAnimations_dir')) . '/' . $work->alias . '/' . $work->img->thumb }}">
+                            <a href="{{ route('branding', $work->alias) }}">
+                                <img src="{{ asset(config('settings.branding_dir')) . '/' . $work->img->small }}">
                                 <h4>{{ $work->title }}</h4>
                             </a>
                         </li>

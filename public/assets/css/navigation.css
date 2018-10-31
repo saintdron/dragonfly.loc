@@ -250,11 +250,3 @@
 .menu:hover ~ .menu-content > .menu-content_house {
     background-image: url('icons/house_white.png') !important;
 }
-
-/*.navigation.inCorner .menu:hover ~ .menu-content > .menu-content_left-top {*/
-    /*background-image: url('icons/house_white.png');*/
-/*}*/
-
-/*.navigation_right-bottom.inCorner .menu-content_left-top {*/
-    /*background-image: url('icons/house_green.png');*/
-/*}*/

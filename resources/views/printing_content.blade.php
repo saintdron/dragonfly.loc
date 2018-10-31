@@ -2,32 +2,29 @@
     <section class="partitions">
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <a class="nav-link {{ ($partition === 'branding') ? 'active' : ''}}"
-                   href="{{ route('branding') }}">Брендирование</a>
+                <a class="nav-link" href="{{ route('branding') }}">Брендирование</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ ($partition === 'printing') ? 'active' : ''}}"
-                   href="{{ route('printing') }}">Полиграфическая продукция</a>
+                <a class="nav-link active" href="{{ route('printing') }}">Полиграфическая продукция</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ ($partition === 'graphicAnimations') ? 'active' : ''}}"
-                   href="{{ route('graphicAnimations') }}">Видео и gif-анимация</a>
+                <a class="nav-link" href="{{ route('graphicAnimations') }}">Видео и gif-анимация</a>
             </li>
         </ul>
     </section>
-    @if($partition)
+    @if($selected)
         <section class="main-work">
-            <a href="{{ asset(config('settings.branding_dir')) . '/' . $selected->img->original }}"
+            <a href="{{ asset(config('settings.printing_dir')) . '/' . $selected->img->original }}"
                data-lightbox="image-1"
                data-title="{{ $selected->title }}">
-                <img src="{{ asset(config('settings.branding_dir')) . '/' . $selected->img->big }}">
+                <img src="{{ asset(config('settings.printing_dir')) . '/' . $selected->img->big }}">
             </a>
             <div class="description">
                 <div class="desc_header">
-                    <a href="{{ route('branding', $selected->prevAlias) }}">
+                    <a href="{{ route('printing', $selected->prev->alias) }}">
                         <span class="fas fa-arrow-circle-left arrow arrow-left"></span>
                     </a>
-                    <a href="{{ route('branding', $selected->nextAlias) }}">
+                    <a href="{{ route('printing', $selected->next->alias) }}">
                         <span class="fas fa-arrow-circle-right arrow arrow-right"></span>
                     </a>
                     <h2>{{ $selected->title }}</h2>
@@ -43,15 +40,15 @@
             </div>
         </section>
     @endif
-    @if($works)
+    @if($works && count($works) > 1)
         <section class="another-works">
             <h3>Другие работы в этом разделе:</h3>
             <ul>
-                @foreach($works as $k => $work)
+                @foreach($works as $work)
                     @if($work->alias !== $selected->alias)
                         <li>
-                            <a href="{{ route('branding', $work->alias) }}">
-                                <img src="{{ asset(config('settings.branding_dir')) . '/' . $work->img->small }}">
+                            <a href="{{ route('printing', $work->alias) }}">
+                                <img src="{{ asset(config('settings.printing_dir')) . '/' . $work->img->small }}">
                                 <h4>{{ $work->title }}</h4>
                             </a>
                         </li>
