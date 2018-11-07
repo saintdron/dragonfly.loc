@@ -1,6 +1,6 @@
 <div class="navigation {{ ($navPosition) ? 'inCorner navigation_' . $navPosition : 'navigation_center' }}">
     <div class="lily_back">
-        <img src="{{ asset('assets') }}/images/water_lily_back.png">
+        <img src="{{ asset('assets') }}/images/water_lily_back_2.png">
     </div>
     <div class="menu menu_left-top"><a href="{{ $menu[0] ?? '#' }}" draggable='false'></a></div>
     <div class="menu menu_right-top"><a href="{{ $menu[1] ?? '#'}}" draggable='false'></a></div>
@@ -24,20 +24,20 @@
             </p>
         </div>
         <div class="menu-content_left-bottom {{ ($navPosition === 'right-top') ? 'menu-content_house' : '' }}">
-            <h2 class="animated fadeInUp faster" style="display: none;">Навыки</h2>
-            <p style="display: none;">
-                <span class="animated fadeInLeftBig faster">Квалификация в&nbsp;области программирования</span>
-            </p>
-        </div>
-        <div class="menu-content_right-bottom {{ ($navPosition === 'left-top') ? 'menu-content_house' : '' }}">
             <h2 class="animated fadeInUp faster" style="display: none;">Обо мне</h2>
             <p style="display: none;">
                 <span class="animated fadeInRightBig faster">Контактная информация,</span><br>
                 <span class="animated fadeInRightBig faster">резюме</span>
             </p>
         </div>
+        <div class="menu-content_right-bottom {{ ($navPosition === 'left-top') ? 'menu-content_house' : '' }}">
+            <h2 class="animated fadeInUp faster" style="display: none;">Навыки</h2>
+            <p style="display: none;">
+                <span class="animated fadeInLeftBig faster">Квалификация в&nbsp;области программирования</span>
+            </p>
+        </div>
     </div>
     <div class="lily_front">
-        <img src="{{ asset('assets') }}/images/water_lily_front.png">
+        <img src="{{ asset('assets') }}/images/water_lily_front_2.png">
     </div>
 </div>

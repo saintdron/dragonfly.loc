@@ -13,7 +13,7 @@ class SkillsController extends SiteController
 
         $this->title = 'Навыки';
         $this->template = 'common';
-        $this->navPosition = 'right-top';
+        $this->navPosition = 'left-top';
 
         $this->sk_rep = $sk_rep;
     }
@@ -37,6 +37,6 @@ class SkillsController extends SiteController
 
     protected function getSkills()
     {
-        return $this->sk_rep->get(['img', 'title', 'alias']);
+        return $this->sk_rep->get(['tech', 'level', 'order']);
     }
 }

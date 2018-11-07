@@ -3,7 +3,7 @@
         <ul class="nav nav-pills">
             <li class="nav-item">
                 <a class="nav-link active"
-                   href="{{ route('branding') }}">Брендирование</a>
+                   href="{{ route('branding') }}">Корпоративный стиль</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link"

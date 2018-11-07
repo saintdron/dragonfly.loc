@@ -40,6 +40,35 @@ body {
     }
 }
 
+/*Home*/
+.home-wrapper {
+    height: 100%;
+    background: url(../images/gif/water2.gif) no-repeat;
+    background-size: cover;
+}
+
+.home-wrapper .curtain {
+    height: 100%;
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.home-wrapper .header,
+.home-wrapper .footer {
+    text-align: center;
+}
+
+.home-wrapper .header {
+    padding-top: 33px;
+}
+
+.home-wrapper .footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 82px;
+}
+
 /*Graphic-design*/
 .graphic-design .main-work {
     display: flex;
@@ -227,89 +256,31 @@ body {
     text-decoration: none;
 }
 
-/*Home*/
-.home-wrapper {
-    height: 100%;
-    background: url(../images/gif/water2.gif) no-repeat;
-    background-size: cover;
-}
-
-.home-wrapper .curtain {
-    height: 100%;
-    background: rgba(255, 255, 255, 0.35);
-}
-
-.home-wrapper .header,
-.home-wrapper .footer {
-    text-align: center;
-}
-
-.home-wrapper .header {
-    padding-top: 33px;
-}
-
-.home-wrapper .footer {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 82px;
-}
-
-/*
-.jCProgress {
-    position: absolute;
-    z-index: 9999999;
-    !*  margin-top:-15px; !* offset from the center *!
-}
-
-.jCProgress > div.percent {
-    font: 18px/27px 'BebasRegular', Arial, sans-serif;
-    color:#ebebeb;
-    text-shadow: 1px 1px 1px #1f1f1f;
-
-    position:absolute;
-    margin-top:40px;
-    margin-left:22px;
-    text-align: center;
-    width:60px;
-}*/
-
+/*Skills*/
 .skills ul {
     display: flex;
     list-style: none;
     flex-flow: row wrap;
-    justify-content: flex-end;
-    margin: 30px 0 0;
-    padding: 0;
-    /*align-items: flex-start;*/
+    justify-content: flex-start;
+    margin: 0;
+    padding: 50px 0 0;
 }
 
 .skills li {
-    /*width: 15vw;
-    min-width: 100px;*/
-/*    flex-shrink: 0;
-    flex-basis: 200px;*/
     flex: 0 0 200px;
-    /*min-width: 100px;*/
-    /*max-width: 200px;*/
-    height: 250px;
+    height: 220px;
     display: inline-block;
-    background: red;
-    border: 3px solid yellow;
     text-align: center;
-/*    width: 100px;
-    height: 100px;*/
 }
 
 .skills .bar {
-    padding: 0 20px;
+    padding: 0 35px;
+    font-size: 0.8rem;
 }
 
-.corner-float {
-    float: right;
-    display: inline-block;
-    width: 150px;
-    height: 150px;
-    background: green;
+.skills .tech {
+    font-family: 'Roboto Slab', serif;
+    font-size: 20px;
+    color: #424242;
+    padding: 5px 0 0;
 }

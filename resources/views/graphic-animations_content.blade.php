@@ -2,7 +2,7 @@
     <section class="partitions">
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('branding') }}">Брендирование</a>
+                <a class="nav-link" href="{{ route('branding') }}">Корпоративный стиль</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('printing') }}">Полиграфическая продукция</a>

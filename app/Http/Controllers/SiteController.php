@@ -58,8 +58,8 @@ class SiteController extends Controller
         $menu = [];
         $menu[] = route(session('webDevelopmentLast', 'sites'));
         $menu[] = route(session('graphicDesignLast', 'branding'));
-        $menu[] = route('skills');
         $menu[] = route('cv');
+        $menu[] = route('skills');
         return $menu;
     }
 }

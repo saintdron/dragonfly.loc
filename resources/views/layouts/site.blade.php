@@ -23,6 +23,7 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=cyrillic-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 </head>
 <body>
 <!-- Content -->

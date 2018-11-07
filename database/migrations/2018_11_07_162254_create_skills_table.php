@@ -17,6 +17,7 @@ class CreateSkillsTable extends Migration
             $table->increments('id');
             $table->string('tech', 40);
             $table->integer('level');
+            $table->integer('order');
             $table->timestamps();
         });
     }

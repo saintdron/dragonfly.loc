@@ -218,13 +218,13 @@
 .menu-content_left-bottom {
     padding: 125px 50px 50px 30px;
     text-align: left;
-    background: url('icons/skills_green.png') 80% 20% no-repeat;
+    background: url('icons/cv_green.png') 80% 20% no-repeat;
 }
 
 .menu-content_right-bottom {
     padding: 125px 30px 50px 50px;
     text-align: right;
-    background: url('icons/cv_green.png') 20% 20% no-repeat;
+    background: url('icons/skills_green.png') 20% 20% no-repeat;
 }
 
 .menu_left-top:hover ~ .menu-content > .menu-content_left-top {
@@ -236,11 +236,11 @@
 }
 
 .menu_left-bottom:hover ~ .menu-content > .menu-content_left-bottom {
-    background-image: url('icons/skills_white.png');
+    background-image: url('icons/cv_white.png');
 }
 
 .menu_right-bottom:hover ~ .menu-content > .menu-content_right-bottom {
-    background-image: url('icons/cv_white.png');
+    background-image: url('icons/skills_white.png');
 }
 
 .menu-content_house {
