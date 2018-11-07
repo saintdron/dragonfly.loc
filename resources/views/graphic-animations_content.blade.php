@@ -34,12 +34,18 @@
                     <h2>{{ $selected->title }}</h2>
                 </div>
                 <div class="desc_text">
-                    <p>{{ $selected->text }}</p>
+                    <p>{!! $selected->text !!}</p>
                 </div>
                 <div class="desc_meta">
-                    <p><strong>Заказчик:</strong> {{ $selected->customer }}</p>
-                    <p><strong>Технологии:</strong> {{ $selected->techs }}</p>
-                    <p><strong>Дата:</strong> {{ $selected->created_at }}</p>
+                    @if($selected->customer)
+                        <p><strong>Заказчик:</strong> {{ $selected->customer }}</p>
+                    @endif
+                    @if($selected->techs)
+                        <p><strong>Технологии:</strong> {{ $selected->techs }}</p>
+                    @endif
+                    @if($selected->created_at)
+                        <p><strong>Дата:</strong> {{ $selected->created_at }}</p>
+                    @endif
                 </div>
             </div>
         </section>

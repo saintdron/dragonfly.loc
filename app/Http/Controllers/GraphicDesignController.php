@@ -9,8 +9,6 @@ use Illuminate\Http\Request;
 
 class GraphicDesignController extends SiteController
 {
-//    protected $partition; // the name of current partition
-
     public function __construct(BrandingRepository $br_rep, PrintingRepository $pr_rep, GraphicAnimationRepository $ga_rep)
     {
         parent::__construct();

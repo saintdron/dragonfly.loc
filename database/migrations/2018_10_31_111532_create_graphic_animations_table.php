@@ -22,6 +22,7 @@ class CreateGraphicAnimationsTable extends Migration
             $table->text('text');
             $table->string('customer', 80);
             $table->string('techs', 200);
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

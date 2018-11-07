@@ -82,7 +82,7 @@ body {
     pointer-events: none;
     top: 0;
     left: 0;
-    z-index: 1000;
+    /*z-index: 10;*/
 }
 
 .graphic-design .description {
@@ -104,7 +104,7 @@ body {
     font-family: Philosopher, serif;
     font-weight: bold;
     font-size: 32px;
-    line-height: 32px;
+    /*line-height: 32px;*/
     background-color: #565656;
     color: transparent;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
@@ -207,7 +207,7 @@ body {
     background: #34b3a0;
     opacity: 0.2;
     pointer-events: none;
-    z-index: 10;
+    /*z-index: 10;*/
 }
 
 .graphic-design .another-works li h4 {
@@ -254,4 +254,62 @@ body {
     right: 0;
     bottom: 0;
     height: 82px;
+}
+
+/*
+.jCProgress {
+    position: absolute;
+    z-index: 9999999;
+    !*  margin-top:-15px; !* offset from the center *!
+}
+
+.jCProgress > div.percent {
+    font: 18px/27px 'BebasRegular', Arial, sans-serif;
+    color:#ebebeb;
+    text-shadow: 1px 1px 1px #1f1f1f;
+
+    position:absolute;
+    margin-top:40px;
+    margin-left:22px;
+    text-align: center;
+    width:60px;
+}*/
+
+.skills ul {
+    display: flex;
+    list-style: none;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    margin: 30px 0 0;
+    padding: 0;
+    /*align-items: flex-start;*/
+}
+
+.skills li {
+    /*width: 15vw;
+    min-width: 100px;*/
+/*    flex-shrink: 0;
+    flex-basis: 200px;*/
+    flex: 0 0 200px;
+    /*min-width: 100px;*/
+    /*max-width: 200px;*/
+    height: 250px;
+    display: inline-block;
+    background: red;
+    border: 3px solid yellow;
+    text-align: center;
+/*    width: 100px;
+    height: 100px;*/
+}
+
+.skills .bar {
+    padding: 0 20px;
+}
+
+.corner-float {
+    float: right;
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    background: green;
 }

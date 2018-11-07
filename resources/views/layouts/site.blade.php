@@ -36,6 +36,8 @@
 <script type="text/javascript" src="{{ asset('assets') }}/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/extra/lightbox2-master/dist/js/lightbox.min.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/menu.js"></script>
+{{--<script type="text/javascript" src="{{ asset('assets') }}/extra/jcprogress/jcprogress.js"></script>--}}
+<script type="text/javascript" src="{{ asset('assets') }}/js/radialprogress.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/script.js"></script>
 </body>
 </html>

@@ -17,10 +17,10 @@
     </section>
     @if($selected)
         <section class="main-work">
-            <a href="{{ asset(config('settings.branding_dir')) . '/' . $selected->img->original }}"
+            <a href="{{ asset(config('settings.branding_dir')) . '/' . $selected->alias . '/' . $selected->img->original }}"
                data-lightbox="image-1"
                data-title="{{ $selected->title }}">
-                <img src="{{ asset(config('settings.branding_dir')) . '/' . $selected->img->big }}">
+                <img src="{{ asset(config('settings.branding_dir')) . '/' . $selected->alias . '/' . $selected->img->big }}">
             </a>
             <div class="description">
                 <div class="desc_header">
@@ -33,12 +33,18 @@
                     <h2>{{ $selected->title }}</h2>
                 </div>
                 <div class="desc_text">
-                    <p>{{ $selected->text }}</p>
+                    <p>{!! $selected->text !!}</p>
                 </div>
                 <div class="desc_meta">
-                    <p><strong>Заказчик:</strong> {{ $selected->customer }}</p>
-                    <p><strong>Технологии:</strong> {{ $selected->techs }}</p>
-                    <p><strong>Дата:</strong> {{ $selected->created_at }}</p>
+                    @if($selected->customer)
+                        <p><strong>Заказчик:</strong> {{ $selected->customer }}</p>
+                    @endif
+                    @if($selected->techs)
+                        <p><strong>Технологии:</strong> {{ $selected->techs }}</p>
+                    @endif
+                    @if($selected->created_at)
+                        <p><strong>Дата:</strong> {{ $selected->created_at }}</p>
+                    @endif
                 </div>
             </div>
         </section>
@@ -51,7 +57,7 @@
                     @if($work->alias !== $selected->alias)
                         <li>
                             <a href="{{ route('branding', $work->alias) }}">
-                                <img src="{{ asset(config('settings.branding_dir')) . '/' . $work->img->small }}">
+                                <img src="{{ asset(config('settings.branding_dir')) . '/' . $work->alias . '/' . $work->img->small }}">
                                 <h4>{{ $work->title }}</h4>
                             </a>
                         </li>

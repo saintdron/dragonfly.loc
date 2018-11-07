@@ -10,15 +10,15 @@
         <div class="menu-content_left-top {{ ($navPosition === 'right-bottom') ? 'menu-content_house' : '' }}">
             <h2 class="animated fadeInDown faster" style="display: none;">Веб-дизайн и&nbsp;разработка</h2>
             <p style="display: none;">
-                <span class="animated fadeInLeftBig faster">Готовые сайты,</span><br>
+                <span class="animated fadeInLeftBig faster">Сайты,</span><br>
                 <span class="animated fadeInLeftBig faster">онлайн утилиты,</span><br/>
-                <span class="animated fadeInLeftBig faster">JS- и CSS-анимации</span>
+                <span class="animated fadeInLeftBig faster">веб-анимации</span>
             </p>
         </div>
         <div class="menu-content_right-top {{ ($navPosition === 'left-bottom') ? 'menu-content_house' : '' }}">
             <h2 class="animated fadeInDown faster" style="display: none;">Графический дизайн</h2>
             <p style="display: none;">
-                <span class="animated fadeInRightBig faster">Брендирование,</span><br>
+                <span class="animated fadeInRightBig faster">Корпоративный стиль,</span><br>
                 <span class="animated fadeInRightBig faster">полиграфическая продукция,</span><br/>
                 <span class="animated fadeInRightBig faster">видео и gif-анимации</span>
             </p>

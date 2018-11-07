@@ -149,7 +149,7 @@
     font-family: Philosopher, sans-serif;
     color: #fff9c7;
     background-size: 45px 45px;
-    z-index: 10;
+    z-index: 10000;
     overflow: hidden;
 }
 
