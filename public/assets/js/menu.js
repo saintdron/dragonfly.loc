@@ -9,7 +9,6 @@ jQuery(document).ready(function ($) {
         if (e.state && e.state.url) {
             window.location = e.state.url;
         }
-        // return true;
     };
 
     function loadContent(url) {
