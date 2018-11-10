@@ -11,6 +11,14 @@ body {
     height: 100%;
 }
 
+a {
+    color: #34b3a0;
+}
+
+a:hover {
+    color: #238576;
+}
+
 .partitions {
     padding: 30px 0 20px;
 }
@@ -21,12 +29,7 @@ body {
 }
 
 .nav-pills a {
-    color: #34b3a0;
     font-size: 17px;
-}
-
-.nav-pills a:hover {
-    color: #238576;
 }
 
 .nav-pills .nav-link.active {
@@ -86,7 +89,7 @@ body {
     width: 100%;
     max-width: 780px;
     border: 5px solid white;
-    box-shadow: 0 0 0 1px hsl(0, 0%, 80%);
+    box-shadow: 0 0 0 1px #cccccc;
     border-radius: 0 65px;
     cursor: pointer;
 }
@@ -106,7 +109,7 @@ body {
     height: 100%;
     display: block;
     background: transparent;
-    box-shadow: 0 0 0 1px hsl(0, 0%, 80%);
+    box-shadow: 0 0 0 1px #cccccc;
     position: absolute;
     pointer-events: none;
     top: 0;
@@ -215,7 +218,7 @@ body {
 .graphic-design .another-works li img {
     border: 5px solid white;
     border-radius: 0 20px;
-    box-shadow: 0 0 0 1px hsl(0, 0%, 80%);
+    box-shadow: 0 0 0 1px #cccccc;
     cursor: pointer;
 }
 

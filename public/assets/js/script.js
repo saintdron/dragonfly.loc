@@ -1,4 +1,4 @@
-function progressBarsRun() {
+function runProgressBars() {
     if ($('.skills').length) {
 
         const BAR_COLORS = [
@@ -37,9 +37,13 @@ function progressBarsRun() {
     }
 }
 
+function changeTitle() {
+    let $dataTitleElem = $('[data-title]');
+    if ($dataTitleElem) {
+        $('title').text($dataTitleElem.attr('data-title') || 'DragonFly');
+    }
+}
 
 jQuery(document).ready(function ($) {
-
-    progressBarsRun();
-
+    runProgressBars();
 });

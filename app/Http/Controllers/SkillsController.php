@@ -23,7 +23,7 @@ class SkillsController extends SiteController
         $skills = $this->getSkills();
 
         $content_view = view('skills_content')
-            ->with(['skills' => $skills])
+            ->with(['title' => $this->title, 'skills' => $skills])
             ->render();
 
         if ($request->isMethod('post')) {

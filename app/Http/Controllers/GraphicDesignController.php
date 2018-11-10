@@ -36,7 +36,7 @@ class GraphicDesignController extends SiteController
         $selected->next = ($k === count($works) - 1) ? $works[0] : $works[$k + 1];
 
         $content_view = view('branding_content')
-            ->with(['selected' => $selected, 'works' => $works])
+            ->with(['title' => $this->title, 'selected' => $selected, 'works' => $works])
             ->render();
 
         if ($request->isMethod('post')) {
@@ -62,7 +62,7 @@ class GraphicDesignController extends SiteController
         $selected->next = ($k === count($works) - 1) ? $works[0] : $works[$k + 1];
 
         $content_view = view('printing_content')
-            ->with(['selected' => $selected, 'works' => $works])
+            ->with(['title' => $this->title, 'selected' => $selected, 'works' => $works])
             ->render();
 
         if ($request->isMethod('post')) {
@@ -91,7 +91,7 @@ class GraphicDesignController extends SiteController
 //        dd($works);
 
         $content_view = view('graphic-animations_content')
-            ->with(['selected' => $selected, 'works' => $works])
+            ->with(['title' => $this->title, 'selected' => $selected, 'works' => $works])
             ->render();
 
         if ($request->isMethod('post')) {

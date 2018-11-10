@@ -20,7 +20,8 @@ jQuery(document).ready(function ($) {
             type: 'POST',
             success: function (result) {
                 $('#content').html(result);
-                progressBarsRun();
+                changeTitle();
+                runProgressBars();
             },
             error: function () {
                 console.log('error');

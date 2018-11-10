@@ -1,4 +1,4 @@
-<div class="container-fluid graphic-design">
+<div class="container-fluid graphic-design" data-title="{{ $title }}">
     <section class="partitions">
         <ul class="nav nav-pills">
             <li class="nav-item">

@@ -1,4 +1,4 @@
-<div class="container-fluid skills">
+<div class="container-fluid skills" data-title="{{ $title }}">
     @if ($skills)
         <ul>
             <li style="order: 0" class="transparent"></li>
