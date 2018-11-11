@@ -24,20 +24,38 @@ class GraphicDesignController extends SiteController
 
     public function branding(Request $request, $alias = false)
     {
-        session(['graphicDesignLast' => 'branding']);
-
-        $works = $this->getBrandings();
-        $selected = $this->getBranding($alias ?: $works[0]->alias);
-
-        $k = $works->search(function ($item) use ($selected) {
-            return $item->alias === $selected->alias;
-        });
-        $selected->prev = ($k === 0) ? $works[count($works) - 1] : $works[$k - 1];
-        $selected->next = ($k === count($works) - 1) ? $works[0] : $works[$k + 1];
-
-        $content_view = view('branding_content')
-            ->with(['title' => $this->title, 'selected' => $selected, 'works' => $works])
+        $this->partition = 'branding';
+        session(['graphicDesignLast' => $this->partition]);
+        $partitions = view('partitions_content')
+            ->with(['partition' => $this->partition])
             ->render();
+
+        try {
+//            throw new \Exception('Тестовое исключение');
+            $works = $this->getBrandings();
+            if ($works->isEmpty()) {
+                $content_view = view('error-runtime_content', ['title' => $this->title, 'partitions' => $partitions, 'message' => 'Не удалось найти ни одной работы.'])
+                    ->render();
+            } else {
+                $selected = $alias ? $this->getBranding($alias) : $this->getBranding($works[0]->alias);
+                $selected = $selected ?: $this->getBranding($works[0]->alias);
+
+                // Определение порядкового номера выбранной работы
+                $k = $works->search(function ($item) use ($selected) {
+                    return $item->alias === $selected->alias;
+                });
+                $selected->prev = ($k === 0) ? $works[count($works) - 1] : $works[$k - 1];
+                $selected->next = ($k === count($works) - 1) ? $works[0] : $works[$k + 1];
+
+                $content_view = view('branding_content')
+                    ->with(['title' => $this->title, 'partitions' => $partitions, 'selected' => $selected, 'works' => $works])
+                    ->render();
+            }
+        } catch (\Exception $exception) {
+            report($exception);
+            $content_view = view('error-runtime_content', ['title' => $this->title, 'partitions' => $partitions])
+                ->render();
+        }
 
         if ($request->isMethod('post')) {
             return response()->json($content_view);
@@ -105,7 +123,7 @@ class GraphicDesignController extends SiteController
 
     protected function getBrandings()
     {
-        return $this->br_rep->get(['img', 'title', 'alias']);
+        return $this->br_rep->get(['img', 'title', 'alias']/*, ['id', '>', '100']*/);
     }
 
     protected function getBranding($alias)

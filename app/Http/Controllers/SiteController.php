@@ -26,8 +26,7 @@ class SiteController extends Controller
     protected $vars = []; // list of variables to be passed to the template
 
     protected $navPosition; // the menu position
-//    protected $webDevelopmentLast; // last selected subsection in the web-development section
-//    protected $graphicDesignLast; // last selected subsection in the graphic-design section
+    protected $partition; // current partition
 
 
     public function __construct()
@@ -45,8 +44,7 @@ class SiteController extends Controller
         $this->vars = array_merge($this->vars, [
             'keywords' => $this->keywords,
             'meta_desc' => $this->meta_desc,
-            'title' => $this->title,
-//            'template' => $this->template
+            'title' => $this->title
         ]);
 
         return view($this->template)

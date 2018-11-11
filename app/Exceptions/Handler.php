@@ -31,7 +31,7 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $exception
+     * @param  \Exception $exception
      * @return void
      */
     public function report(Exception $exception)
@@ -42,12 +42,33 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Exception $exception
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
     {
+        /*if ($exception instanceof CustomException) {
+
+            $content_view = view('runtime-error_content')
+                ->with(['message' => $exception->getMessage()])
+                ->render();
+
+            if ($request->isMethod('post')) {
+                return response()->json($content_view);
+            }
+
+            $this->vars = array_add($this->vars, 'content_view', $content_view);
+
+            return $this->renderOutput();
+
+            return response()->view('runtime-error_content', []);
+        }*/
+
+//        report($exception);
+//dd('ew');
+//        return response()->view('errors.500')->render();
+
         return parent::render($request, $exception);
     }
 }

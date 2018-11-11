@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/extra/fontawesome-free-5.4.1-web/css/all.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/extra/lightbox2-master/dist/css/lightbox.min.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/style.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/errors.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/navigation.css"/>
 
     <!-- Fonts -->

@@ -24,7 +24,7 @@ jQuery(document).ready(function ($) {
                 runProgressBars();
             },
             error: function () {
-                console.log('error');
+                // TODO: add error handler
             }
         });
     }

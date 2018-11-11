@@ -1,21 +1,8 @@
 <div class="container-fluid graphic-design" data-title="{{ $title }}">
-    <section class="partitions">
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link active"
-                   href="{{ route('branding') }}">Корпоративный стиль</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"
-                   href="{{ route('printing') }}">Полиграфическая продукция</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"
-                   href="{{ route('graphicAnimations') }}">Видео и gif-анимация</a>
-            </li>
-        </ul>
-    </section>
-    @if($selected)
+    @if(isset($partitions) && $partitions)
+        {!! $partitions !!}
+    @endif
+    @if(isset($selected) && $selected)
         <section class="main-work">
             <a href="{{ asset(config('settings.branding_dir')) . '/' . $selected->alias . '/' . $selected->img->original }}"
                data-lightbox="image-1"
