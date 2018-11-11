@@ -27,6 +27,7 @@ class SiteController extends Controller
 
     protected $navPosition; // the menu position
     protected $partition; // current partition
+    protected $partitions_view; // returned view of partitions
 
 
     public function __construct()

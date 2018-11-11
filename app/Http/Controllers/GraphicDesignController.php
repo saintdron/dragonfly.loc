@@ -25,36 +25,21 @@ class GraphicDesignController extends SiteController
     public function branding(Request $request, $alias = false)
     {
         $this->partition = 'branding';
-        session(['graphicDesignLast' => $this->partition]);
-        $partitions = view('partitions_content')
-            ->with(['partition' => $this->partition])
-            ->render();
+        $this->partitions_view = $this->getPartitionsView();
 
         try {
 //            throw new \Exception('Тестовое исключение');
             $works = $this->getBrandings();
             if ($works->isEmpty()) {
-                $content_view = view('error-runtime_content', ['title' => $this->title, 'partitions' => $partitions, 'message' => 'Не удалось найти ни одной работы.'])
-                    ->render();
+                $content_view = $this->getError('Не удалось найти ни одной работы.');
             } else {
                 $selected = $alias ? $this->getBranding($alias) : $this->getBranding($works[0]->alias);
                 $selected = $selected ?: $this->getBranding($works[0]->alias);
-
-                // Определение порядкового номера выбранной работы
-                $k = $works->search(function ($item) use ($selected) {
-                    return $item->alias === $selected->alias;
-                });
-                $selected->prev = ($k === 0) ? $works[count($works) - 1] : $works[$k - 1];
-                $selected->next = ($k === count($works) - 1) ? $works[0] : $works[$k + 1];
-
-                $content_view = view('branding_content')
-                    ->with(['title' => $this->title, 'partitions' => $partitions, 'selected' => $selected, 'works' => $works])
-                    ->render();
+                $content_view = $this->formContent($works, $selected);
             }
         } catch (\Exception $exception) {
             report($exception);
-            $content_view = view('error-runtime_content', ['title' => $this->title, 'partitions' => $partitions])
-                ->render();
+            $content_view = $this->getError();
         }
 
         if ($request->isMethod('post')) {
@@ -62,63 +47,89 @@ class GraphicDesignController extends SiteController
         }
 
         $this->vars = array_add($this->vars, 'content_view', $content_view);
-
         return $this->renderOutput();
     }
 
     public function printing(Request $request, $alias = false)
     {
-        session(['graphicDesignLast' => 'printing']);
+        $this->partition = 'printing';
+        $this->partitions_view = $this->getPartitionsView();
 
-        $works = $this->getPrintings();
-        $selected = $this->getPrinting($alias ?: $works[0]->alias);
-
-        $k = $works->search(function ($item) use ($selected) {
-            return $item->alias === $selected->alias;
-        });
-        $selected->prev = ($k === 0) ? $works[count($works) - 1] : $works[$k - 1];
-        $selected->next = ($k === count($works) - 1) ? $works[0] : $works[$k + 1];
-
-        $content_view = view('printing_content')
-            ->with(['title' => $this->title, 'selected' => $selected, 'works' => $works])
-            ->render();
+        try {
+            $works = $this->getPrintings();
+            if ($works->isEmpty()) {
+                $content_view = $this->getError('Не удалось найти ни одной работы.');
+            } else {
+                $selected = $alias ? $this->getPrinting($alias) : $this->getPrinting($works[0]->alias);
+                $selected = $selected ?: $this->getPrinting($works[0]->alias);
+                $content_view = $this->formContent($works, $selected);
+            }
+        } catch (\Exception $exception) {
+            report($exception);
+            $content_view = $this->getError();
+        }
 
         if ($request->isMethod('post')) {
             return response()->json($content_view);
         }
 
         $this->vars = array_add($this->vars, 'content_view', $content_view);
-
         return $this->renderOutput();
     }
 
     public function graphicAnimations(Request $request, $alias = false)
     {
         $this->partition = 'graphicAnimations';
-        session(['graphicDesignLast' => $this->partition]);
+        $this->partitions_view = $this->getPartitionsView();
 
-        $works = $this->getGraphicAnimations();
-        $selected = $this->getGraphicAnimation($alias ?: $works[0]->alias);
-
-        $k = $works->search(function ($item) use ($selected) {
-            return $item->alias === $selected->alias;
-        });
-        $selected->prev = ($k === 0) ? $works[count($works) - 1] : $works[$k - 1];
-        $selected->next = ($k === count($works) - 1) ? $works[0] : $works[$k + 1];
-
-//        dd($works);
-
-        $content_view = view('graphic-animations_content')
-            ->with(['title' => $this->title, 'selected' => $selected, 'works' => $works])
-            ->render();
+        try {
+            $works = $this->getGraphicAnimations();
+            if ($works->isEmpty()) {
+                $content_view = $this->getError('Не удалось найти ни одной работы.');
+            } else {
+                $selected = $alias ? $this->getGraphicAnimation($alias) : $this->getGraphicAnimation($works[0]->alias);
+                $selected = $selected ?: $this->getGraphicAnimation($works[0]->alias);
+                $content_view = $this->formContent($works, $selected);
+            }
+        } catch (\Exception $exception) {
+            report($exception);
+            $content_view = $this->getError();
+        }
 
         if ($request->isMethod('post')) {
             return response()->json($content_view);
         }
 
         $this->vars = array_add($this->vars, 'content_view', $content_view);
-
         return $this->renderOutput();
+    }
+
+    protected function getPartitionsView()
+    {
+        session(['graphicDesignLast' => $this->partition]);
+        return view('partitions_content')
+            ->with(['partition' => $this->partition])
+            ->render();
+    }
+
+    protected function getError($message = '')
+    {
+        return view('errorRuntime_content', ['title' => $this->title, 'partitions_view' => $this->partitions_view, 'message' => $message])
+            ->render();
+    }
+
+    protected function formContent($works, $selected)
+    {
+        // Определение порядкового номера выбранной работы
+        $k = $works->search(function ($item) use ($selected) {
+            return $item->alias === $selected->alias;
+        });
+        $selected->prev = ($k === 0) ? $works[count($works) - 1] : $works[$k - 1];
+        $selected->next = ($k === count($works) - 1) ? $works[0] : $works[$k + 1];
+
+        return view($this->partition . '_content')
+            ->with(['title' => $this->title, 'partitions_view' => $this->partitions_view, 'selected' => $selected, 'works' => $works])
+            ->render();
     }
 
     protected function getBrandings()

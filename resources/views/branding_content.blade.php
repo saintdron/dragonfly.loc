@@ -1,6 +1,6 @@
 <div class="container-fluid graphic-design" data-title="{{ $title }}">
-    @if(isset($partitions) && $partitions)
-        {!! $partitions !!}
+    @if(isset($partitions_view) && $partitions_view)
+        {!! $partitions_view !!}
     @endif
     @if(isset($selected) && $selected)
         <section class="main-work">

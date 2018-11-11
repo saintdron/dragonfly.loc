@@ -1,6 +1,6 @@
 <div class="container-fluid error error-runtime" data-title="{{ $title ?? '' }}">
-    @if(isset($partitions) && $partitions)
-        {!! $partitions !!}
+    @if(isset($partitions_view) && $partitions_view)
+        {!! $partitions_view !!}
     @endif
     <div class="content">
         <figure>

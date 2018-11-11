@@ -15,6 +15,6 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=cyrillic-ext" rel="stylesheet">
 </head>
 <body>
-@include('error-runtime_content')
+@include('errorRuntime_content')
 </body>
 </html>
