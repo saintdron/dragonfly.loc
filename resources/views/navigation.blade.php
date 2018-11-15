@@ -26,14 +26,14 @@
         <div class="menu-content_left-bottom {{ ($navPosition === 'right-top') ? 'menu-content_house' : '' }}">
             <h2 class="animated fadeInUp faster" style="display: none;">Обо мне</h2>
             <p style="display: none;">
-                <span class="animated fadeInRightBig faster">Контактная информация,</span><br>
-                <span class="animated fadeInRightBig faster">резюме</span>
+                <span class="animated fadeInLeftBig faster">Контактная информация,</span><br>
+                <span class="animated fadeInLeftBig faster">резюме</span>
             </p>
         </div>
         <div class="menu-content_right-bottom {{ ($navPosition === 'left-top') ? 'menu-content_house' : '' }}">
             <h2 class="animated fadeInUp faster" style="display: none;">Навыки</h2>
             <p style="display: none;">
-                <span class="animated fadeInLeftBig faster">Квалификация в&nbsp;области программирования</span>
+                <span class="animated fadeInRightBig faster">Квалификация в&nbsp;области программирования</span>
             </p>
         </div>
     </div>

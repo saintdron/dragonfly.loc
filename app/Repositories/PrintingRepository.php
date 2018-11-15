@@ -6,7 +6,7 @@
  * Time: 11:25
  */
 
-namespace App\Http\Repositories;
+namespace App\Repositories;
 
 
 use App\Printing;

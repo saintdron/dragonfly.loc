@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Repositories\SkillRepository;
+use App\Repositories\SkillRepository;
 use Illuminate\Http\Request;
 
 class SkillsController extends SiteController

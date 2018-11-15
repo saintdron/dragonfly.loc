@@ -6,7 +6,7 @@
  * Time: 11:57
  */
 
-namespace App\Http\Repositories;
+namespace App\Repositories;
 
 
 use App\Branding;

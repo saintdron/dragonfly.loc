@@ -6,7 +6,7 @@
  * Time: 11:26
  */
 
-namespace App\Http\Repositories;
+namespace App\Repositories;
 
 
 use App\GraphicAnimation;

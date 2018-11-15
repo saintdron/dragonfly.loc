@@ -45,5 +45,41 @@ function changeTitle() {
 }
 
 jQuery(document).ready(function ($) {
-    runProgressBars();
-});
+        runProgressBars();
+
+        let alertTimerId = null;
+        const showStatus = () => {
+            alertTimerId = setTimeout(function () {
+                // $('#status').removeClass('fadeInUp').addClass('fadeOutDown');
+/*                alertTimerId = setTimeout(function () {
+                    $('#status').delay(1000).hide();
+                }, 1000);*/
+                $('#status').slideUp();
+            }, 5000);
+        };
+        $('#mail-form').on('click', '[type=submit]', function (e) {
+            e.preventDefault();
+            let form = e.delegateTarget;
+            $.ajax({
+                url: $(form).attr('action'),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: $(form).serializeArray(),
+                datatype: 'JSON',
+                type: 'POST',
+                success: function (result) {
+                    clearTimeout(alertTimerId);
+                    $('#status').html(result).slideDown(showStatus);
+                    if ($('.alert-success').length) {
+                        $(form).find('input').val('');
+                        $(form).find('textarea').val('');
+                    }
+                },
+                error: function () {
+                    $('#status').slideDown(showStatus);
+                }
+            });
+        });
+    }
+);

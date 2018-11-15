@@ -61,4 +61,10 @@ class SiteController extends Controller
         $menu[] = route('skills');
         return $menu;
     }
+
+    protected function getError($message = '')
+    {
+        return view('errorRuntime_content', ['title' => $this->title, 'partitions_view' => $this->partitions_view, 'message' => $message])
+            ->render();
+    }
 }

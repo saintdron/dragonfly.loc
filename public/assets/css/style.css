@@ -13,6 +13,7 @@ body {
 
 a {
     color: #34b3a0;
+    font-weight: 500;
 }
 
 a:hover {
@@ -30,6 +31,7 @@ a:hover {
 
 .nav-pills a {
     font-size: 17px;
+    font-weight: normal;
 }
 
 .nav-pills .nav-link.active {
@@ -286,4 +288,286 @@ a:hover {
     font-size: 20px;
     color: #424242;
     padding: 5px 0 0;
+}
+
+/*CV*/
+.load-block {
+    position: absolute;
+    top: 40px;
+    left: 35px;
+    width: 230px;
+    text-align: center;
+}
+
+.load-block img {
+    width: 66%;
+    padding-bottom: 15px;
+}
+
+.load {
+    display: flex;
+    justify-content: space-between;
+    background: rgb(81, 81, 86);
+    border-radius: 5px;
+}
+
+.load a {
+    position: relative;
+    display: inline-block;
+    font-family: 'Roboto', serif;
+    font-size: 93.825%;
+    font-weight: 700;
+    color: rgb(209, 209, 217);
+    text-decoration: none;
+    text-shadow: 0 -1px 2px rgba(0, 0, 0, .2);
+    padding: .5em 1em;
+    outline: none;
+    background: linear-gradient(rgb(110, 112, 120), rgb(81, 81, 86)), rgb(110, 112, 120);
+    transition: .2s ease-in-out;
+}
+
+.load .load__pdf:active,
+.load .load__doc:active {
+    /*top: 1px;*/
+    box-shadow: 0 0 1px rgba(0, 0, 0, .5) inset,
+    0 2px 3px rgba(0, 0, 0, .5) inset,
+    0 1px 1px rgba(255, 255, 255, .1);
+}
+
+.load .load__pdf {
+    border-radius: 5px 0 0 5px;
+    background: url('../images/pdf.png') no-repeat center, linear-gradient(#e81829, #c11826), #e81829;
+    width: 40px;
+    box-shadow: 0 1px rgba(255, 255, 255, .2) inset,
+    0 3px 5px rgba(155, 1, 6, .15),
+    0 0 1px 1px rgba(0, 1, 6, .2);
+}
+
+.load .load__pdf:hover:not(:active) {
+    background: url('../images/pdf.png') no-repeat center, linear-gradient(#f51527, #ae1622), #f51527;
+}
+
+.load .load__pdf:active {
+    background: url('../images/pdf_back.png') no-repeat center, linear-gradient(#b51723, #8c141d), #b51723;
+}
+
+.load .load__sign {
+    cursor: default;
+    pointer-events: none;
+    color: rgb(209, 209, 217) !important;
+    box-shadow: 0 1px rgba(255, 255, 255, .2) inset,
+    0 3px 5px rgba(0, 1, 6, .15),
+    0 0 1px 1px rgba(0, 1, 6, .2);
+}
+
+.load .load__doc {
+    border-radius: 0 5px 5px 0;
+    background: url('../images/doc.png') no-repeat center, linear-gradient(#178ae8, #1775c2), #178ae8;
+    width: 40px;
+    box-shadow: 0 1px rgba(255, 255, 255, .2) inset,
+    0 3px 5px rgba(0, 1, 155, .15),
+    0 0 1px 1px rgba(0, 1, 6, .2);
+}
+
+.load .load__doc:hover:not(:active) {
+    background: url('../images/doc.png') no-repeat center, linear-gradient(#1691f5, #176aad), #1691f5;
+}
+
+.load .load__doc:active {
+    background: url('../images/doc_back.png') no-repeat center, linear-gradient(#186eb5, #14568c), #186eb5;
+}
+
+.cv {
+    color: #101010;
+    padding: 0 35px;
+}
+
+.cv header {
+    text-align: center;
+    padding-top: 164px;
+    color: #565656;
+}
+
+.cv header h2 {
+    font-family: 'Philosopher', serif;
+    font-size: 40px;
+    font-weight: bold;
+    /*color: #565656;*/
+}
+
+.cv .resume {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    padding-top: 35px;
+    margin: 0 -15px;
+}
+
+.cv .resume > div {
+    flex: 1;
+    margin: 0 15px;
+    /*flex: 1 0 auto;*/
+    /*padding: 0 20px;*/
+}
+
+.cv .resume .left {
+    /*padding-right: 5%;*/
+}
+
+.cv .resume .right {
+    /*padding-left: 5%;*/
+}
+
+.cv .resume .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cv .resume h3 {
+    font-family: 'Philosopher', serif;
+    font-size: 25px;
+    font-weight: bold;
+    color: #565656;
+    margin-bottom: 4px;
+    /*text-transform: uppercase;*/
+    /*letter-spacing: 1px;*/
+}
+
+.cv .resume h4 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    padding-top: 8px;
+    color: #565656;
+}
+
+.cv .resume h5 {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #9E9E9C;
+}
+
+.cv .resume ul {
+    list-style-image: url('../images/teacher.png');
+}
+
+.cv .resume li {
+    font-size: 14px;
+}
+
+.cv .resume li strong {
+    font-size: 14px;
+    color: #565656;
+}
+
+.cv .resume .figure {
+    position: relative;
+    width: 100%;
+    padding: 1.5rem 40px 1.5rem 20px;
+}
+
+.cv .resume .figure img {
+    width: 100%;
+}
+
+.cv .resume .figure .tape-1 {
+    position: absolute;
+    left: 20px;
+    top: 1.5rem;
+    width: 12.5%;
+}
+
+.cv .resume .figure .tape-2 {
+    position: absolute;
+    right: 40px;
+    bottom: 1.5rem;
+    width: 15%;
+}
+
+.cv .resume .figure .tape-1 img {
+    transform: translate(-40%, -15%);
+}
+
+.cv .resume .figure .tape-2 img {
+    transform: translate(52%, 20%);
+}
+
+.cv .feedback {
+    padding: 40px 0;
+}
+
+.cv .feedback h3 {
+    font-family: 'Philosopher', serif;
+    font-size: 25px;
+    font-weight: bold;
+    color: #565656;
+    margin-bottom: 10px;
+}
+
+.cv .feedback .form-control:focus {
+    /*color: #34b3a0;*/
+    border-color: #43ffe3;
+    box-shadow: 0 0 0 0.2rem rgba(0, 172, 146, 0.25);
+}
+
+.cv .feedback textarea {
+    min-height: 110px;
+    overflow: hidden;
+}
+
+.cv .feedback [type=submit] {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 90%;
+    font-weight: 700;
+    color: rgb(209, 209, 217);
+    text-decoration: none;
+    text-shadow: 0 -1px 2px rgba(0, 0, 0, .2);
+    padding: .5em 1em;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(rgb(110, 112, 120), rgb(81, 81, 86)) rgb(110, 112, 120);
+    box-shadow: 0 1px rgba(255, 255, 255, .2) inset,
+    0 3px 5px rgba(0, 1, 6, .15)/*,
+    0 0 1px 1px rgba(0, 1, 6, .2)*/;
+    transition: .2s ease-in-out;
+}
+
+.cv .feedback [type=submit]:hover:not(:active) {
+    background: linear-gradient(rgb(126, 126, 134), rgb(70, 71, 76)) rgb(126, 126, 134);
+}
+
+.cv .feedback [type=submit]:active {
+    /*top: 1px;*/
+    background: linear-gradient(rgb(76, 77, 82), rgb(56, 57, 62)) rgb(76, 77, 82);
+    box-shadow: 0 0 1px rgba(0, 0, 0, .5) inset,
+    0 2px 3px rgba(0, 0, 0, .5) inset,
+    0 1px 1px rgba(255, 255, 255, .1);
+}
+
+.input-prepend {
+    position: relative;
+}
+
+.input-prepend .add-on {
+    position: absolute;
+    font-size: 14px;
+    /*top: 17.5%;*/
+    top: 7px;
+    right: 12px;
+    color: #9E9E9C;
+    pointer-events: none;
+    z-index: 1;
+}
+
+#status ul {
+    margin: 0;
+    padding: 0;
+}
+
+#status li {
+    list-style: none;
 }

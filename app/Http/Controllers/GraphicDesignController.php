@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Repositories\BrandingRepository;
-use App\Http\Repositories\GraphicAnimationRepository;
-use App\Http\Repositories\PrintingRepository;
+use App\Repositories\BrandingRepository;
+use App\Repositories\GraphicAnimationRepository;
+use App\Repositories\PrintingRepository;
 use Illuminate\Http\Request;
 
 class GraphicDesignController extends SiteController
@@ -109,12 +109,6 @@ class GraphicDesignController extends SiteController
         session(['graphicDesignLast' => $this->partition]);
         return view('partitions_content')
             ->with(['partition' => $this->partition])
-            ->render();
-    }
-
-    protected function getError($message = '')
-    {
-        return view('errorRuntime_content', ['title' => $this->title, 'partitions_view' => $this->partitions_view, 'message' => $message])
             ->render();
     }
 

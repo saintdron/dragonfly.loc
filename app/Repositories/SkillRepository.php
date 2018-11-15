@@ -6,7 +6,7 @@
  * Time: 16:21
  */
 
-namespace App\Http\Repositories;
+namespace App\Repositories;
 
 
 use App\Skill;

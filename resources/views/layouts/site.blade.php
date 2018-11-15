@@ -23,7 +23,8 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=cyrillic-ext" rel="stylesheet">
+    {{--<link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=cyrillic-ext" rel="stylesheet">--}}
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700&amp;subset=cyrillic-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 </head>
 <body>
@@ -37,9 +38,10 @@
 <script type="text/javascript" src="{{ asset('assets') }}/js/jquery.min.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/extra/lightbox2-master/dist/js/lightbox.min.js"></script>
-<script type="text/javascript" src="{{ asset('assets') }}/js/menu.js"></script>
-{{--<script type="text/javascript" src="{{ asset('assets') }}/extra/jcprogress/jcprogress.js"></script>--}}
 <script type="text/javascript" src="{{ asset('assets') }}/js/radialprogress.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/script.js"></script>
+<script type="text/javascript" src="{{ asset('assets') }}/js/menu.js"></script>
+{{--<script type="text/javascript" src="{{ asset('assets') }}/js/mail.js"></script>--}}
+{{--<script type="text/javascript" src="{{ asset('assets') }}/extra/jcprogress/jcprogress.js"></script>--}}
 </body>
 </html>
