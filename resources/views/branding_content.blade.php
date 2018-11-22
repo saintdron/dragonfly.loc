@@ -4,17 +4,23 @@
     @endif
     @if(isset($selected) && $selected)
         <section class="main-work">
-            <a href="{{ asset(config('settings.branding_dir')) . '/' . $selected->alias . '/' . $selected->img->original }}"
-               data-lightbox="image-1"
-               data-title="{{ $selected->title }}">
-                <img src="{{ asset(config('settings.branding_dir')) . '/' . $selected->alias . '/' . $selected->img->big }}">
-            </a>
+            @if($selected->img->original)
+                <a href="{{ asset(config('settings.branding_dir')) . '/' . $selected->alias . '/' . $selected->img->original }}"
+                   data-lightbox="image-1"
+                   data-title="{{ $selected->title }}">
+                    @endif
+                    <img src="{{ $selected->img->big
+                    ? asset(config('settings.branding_dir')) . '/' . $selected->alias . '/' . $selected->img->big
+                    : asset('assets') . '/images/dummy_big.png'}}">
+                    @if($selected->img->original)
+                </a>
+            @endif
             <div class="description">
                 <div class="desc_header">
-                    <a href="{{ route('branding', $selected->prev->alias) }}">
+                    <a href="{{ route('branding', $selected->prev->alias) }}" title="Перейти к предыдущей работе">
                         <span class="fas fa-arrow-circle-left arrow arrow-left"></span>
                     </a>
-                    <a href="{{ route('branding', $selected->next->alias) }}">
+                    <a href="{{ route('branding', $selected->next->alias) }}" title="Перейти к следующей работе">
                         <span class="fas fa-arrow-circle-right arrow arrow-right"></span>
                     </a>
                     <h2>{{ $selected->title }}</h2>

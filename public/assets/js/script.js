@@ -44,42 +44,54 @@ function changeTitle() {
     }
 }
 
+function loadScripts() {
+    $('.dynamic_image').each(function (_, elem) {
+        let url = $(elem).attr('data-script');
+        $.getScript(url);
+    });
+}
+
+function unloadScripts() {
+    clearInterval(webAnimationIntervalId);
+}
+
+function setFeedbackFormHandler() {
+    let alertTimerId = null;
+    const showStatus = () => {
+        alertTimerId = setTimeout(function () {
+            $('#status').slideUp();
+        }, 5000);
+    };
+
+    $('#mail-form').on('click', '[type=submit]', function (e) {
+        e.preventDefault();
+        let form = e.delegateTarget;
+        $.ajax({
+            url: $(form).attr('action'),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: $(form).serializeArray(),
+            datatype: 'JSON',
+            type: 'POST',
+            success: function (result) {
+                clearTimeout(alertTimerId);
+                $('#status').html(result).slideDown(showStatus);
+                if ($('.alert-success').length) {
+                    $(form).find('input').val('');
+                    $(form).find('textarea').val('');
+                }
+            },
+            error: function () {
+                $('#status').slideDown(showStatus);
+            }
+        });
+    });
+}
+
 jQuery(document).ready(function ($) {
         runProgressBars();
-
-        let alertTimerId = null;
-        const showStatus = () => {
-            alertTimerId = setTimeout(function () {
-                // $('#status').removeClass('fadeInUp').addClass('fadeOutDown');
-/*                alertTimerId = setTimeout(function () {
-                    $('#status').delay(1000).hide();
-                }, 1000);*/
-                $('#status').slideUp();
-            }, 5000);
-        };
-        $('#mail-form').on('click', '[type=submit]', function (e) {
-            e.preventDefault();
-            let form = e.delegateTarget;
-            $.ajax({
-                url: $(form).attr('action'),
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: $(form).serializeArray(),
-                datatype: 'JSON',
-                type: 'POST',
-                success: function (result) {
-                    clearTimeout(alertTimerId);
-                    $('#status').html(result).slideDown(showStatus);
-                    if ($('.alert-success').length) {
-                        $(form).find('input').val('');
-                        $(form).find('textarea').val('');
-                    }
-                },
-                error: function () {
-                    $('#status').slideDown(showStatus);
-                }
-            });
-        });
+        loadScripts();
+        setFeedbackFormHandler();
     }
 );

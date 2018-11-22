@@ -15,7 +15,7 @@ class CVController extends SiteController
 
         $this->title = 'Обо мне';
         $this->template = 'common';
-        $this->navPosition = 'right-top';
+        $this->nav_position = 'right-top';
     }
 
     public function index(Request $request)

@@ -1,30 +1,26 @@
 <div class="container-fluid graphic-design" data-title="{{ $title }}">
-    <section class="partitions">
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('branding') }}">Корпоративный стиль</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="{{ route('printing') }}">Полиграфическая продукция</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('graphicAnimations') }}">Видео и gif-анимация</a>
-            </li>
-        </ul>
-    </section>
-    @if($selected)
+    @if(isset($partitions_view) && $partitions_view)
+        {!! $partitions_view !!}
+    @endif
+    @if(isset($selected) && $selected)
         <section class="main-work">
-            <a href="{{ asset(config('settings.printing_dir')) . '/' . $selected->alias . '/' . $selected->img->original }}"
-               data-lightbox="image-1"
-               data-title="{{ $selected->title }}">
-                <img src="{{ asset(config('settings.printing_dir')) . '/' . $selected->alias . '/' . $selected->img->big }}">
-            </a>
+            @if($selected->img->original)
+                <a href="{{ asset(config('settings.printing_dir')) . '/' . $selected->alias . '/' . $selected->img->original }}"
+                   data-lightbox="image-1"
+                   data-title="{{ $selected->title }}">
+                    @endif
+                    <img src="{{ $selected->img->big
+                    ? asset(config('settings.printing_dir')) . '/' . $selected->alias . '/' . $selected->img->big
+                    : asset('assets') . '/images/dummy_big.png'}}">
+                    @if($selected->img->original)
+                </a>
+            @endif
             <div class="description">
                 <div class="desc_header">
-                    <a href="{{ route('printing', $selected->prev->alias) }}">
+                    <a href="{{ route('printing', $selected->prev->alias) }}"  title="Перейти к предыдущей работе">
                         <span class="fas fa-arrow-circle-left arrow arrow-left"></span>
                     </a>
-                    <a href="{{ route('printing', $selected->next->alias) }}">
+                    <a href="{{ route('printing', $selected->next->alias) }}" title="Перейти к следующей работе">
                         <span class="fas fa-arrow-circle-right arrow arrow-right"></span>
                     </a>
                     <h2>{{ $selected->title }}</h2>

@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
@@ -15,16 +15,19 @@
     <!-- Style -->
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/animate.min.css"/>
-    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/extra/fontawesome-free-5.4.1-web/css/all.css"/>
-    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/extra/lightbox2-master/dist/css/lightbox.min.css"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="{{ asset('assets') }}/extra/fontawesome-free-5.4.1-web/css/all.css"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="{{ asset('assets') }}/extra/lightbox2-master/dist/css/lightbox.min.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/style.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/errors.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/navigation.css"/>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
-    {{--<link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=cyrillic-ext" rel="stylesheet">--}}
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700&amp;subset=cyrillic-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=cyrillic-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700&amp;subset=cyrillic-ext"
+          rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 </head>
 <body>
@@ -41,7 +44,13 @@
 <script type="text/javascript" src="{{ asset('assets') }}/js/radialprogress.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/script.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/menu.js"></script>
+
+{{--@if($additional_scripts && !empty($additional_scripts))
+    @foreach($additional_scripts as $script)
+        <script type="text/javascript" src="{{ asset('assets') }}/js/{{ $script }}.js"></script>
+    @endforeach
+@endif--}}
 {{--<script type="text/javascript" src="{{ asset('assets') }}/js/mail.js"></script>--}}
-{{--<script type="text/javascript" src="{{ asset('assets') }}/extra/jcprogress/jcprogress.js"></script>--}}
+<script type="text/javascript" src="{{ asset('assets') }}/extra/jcprogress/jcprogress.js"></script>
 </body>
 </html>

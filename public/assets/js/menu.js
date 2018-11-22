@@ -20,8 +20,10 @@ jQuery(document).ready(function ($) {
             type: 'POST',
             success: function (result) {
                 $('#content').html(result);
+                loadScripts();
                 changeTitle();
                 runProgressBars();
+                setFeedbackFormHandler();
             },
             error: function () {
                 // TODO: add error handler
@@ -53,7 +55,7 @@ jQuery(document).ready(function ($) {
                 $(sel).fadeOut(200, function () {
                     $(this).addClass('menu-content_house').fadeIn(200);
                 });
-            }, 800);
+            }, 300);
         };
 
         e.preventDefault();
@@ -65,10 +67,7 @@ jQuery(document).ready(function ($) {
         // Not from Home page
         if ($navigation.hasClass('inCorner')) {
             $navigation.addClass('navigation_center')
-                .removeClass('navigation_left-top')
-                .removeClass('navigation_right-top')
-                .removeClass('navigation_left-bottom')
-                .removeClass('navigation_right-bottom');
+                .removeClass('navigation_left-top navigation_right-top navigation_left-bottom navigation_right-bottom');
 
             $('.menu-content_house').fadeOut(350, function () {
                 $navigation.removeClass('inCorner');
@@ -76,6 +75,7 @@ jQuery(document).ready(function ($) {
             });
 
             loadContent('/');
+            unloadScripts();
             history.pushState({url: '/'}, "", '/');
             return false;
         }

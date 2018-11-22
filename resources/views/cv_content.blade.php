@@ -112,7 +112,7 @@
         <h3>Обратная связь</h3>
 
         {{--Статус отправки сообщения--}}
-        <div id="status" style="display: none;" {{--class="animated fadeInUp"--}}>
+        <div id="status" style="display: none;">
             <div class="alert alert-danger">
                 {{ trans('custom.message_not_sent') }}
             </div>
@@ -124,14 +124,14 @@
                 <div class="form-group col-md">
                     <label for="name">Имя</label>
                     <div class="input-prepend">
-                        <input class="form-control" id="name" name="name" value="{{ old('name') }}" contenteditable="true" spellcheck="false" {{--required--}}>
+                        <input class="form-control" id="name" name="name" value="{{ old('name') }}" contenteditable="true" spellcheck="false" required>
                         <span class="add-on"><i class="fas fa-user"></i></span>
                     </div>
                 </div>
                 <div class="form-group col-md">
                     <label for="email">E-mail</label>
                     <div class="input-prepend">
-                        <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" contenteditable="true" spellcheck="false" {{--required--}}>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" contenteditable="true" spellcheck="false" required>
                         <span class="add-on"><i class="fas fa-at"></i></span>
                     </div>
                 </div>
@@ -139,7 +139,7 @@
             <div class="form-group">
                 <label for="text">Сообщение</label>
                 <div class="input-prepend">
-                    <textarea class="form-control" id="text" rows="4" name="text" {{--required--}}>{{ old('text') }}</textarea>
+                    <textarea class="form-control" id="text" rows="4" name="text" required>{{ old('text') }}</textarea>
                     <span class="add-on"><i class="fas fa-comment-alt"></i></span>
                 </div>
             </div>

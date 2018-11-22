@@ -15,7 +15,7 @@ class GraphicDesignController extends SiteController
 
         $this->title = 'Графический дизайн';
         $this->template = 'common';
-        $this->navPosition = 'left-bottom';
+        $this->nav_position = 'left-bottom';
 
         $this->br_rep = $br_rep;
         $this->pr_rep = $pr_rep;
@@ -107,7 +107,7 @@ class GraphicDesignController extends SiteController
     protected function getPartitionsView()
     {
         session(['graphicDesignLast' => $this->partition]);
-        return view('partitions_content')
+        return view('graphicDesignPartitions_content')
             ->with(['partition' => $this->partition])
             ->render();
     }

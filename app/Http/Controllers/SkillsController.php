@@ -13,7 +13,7 @@ class SkillsController extends SiteController
 
         $this->title = 'Навыки';
         $this->template = 'common';
-        $this->navPosition = 'left-top';
+        $this->nav_position = 'left-top';
 
         $this->sk_rep = $sk_rep;
     }

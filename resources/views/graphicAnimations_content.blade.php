@@ -1,34 +1,28 @@
 <div class="container-fluid graphic-design" data-title="{{ $title }}">
-    <section class="partitions">
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('branding') }}">Корпоративный стиль</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('printing') }}">Полиграфическая продукция</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="{{ route('graphicAnimations') }}">Видео и gif-анимация</a>
-            </li>
-        </ul>
-    </section>
-    @if($selected)
+    @if(isset($partitions_view) && $partitions_view)
+        {!! $partitions_view !!}
+    @endif
+    @if(isset($selected) && $selected)
         <section class="main-work">
             <div class="work">
-                <video width="100%" preload="auto" loop="loop" controls="controls"
-                       poster="{{ asset(config('settings.graphicAnimations_dir')) . '/' . $selected->alias . '/' . $selected->img->poster }}">
-                    <source src="{{ asset(config('settings.graphicAnimations_dir')) . '/' . $selected->alias . '/' . $selected->video->mp4 }}"
-                            type='video/mp4;'>
-                    <source src="{{ asset(config('settings.graphicAnimations_dir')) . '/' . $selected->alias . '/' . $selected->video->webm }}"
-                            type='video/webm;'>
-                </video>
+                @if($selected->img->poster)
+                    <video width="100%" preload="auto" loop="loop" controls="controls"
+                           poster="{{ asset(config('settings.graphicAnimations_dir')) . '/' . $selected->alias . '/' . $selected->img->poster }}">
+                        <source src="{{ asset(config('settings.graphicAnimations_dir')) . '/' . $selected->alias . '/' . $selected->video->mp4 }}"
+                                type='video/mp4;'>
+                        <source src="{{ asset(config('settings.graphicAnimations_dir')) . '/' . $selected->alias . '/' . $selected->video->webm }}"
+                                type='video/webm;'>
+                    </video>
+                @else
+                    <img src="{{ asset('assets') . '/images/dummy_big.png' }}">
+                @endif
             </div>
             <div class="description">
                 <div class="desc_header">
-                    <a href="{{ route('graphicAnimations', $selected->prev->alias) }}">
+                    <a href="{{ route('graphicAnimations', $selected->prev->alias) }}" title="Перейти к предыдущей работе">
                         <span class="fas fa-arrow-circle-left arrow arrow-left"></span>
                     </a>
-                    <a href="{{ route('graphicAnimations', $selected->next->alias) }}">
+                    <a href="{{ route('graphicAnimations', $selected->next->alias) }}" title="Перейти к следующей работе">
                         <span class="fas fa-arrow-circle-right arrow arrow-right"></span>
                     </a>
                     <h2>{{ $selected->title }}</h2>

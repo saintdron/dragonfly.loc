@@ -10,9 +10,9 @@ class SiteController extends Controller
     protected $pr_rep; // PrintingRepository
     protected $ga_rep; // GraphicAnimationsRepository
 
-    protected $si_rep; // SitesRepository
-    protected $se_rep; // ServicesRepository
-    protected $wa_rep; // WebAnimationsRepository
+    protected $si_rep; // SiteRepository
+    protected $se_rep; // ServiceRepository
+    protected $wa_rep; // WebAnimationRepository
 
     protected $sk_rep; // SkillsRepository
 
@@ -25,9 +25,11 @@ class SiteController extends Controller
     protected $template; // the name of the returned template
     protected $vars = []; // list of variables to be passed to the template
 
-    protected $navPosition; // the menu position
+    protected $nav_position; // the menu position
     protected $partition; // current partition
     protected $partitions_view; // returned view of partitions
+
+//    protected $additional_scripts = []; // names of necessary additional scripts
 
 
     public function __construct()
@@ -38,13 +40,14 @@ class SiteController extends Controller
     protected function renderOutput()
     {
         $navigation_view = view('navigation')
-            ->with(['menu' => $this->getMenu(), 'navPosition' => $this->navPosition])
+            ->with(['menu' => $this->getMenu(), 'nav_position' => $this->nav_position])
             ->render();
         $this->vars = array_add($this->vars, 'navigation_view', $navigation_view);
 
         $this->vars = array_merge($this->vars, [
             'keywords' => $this->keywords,
             'meta_desc' => $this->meta_desc,
+//            'additional_scripts' => $this->additional_scripts,
             'title' => $this->title
         ]);
 

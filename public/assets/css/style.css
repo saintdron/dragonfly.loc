@@ -85,7 +85,8 @@ a:hover {
     border-radius: 0 65px;
 }
 
-.graphic-design .main-work img {
+.graphic-design .main-work img,
+.graphic-design .main-work canvas {
     flex: 1 100%;
     align-self: flex-start;
     width: 100%;
@@ -93,7 +94,7 @@ a:hover {
     border: 5px solid white;
     box-shadow: 0 0 0 1px #cccccc;
     border-radius: 0 65px;
-    cursor: pointer;
+    /*cursor: pointer;*/
 }
 
 .graphic-design .main-work .work {
@@ -116,7 +117,6 @@ a:hover {
     pointer-events: none;
     top: 0;
     left: 0;
-    /*z-index: 10;*/
 }
 
 .graphic-design .description {
@@ -138,7 +138,6 @@ a:hover {
     font-family: Philosopher, serif;
     font-weight: bold;
     font-size: 32px;
-    /*line-height: 32px;*/
     background-color: #565656;
     color: transparent;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
@@ -168,14 +167,6 @@ a:hover {
     padding: 0;
     margin: 0;
     line-height: 22px;
-}
-
-@media all and (max-width: 1200px) {
-    .graphic-design .main-work .description {
-        flex: 1 100%;
-        padding: 15px 0 0 40px;
-        max-width: 780px;
-    }
 }
 
 .graphic-design .arrow {
@@ -241,7 +232,6 @@ a:hover {
     background: #34b3a0;
     opacity: 0.2;
     pointer-events: none;
-    /*z-index: 10;*/
 }
 
 .graphic-design .another-works li h4 {
@@ -259,6 +249,21 @@ a:hover {
 
 .graphic-design .another-works a {
     text-decoration: none;
+}
+
+@media all and (max-width: 1200px) {
+    .graphic-design .main-work .description {
+        flex: 1 100%;
+        padding: 15px 0 0 40px;
+        max-width: 780px;
+    }
+}
+
+@media all and (max-width: 830px) {
+    .graphic-design .main-work .description {
+        padding-left: 0;
+        margin-left: 0;
+    }
 }
 
 /*Skills*/
@@ -291,7 +296,12 @@ a:hover {
 }
 
 /*CV*/
-.load-block {
+.cv {
+    color: #101010;
+    padding: 0 35px;
+}
+
+.cv .load-block {
     position: absolute;
     top: 40px;
     left: 35px;
@@ -299,19 +309,19 @@ a:hover {
     text-align: center;
 }
 
-.load-block img {
+.cv .load-block img {
     width: 66%;
     padding-bottom: 15px;
 }
 
-.load {
+.cv .load {
     display: flex;
     justify-content: space-between;
     background: rgb(81, 81, 86);
     border-radius: 5px;
 }
 
-.load a {
+.cv .load a {
     position: relative;
     display: inline-block;
     font-family: 'Roboto', serif;
@@ -326,15 +336,15 @@ a:hover {
     transition: .2s ease-in-out;
 }
 
-.load .load__pdf:active,
-.load .load__doc:active {
+.cv .load .load__pdf:active,
+.cv .load .load__doc:active {
     /*top: 1px;*/
     box-shadow: 0 0 1px rgba(0, 0, 0, .5) inset,
     0 2px 3px rgba(0, 0, 0, .5) inset,
     0 1px 1px rgba(255, 255, 255, .1);
 }
 
-.load .load__pdf {
+.cv .load .load__pdf {
     border-radius: 5px 0 0 5px;
     background: url('../images/pdf.png') no-repeat center, linear-gradient(#e81829, #c11826), #e81829;
     width: 40px;
@@ -343,15 +353,15 @@ a:hover {
     0 0 1px 1px rgba(0, 1, 6, .2);
 }
 
-.load .load__pdf:hover:not(:active) {
+.cv .load .load__pdf:hover:not(:active) {
     background: url('../images/pdf.png') no-repeat center, linear-gradient(#f51527, #ae1622), #f51527;
 }
 
-.load .load__pdf:active {
+.cv .load .load__pdf:active {
     background: url('../images/pdf_back.png') no-repeat center, linear-gradient(#b51723, #8c141d), #b51723;
 }
 
-.load .load__sign {
+.cv .load .load__sign {
     cursor: default;
     pointer-events: none;
     color: rgb(209, 209, 217) !important;
@@ -360,7 +370,7 @@ a:hover {
     0 0 1px 1px rgba(0, 1, 6, .2);
 }
 
-.load .load__doc {
+.cv .load .load__doc {
     border-radius: 0 5px 5px 0;
     background: url('../images/doc.png') no-repeat center, linear-gradient(#178ae8, #1775c2), #178ae8;
     width: 40px;
@@ -369,30 +379,25 @@ a:hover {
     0 0 1px 1px rgba(0, 1, 6, .2);
 }
 
-.load .load__doc:hover:not(:active) {
+.cv .load .load__doc:hover:not(:active) {
     background: url('../images/doc.png') no-repeat center, linear-gradient(#1691f5, #176aad), #1691f5;
 }
 
-.load .load__doc:active {
+.cv .load .load__doc:active {
     background: url('../images/doc_back.png') no-repeat center, linear-gradient(#186eb5, #14568c), #186eb5;
-}
-
-.cv {
-    color: #101010;
-    padding: 0 35px;
 }
 
 .cv header {
     text-align: center;
-    padding-top: 164px;
+    padding: 170px 250px 0;
     color: #565656;
 }
 
 .cv header h2 {
     font-family: 'Philosopher', serif;
     font-size: 40px;
+    line-height: 40px;
     font-weight: bold;
-    /*color: #565656;*/
 }
 
 .cv .resume {
@@ -406,16 +411,6 @@ a:hover {
 .cv .resume > div {
     flex: 1;
     margin: 0 15px;
-    /*flex: 1 0 auto;*/
-    /*padding: 0 20px;*/
-}
-
-.cv .resume .left {
-    /*padding-right: 5%;*/
-}
-
-.cv .resume .right {
-    /*padding-left: 5%;*/
 }
 
 .cv .resume .right {
@@ -430,8 +425,6 @@ a:hover {
     font-weight: bold;
     color: #565656;
     margin-bottom: 4px;
-    /*text-transform: uppercase;*/
-    /*letter-spacing: 1px;*/
 }
 
 .cv .resume h4 {
@@ -506,7 +499,6 @@ a:hover {
 }
 
 .cv .feedback .form-control:focus {
-    /*color: #34b3a0;*/
     border-color: #43ffe3;
     box-shadow: 0 0 0 0.2rem rgba(0, 172, 146, 0.25);
 }
@@ -531,7 +523,7 @@ a:hover {
     border-radius: 5px;
     background: linear-gradient(rgb(110, 112, 120), rgb(81, 81, 86)) rgb(110, 112, 120);
     box-shadow: 0 1px rgba(255, 255, 255, .2) inset,
-    0 3px 5px rgba(0, 1, 6, .15)/*,
+    0 3px 5px rgba(0, 1, 6, .15) /*,
     0 0 1px 1px rgba(0, 1, 6, .2)*/;
     transition: .2s ease-in-out;
 }
@@ -548,14 +540,13 @@ a:hover {
     0 1px 1px rgba(255, 255, 255, .1);
 }
 
-.input-prepend {
+.cv .feedback .input-prepend {
     position: relative;
 }
 
-.input-prepend .add-on {
+.cv .feedback .input-prepend .add-on {
     position: absolute;
     font-size: 14px;
-    /*top: 17.5%;*/
     top: 7px;
     right: 12px;
     color: #9E9E9C;
@@ -563,11 +554,60 @@ a:hover {
     z-index: 1;
 }
 
-#status ul {
+.cv .feedback #status ul {
     margin: 0;
     padding: 0;
 }
 
-#status li {
+.cv .feedback #status li {
     list-style: none;
+}
+
+@media all and (max-width: 900px) {
+    .cv {
+        padding: 0 15px;
+    }
+
+    .cv header {
+        padding: 270px 0 0;
+        text-align: left;
+    }
+
+    .cv .resume {
+        margin: 0;
+    }
+
+    .cv .resume > div {
+        flex: 1 0 100%;
+        margin: 0;
+    }
+
+    .cv .resume .figure {
+        margin-left: 15px;
+        width: 95%;
+    }
+}
+
+/*web-animations*/
+.web-animations .main-work .work {
+    flex: 1 100%;
+    align-self: flex-start;
+    position: static;
+    max-width: 780px;
+    line-height: 0;
+}
+
+.web-animations .main-work .work::after {
+    content: none;
+}
+
+.web-animations .external-link {
+    position: relative;
+    top: -10px;
+    left: 0;
+    font-size: 12px;
+}
+
+.web-animations .another-works {
+    padding: 25px 235px 0 0;
 }
