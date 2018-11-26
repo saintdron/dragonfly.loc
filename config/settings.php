@@ -14,5 +14,6 @@ return [
     'brand_dir' => 'assets/images/brand',
 
     'gif_dir' => 'assets/images/gif',
+    'video_dir' => 'assets/video',
 
 ];

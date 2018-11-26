@@ -6,11 +6,35 @@
         <section class="main-work">
             <div class="work">
                 @if($selected->script)
-                    <div class="dynamic_image"
-                         data-alias="{{ $selected->alias }}"
-                         data-script="{{ asset(config('settings.webAnimations_dir')). '/' . $selected->alias . '/' . $selected->alias . '.js' }}">
+                    <div class="dynamic_image {{ $selected->alias }}"
+                         data-script="{{ asset(config('settings.webAnimations_dir')). '/' . $selected->alias . '/' . $selected->alias . '.js' }}"
+                         data-style="{{ asset(config('settings.webAnimations_dir')). '/' . $selected->alias . '/' . $selected->alias . '.css' }}">
                         <img src="{{ asset('assets') . '/images/dummy_big.png' }}">
                     </div>
+                    @if($selected->alias === 'connected-dots')
+                        <div class="tuning">
+                            <div class="tuning__dots">
+                                <label for="dots">Точки</label>
+                                <input type="range" min="1" max="400" step="1" value="180" name="dots" id="dots">
+                                <output>180</output>
+                            </div>
+                            <div class="tuning__connections">
+                                <label for="connections">Линии</label>
+                                <input type="range" min="0" max="25" step="1" value="10" name="connections"
+                                       id="connections">
+                                <output>10</output>
+                            </div>
+                            <div class="tuning__range">
+                                <label for="connections">Радиус</label>
+                                <input type="range" min="100" max="22500" step="1" value="6400" name="range" id="range">
+                                <output>80</output>
+                            </div>
+                            <div class="tuning__nodes">
+                                <label for="nodes">Узлы</label>
+                                <input type="checkbox" class="checkbox-switch" name="nodes" id="nodes">
+                            </div>
+                        </div>
+                    @endif
                 @else
                     @if($selected->img->original)
                         <a href="{{ asset(config('settings.webAnimations_dir')) . '/' . $selected->alias . '/' . $selected->img->original }}"
@@ -27,12 +51,16 @@
             </div>
             <div class="description">
                 <div class="desc_header">
-                    <a href="{{ route('webAnimations', $selected->prev->alias) }}" title="Перейти к предыдущей работе">
-                        <span class="fas fa-arrow-circle-left arrow arrow-left"></span>
-                    </a>
-                    <a href="{{ route('webAnimations', $selected->next->alias) }}" title="Перейти к следующей работе">
-                        <span class="fas fa-arrow-circle-right arrow arrow-right"></span>
-                    </a>
+                    @if($works && count($works) > 1)
+                        <a href="{{ route('webAnimations', $selected->prev->alias) }}"
+                           title="Перейти к предыдущей работе">
+                            <span class="fas fa-arrow-circle-left arrow arrow-left"></span>
+                        </a>
+                        <a href="{{ route('webAnimations', $selected->next->alias) }}"
+                           title="Перейти к следующей работе">
+                            <span class="fas fa-arrow-circle-right arrow arrow-right"></span>
+                        </a>
+                    @endif
                     <h2>{{ $selected->title }}
                         <a href="{{ asset(config('settings.webAnimations_dir')). '/' . $selected->alias . '/' . $selected->alias . '.js' }}"
                            title="Открыть код анимации">

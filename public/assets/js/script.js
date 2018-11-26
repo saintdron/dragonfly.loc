@@ -44,14 +44,22 @@ function changeTitle() {
     }
 }
 
-function loadScripts() {
+function loadWorks() {
     $('.dynamic_image').each(function (_, elem) {
-        let url = $(elem).attr('data-script');
-        $.getScript(url);
+        let style = $(elem).attr('data-style'),
+            script = $(elem).attr('data-script');
+        if (style) {
+            if (document.createStyleSheet) {
+                document.createStyleSheet(style);
+            } else {
+                $("head").append($("<link rel='stylesheet' href='" + style + "' type='text/css'/>"));
+            }
+        }
+        $.getScript(script);
     });
 }
 
-function unloadScripts() {
+function unloadWorks() {
     clearInterval(webAnimationIntervalId);
 }
 
@@ -91,7 +99,7 @@ function setFeedbackFormHandler() {
 
 jQuery(document).ready(function ($) {
         runProgressBars();
-        loadScripts();
+        loadWorks();
         setFeedbackFormHandler();
     }
 );

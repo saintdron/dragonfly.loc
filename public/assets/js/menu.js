@@ -20,7 +20,7 @@ jQuery(document).ready(function ($) {
             type: 'POST',
             success: function (result) {
                 $('#content').html(result);
-                loadScripts();
+                loadWorks();
                 changeTitle();
                 runProgressBars();
                 setFeedbackFormHandler();
@@ -75,7 +75,7 @@ jQuery(document).ready(function ($) {
             });
 
             loadContent('/');
-            unloadScripts();
+            unloadWorks();
             history.pushState({url: '/'}, "", '/');
             return false;
         }

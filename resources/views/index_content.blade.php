@@ -1,10 +1,12 @@
 <div class="home-wrapper">
-    <div class="curtain">
-        <div class="header">
-            <img src="{{ asset(config('settings.brand_dir')) }}/logo.png">
-        </div>
-        <div class="footer">
-            <img src="{{ asset(config('settings.brand_dir')) }}/compiled.png">
-        </div>
+    <video poster="{{ asset(config('settings.video_dir')) }}/main_background_video.png" loop="loop" autoplay muted>
+        <source src="{{ asset(config('settings.video_dir')) }}/main_background_video.webm" type='video/webm;'>
+        <source src="{{ asset(config('settings.video_dir')) }}/main_background_video.mp4" type='video/mp4;'>
+    </video>
+    <div class="header">
+        <img src="{{ asset(config('settings.brand_dir')) }}/logo.png">
+    </div>
+    <div class="footer">
+        <img src="{{ asset(config('settings.brand_dir')) }}/compiled_2.png">
     </div>
 </div>

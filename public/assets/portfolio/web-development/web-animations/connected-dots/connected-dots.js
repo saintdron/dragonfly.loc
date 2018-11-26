@@ -1,8 +1,8 @@
 var webAnimationIntervalId; // single identifier for all web animations
 
 (function () {
-    // Optimal values: 180 5 6000
-    let dotsCount = 200; // Amount of points
+    // Optimal values: 180 10 6000
+    let dotsCount = 180; // Amount of points
     let neighborsCount = 10; // Number of links
     let maxRange = 6000; // Maximum line length
     let showDots = true; // Show dots in nodes
@@ -14,7 +14,7 @@ var webAnimationIntervalId; // single identifier for all web animations
     let canvas, c,
         fillColor, dots;
 
-    let dynamicImage = document.querySelector('[data-alias=connected-dots]'),
+    let dynamicImage = document.querySelector('.connected-dots'),
         image = dynamicImage.querySelector('img');
 
     image.onload = function () {
@@ -43,6 +43,56 @@ var webAnimationIntervalId; // single identifier for all web animations
             dynamicImage.innerHTML = '';
             dynamicImage.appendChild(canvas);
 
+            // Activation of third-party components
+            $('#dots').rangeslider({
+                polyfill: false,
+                onSlide: function (position, value) {
+                    $('.tuning__dots output').text(value);
+                    dotsCount = value;
+                },
+                onSlideEnd: function (position, value) {
+                    dots = new Array(dotsCount);
+                    getStartCoords();
+                }
+            });
+
+            $('#connections').rangeslider({
+                polyfill: false,
+                onSlide: function (position, value) {
+                    $('.tuning__connections output').text(value);
+                },
+                onSlideEnd: function (position, value) {
+                    neighborsCount = value;
+                    dots = new Array(dotsCount);
+                    getStartCoords();
+                }
+            });
+
+            $('#range').rangeslider({
+                polyfill: false,
+                onSlide: function (position, value) {
+                    $('.tuning__range output').text(Math.round(Math.sqrt(value)));
+
+                },
+                onSlideEnd: function (position, value) {
+                    maxRange = value;
+                    dots = new Array(dotsCount);
+                    getStartCoords();
+                }
+            });
+
+            let nodesSwitch = new Switch(document.querySelector('.checkbox-switch'), {
+                size: 'small',
+                checked: true,
+                offJackColor: '#f2f2f2',
+                onJackColor: '#f2f2f2',
+                offSwitchColor: '#d1d1d1',
+                onSwitchColor: '#34b3a0',
+                onChange: function () {
+                    showDots = !showDots;
+                }
+            });
+
             webAnimationIntervalId = setInterval(newCoords, 30);
         }
     }
@@ -57,11 +107,11 @@ var webAnimationIntervalId; // single identifier for all web animations
                 y: Math.random() * canvas.height,
                 dx: dx,
                 dy: dy,
-                bind: new Array(neighborsCount)
+                binds: new Array(neighborsCount).fill(-1)
             };
-            for (let k = 0; k < neighborsCount; k++) {
-                dots[i].bind[k] = -1;
-            }
+            /*for (let k = 0; k < neighborsCount; k++) {
+                dots[i].binds[k] = -1;
+            }*/
         }
     }
 
@@ -81,17 +131,17 @@ var webAnimationIntervalId; // single identifier for all web animations
         showField();
     }
 
+    function eraseField() {
+        c.fillStyle = fillColor;
+        c.fillRect(0, 0, c.canvas.width, c.canvas.height);
+    }
+
     function showField() {
         if (showDots) {
             c.fillStyle = "#fff";
             paintDots();
         }
-        bindDots();
-    }
-
-    function eraseField() {
-        c.fillStyle = fillColor;
-        c.fillRect(0, 0, c.canvas.width, c.canvas.height);
+        bindsDots();
     }
 
     function paintDots() {
@@ -103,31 +153,31 @@ var webAnimationIntervalId; // single identifier for all web animations
         }
     }
 
-    function bindDots() {
+    function bindsDots() {
         let squareRange,
-            b1, b2,
+            n1, n2,
             canBind, canBind2,
             neighbor;
         for (let i = 0; i < dots.length; i++) {
-            for (let k = 0; k < neighborsCount; k++) {
-                neighbor = dots[i].bind[k];
+            for (let n = 0; n < neighborsCount; n++) {
+                neighbor = dots[i].binds[n];
                 if (neighbor !== -1) {
                     squareRange = Math.pow((dots[neighbor].x - dots[i].x), 2) + Math.pow((dots[neighbor].y - dots[i].y), 2);
-                    if (squareRange >= 2 * maxRange) {
-                        for (let k1 = 0; k1 < neighborsCount; k1++) {
-                            if (dots[neighbor].bind[k1] === i) {
-                                dots[neighbor].bind[k1] = -1;
+                    if (squareRange > 2 * maxRange) {
+                        for (let k = 0; k < neighborsCount; k++) {
+                            if (dots[neighbor].binds[k] === i) {
+                                dots[neighbor].binds[k] = -1;
                                 break;
                             }
                         }
-                        dots[i].bind[k] = -1;
+                        dots[i].binds[n] = -1;
                     }
                 }
             }
 
             canBind = false;
-            for (b1 = 0; b1 < neighborsCount; b1++) {
-                if (dots[i].bind[b1] === -1) {
+            for (n1 = 0; n1 < neighborsCount; n1++) {
+                if (dots[i].binds[n1] === -1) {
                     canBind = true;
                     break;
                 }
@@ -136,30 +186,33 @@ var webAnimationIntervalId; // single identifier for all web animations
             if (canBind) {
                 top:
                     for (let j = 0; j < dots.length; j++) {
+                        if (i === j) continue;
                         squareRange = Math.pow((dots[j].x - dots[i].x), 2) + Math.pow((dots[j].y - dots[i].y), 2);
                         if (squareRange < maxRange) {
                             canBind2 = false;
-                            for (b2 = 0; b2 < neighborsCount; b2++) {
-                                if (dots[j].bind[b2] === i) continue top;
-                                if (dots[j].bind[b2] === -1) {
+                            for (n2 = 0; n2 < neighborsCount; n2++) {
+                                if (dots[j].binds[n2] === i) continue top;
+                                if (dots[j].binds[n2] === -1) {
                                     canBind2 = true;
                                     break;
                                 }
                             }
-
                             if (canBind2) {
-                                dots[i].bind[b1] = j;
-                                dots[j].bind[b2] = i;
+                                dots[i].binds[n1] = j;
+                                dots[j].binds[n2] = i;
+                                break;
                             }
                         }
                     }
             }
 
-            for (let k = 0; k < neighborsCount; k++) {
-                neighbor = dots[i].bind[k];
+            for (let n = 0; n < neighborsCount; n++) {
+                neighbor = dots[i].binds[n];
                 if (neighbor !== -1) {
                     squareRange = Math.pow((dots[i].x - dots[neighbor].x), 2) + Math.pow((dots[i].y - dots[neighbor].y), 2);
-                    c.globalAlpha = Math.sqrt(Math.sqrt(3 * maxRange - squareRange)) / 11;
+                    if (squareRange > maxRange) {
+                        c.globalAlpha = 1 - (squareRange - maxRange) / maxRange;
+                    }
                     paintLine(dots[i].x, dots[i].y, dots[neighbor].x, dots[neighbor].y);
                     c.globalAlpha = 1;
                 }

@@ -48,28 +48,43 @@ a:hover {
 /*Home*/
 .home-wrapper {
     height: 100%;
-    background: url(../images/gif/water2.gif) no-repeat;
-    background-size: cover;
+    /*background: url(../images/gif/water2.gif) no-repeat;*/
+    /*background-size: cover;*/
+    overflow: hidden;
 }
 
-.home-wrapper .curtain {
+.home-wrapper video {
     height: 100%;
-    background: rgba(255, 255, 255, 0.25);
+    width: 100%;
+    object-fit: cover;
+
 }
+
+/*.home-wrapper .curtain {
+    position: absolute;
+    top: 0;
+    height: 0;
+    width: 100%;
+
+    height: 100%;
+    !*background: rgba(255, 255, 255, 0.25);*!
+    !*background: rgba(0, 0, 0, 0.55);*!
+}*/
 
 .home-wrapper .header,
 .home-wrapper .footer {
+    position: absolute;
     text-align: center;
+    left: 0;
+    right: 0;
 }
 
 .home-wrapper .header {
+    top: 0;
     padding-top: 33px;
 }
 
 .home-wrapper .footer {
-    position: absolute;
-    left: 0;
-    right: 0;
     bottom: 0;
     height: 82px;
 }
@@ -131,10 +146,27 @@ a:hover {
     text-decoration: none;
 }
 
+.graphic-design .arrow {
+    display: inline-block;
+    position: relative;
+    top: -1px;
+    font-size: 24px;
+    color: #34b3a0;
+}
+
+.graphic-design .arrow-right {
+    padding-right: 3px;
+}
+
+.graphic-design .arrow:hover {
+    color: #238576;
+    cursor: pointer;
+}
+
 .graphic-design .main-work h2 {
     display: inline-block;
     margin: 0;
-    padding-left: 3px;
+    /*padding-left: 3px;*/
     font-family: Philosopher, serif;
     font-weight: bold;
     font-size: 32px;
@@ -169,19 +201,6 @@ a:hover {
     line-height: 22px;
 }
 
-.graphic-design .arrow {
-    display: inline-block;
-    position: relative;
-    top: -1px;
-    font-size: 24px;
-    color: #34b3a0;
-}
-
-.graphic-design .arrow:hover {
-    color: #238576;
-    cursor: pointer;
-}
-
 .graphic-design .another-works {
     padding: 25px 5px 0 235px;
 }
@@ -213,6 +232,9 @@ a:hover {
     border-radius: 0 20px;
     box-shadow: 0 0 0 1px #cccccc;
     cursor: pointer;
+    background: #d2d2d2;
+    width: 177px;
+    height: 177px;
 }
 
 .graphic-design .another-works li:hover {
@@ -310,6 +332,8 @@ a:hover {
 }
 
 .cv .load-block img {
+    position: relative;
+    left: -7px;
     width: 66%;
     padding-bottom: 15px;
 }
@@ -400,11 +424,15 @@ a:hover {
     font-weight: bold;
 }
 
+.cv header p {
+    font-size: 1.1rem;
+}
+
 .cv .resume {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-    padding-top: 35px;
+    padding-top: 40px;
     margin: 0 -15px;
 }
 
@@ -487,7 +515,7 @@ a:hover {
 }
 
 .cv .feedback {
-    padding: 40px 0;
+    padding: 60px 0;
 }
 
 .cv .feedback h3 {

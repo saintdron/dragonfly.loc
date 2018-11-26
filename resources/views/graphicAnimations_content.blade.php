@@ -19,12 +19,16 @@
             </div>
             <div class="description">
                 <div class="desc_header">
-                    <a href="{{ route('graphicAnimations', $selected->prev->alias) }}" title="Перейти к предыдущей работе">
-                        <span class="fas fa-arrow-circle-left arrow arrow-left"></span>
-                    </a>
-                    <a href="{{ route('graphicAnimations', $selected->next->alias) }}" title="Перейти к следующей работе">
-                        <span class="fas fa-arrow-circle-right arrow arrow-right"></span>
-                    </a>
+                    @if($works && count($works) > 1)
+                        <a href="{{ route('graphicAnimations', $selected->prev->alias) }}"
+                           title="Перейти к предыдущей работе">
+                            <span class="fas fa-arrow-circle-left arrow arrow-left"></span>
+                        </a>
+                        <a href="{{ route('graphicAnimations', $selected->next->alias) }}"
+                           title="Перейти к следующей работе">
+                            <span class="fas fa-arrow-circle-right arrow arrow-right"></span>
+                        </a>
+                    @endif
                     <h2>{{ $selected->title }}</h2>
                 </div>
                 <div class="desc_text">

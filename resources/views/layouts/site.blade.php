@@ -19,6 +19,10 @@
           href="{{ asset('assets') }}/extra/fontawesome-free-5.4.1-web/css/all.css"/>
     <link rel="stylesheet" type="text/css" media="all"
           href="{{ asset('assets') }}/extra/lightbox2-master/dist/css/lightbox.min.css"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="{{ asset('assets') }}/extra/rangeslider/rangeslider.css"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="{{ asset('assets') }}/extra/switch/switch.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/style.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/errors.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/navigation.css"/>
@@ -42,8 +46,11 @@
 <script type="text/javascript" src="{{ asset('assets') }}/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/extra/lightbox2-master/dist/js/lightbox.min.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/radialprogress.js"></script>
+<script type="text/javascript" src="{{ asset('assets') }}/extra/rangeslider/rangeslider.min.js"></script>
+<script type="text/javascript" src="{{ asset('assets') }}/extra/switch/switch.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/script.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/menu.js"></script>
+
 
 {{--@if($additional_scripts && !empty($additional_scripts))
     @foreach($additional_scripts as $script)

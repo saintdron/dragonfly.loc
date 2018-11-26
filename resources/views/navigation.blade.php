@@ -1,6 +1,6 @@
 <div class="navigation {{ ($nav_position) ? 'inCorner navigation_' . $nav_position : 'navigation_center' }}">
     <div class="lily_back">
-        <img src="{{ asset('assets') }}/images/water_lily_back_2.png">
+        <img src="{{ asset('assets') }}/images/water_lily_back.png">
     </div>
     <div class="menu menu_left-top"><a href="{{ $menu[0] ?? '#' }}" draggable='false'></a></div>
     <div class="menu menu_right-top"><a href="{{ $menu[1] ?? '#'}}" draggable='false'></a></div>
@@ -38,6 +38,6 @@
         </div>
     </div>
     <div class="lily_front">
-        <img src="{{ asset('assets') }}/images/water_lily_front_2.png">
+        <img src="{{ asset('assets') }}/images/water_lily_front.png">
     </div>
 </div>
