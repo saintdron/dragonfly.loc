@@ -45,7 +45,7 @@ function changeTitle() {
 }
 
 function loadWorks() {
-    $('.dynamic_image').each(function (_, elem) {
+    $('.dynamic').each(function (_, elem) {
         let style = $(elem).attr('data-style'),
             script = $(elem).attr('data-script');
         if (style) {
@@ -55,7 +55,9 @@ function loadWorks() {
                 $("head").append($("<link rel='stylesheet' href='" + style + "' type='text/css'/>"));
             }
         }
-        $.getScript(script);
+        if (script) {
+            $.getScript(script);
+        }
     });
 }
 

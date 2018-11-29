@@ -1,3 +1,10 @@
+/*
+MAIN COLORS:
+light-grey: #d2d2d0,
+dark-grey: #a09f9d,
+tyan: #34b3a0
+*/
+
 /*Common*/
 html {
     height: 100%;
@@ -5,6 +12,7 @@ html {
 
 body {
     height: 100%;
+    color: #101010;
 }
 
 #content {
@@ -166,7 +174,6 @@ a:hover {
 .graphic-design .main-work h2 {
     display: inline-block;
     margin: 0;
-    /*padding-left: 3px;*/
     font-family: Philosopher, serif;
     font-weight: bold;
     font-size: 32px;
@@ -616,7 +623,7 @@ a:hover {
     }
 }
 
-/*web-animations*/
+/*Web-animations*/
 .web-animations .main-work .work {
     flex: 1 100%;
     align-self: flex-start;
@@ -639,3 +646,9 @@ a:hover {
 .web-animations .another-works {
     padding: 25px 235px 0 0;
 }
+
+/*Services*/
+/*
+.services {
+    color: #101010;
+}*/

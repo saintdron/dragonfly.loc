@@ -1,11 +1,10 @@
-var webAnimationIntervalId; // single identifier for all web animations
+var webAnimationIntervalId;     // Single identifier for all web animations
 
 (function () {
-    // Optimal values: 180 10 6000
-    let dotsCount = 180; // Amount of points
-    let neighborsCount = 10; // Number of links
-    let maxRange = 6000; // Maximum line length
-    let showDots = true; // Show dots in nodes
+    let dotsCount = 180;        // Amount of points
+    let neighborsCount = 10;    // The number of connections at one node
+    let maxRange = 6000;        // Connection radius
+    let showDots = true;        // Show points
 
     const CANVAS_WIDTH = 770;
     const CANVAS_HEIGHT = 385;
@@ -43,7 +42,7 @@ var webAnimationIntervalId; // single identifier for all web animations
             dynamicImage.innerHTML = '';
             dynamicImage.appendChild(canvas);
 
-            // Activation of third-party components
+            // ACTIVATION OF THIRD-PARTY COMPONENTS
             $('#dots').rangeslider({
                 polyfill: false,
                 onSlide: function (position, value) {
@@ -53,6 +52,18 @@ var webAnimationIntervalId; // single identifier for all web animations
                 onSlideEnd: function (position, value) {
                     dots = new Array(dotsCount);
                     getStartCoords();
+                }
+            });
+
+            let nodesSwitch = new Switch(document.querySelector('.checkbox-switch'), {
+                size: 'small',
+                checked: true,
+                offJackColor: '#f2f2f2',
+                onJackColor: '#f2f2f2',
+                offSwitchColor: '#d1d1d1',
+                onSwitchColor: '#34b3a0',
+                onChange: function () {
+                    showDots = !showDots;
                 }
             });
 
@@ -81,18 +92,6 @@ var webAnimationIntervalId; // single identifier for all web animations
                 }
             });
 
-            let nodesSwitch = new Switch(document.querySelector('.checkbox-switch'), {
-                size: 'small',
-                checked: true,
-                offJackColor: '#f2f2f2',
-                onJackColor: '#f2f2f2',
-                offSwitchColor: '#d1d1d1',
-                onSwitchColor: '#34b3a0',
-                onChange: function () {
-                    showDots = !showDots;
-                }
-            });
-
             webAnimationIntervalId = setInterval(newCoords, 30);
         }
     }
@@ -109,15 +108,11 @@ var webAnimationIntervalId; // single identifier for all web animations
                 dy: dy,
                 binds: new Array(neighborsCount).fill(-1)
             };
-            /*for (let k = 0; k < neighborsCount; k++) {
-                dots[i].binds[k] = -1;
-            }*/
         }
     }
 
     function newCoords() {
         eraseField();
-        let offset;
         for (let i = 0; i < dots.length; i++) {
             if (dots[i].x < -25 || dots[i].x > canvas.width + 25) {
                 dots[i].dx = -dots[i].dx;
@@ -227,4 +222,5 @@ var webAnimationIntervalId; // single identifier for all web animations
         c.closePath();
         c.stroke();
     }
+
 }());

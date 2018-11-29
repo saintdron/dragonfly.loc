@@ -6,7 +6,7 @@
         <section class="main-work">
             <div class="work">
                 @if($selected->script)
-                    <div class="dynamic_image {{ $selected->alias }}"
+                    <div class="dynamic {{ $selected->alias }}"
                          data-script="{{ asset(config('settings.webAnimations_dir')). '/' . $selected->alias . '/' . $selected->alias . '.js' }}"
                          data-style="{{ asset(config('settings.webAnimations_dir')). '/' . $selected->alias . '/' . $selected->alias . '.css' }}">
                         <img src="{{ asset('assets') . '/images/dummy_big.png' }}">

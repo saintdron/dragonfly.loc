@@ -53,19 +53,32 @@ class WebDevelopmentController extends SiteController
         $this->partition = 'services';
         $this->partitions_view = $this->getPartitionsView();
 
-        try {
-            $works = $this->getServices();
-            if ($works->isEmpty()) {
-                $content_view = $this->getError('Не удалось найти ни одной работы.');
+//        try {
+            if ($alias) {
+                $work = $this->getService($alias);
+                if (!$work) {
+                    $content_view = $this->getError('Не удалось найти указанный сервис');
+                } else {
+                    $this->title = $work->title;
+                    $content_view = view($this->partition . '.' . $work->alias)
+                        ->with(['title' => $this->title, 'partitions_view' => $this->partitions_view, 'work' => $work])
+                        ->render();
+                }
             } else {
-                $selected = $alias ? $this->getService($alias) : $this->getService($works[0]->alias);
-                $selected = $selected ?: $this->getService($works[0]->alias);
-                $content_view = $this->formContent($works, $selected);
+                $works = $this->getServices();
+                if ($works->isEmpty()) {
+                    $content_view = $this->getError('Не удалось найти ни одной работы.');
+                } else {
+                    $content_view = view($this->partition . '_content')
+                        ->with(['title' => $this->title, 'partitions_view' => $this->partitions_view, 'works' => $works])
+                        ->render();
+                }
             }
-        } catch (\Exception $exception) {
+        /*} catch (\Exception $exception) {
             report($exception);
             $content_view = $this->getError();
-        }
+        }*/
+
 
         if ($request->isMethod('post')) {
             return response()->json($content_view);
@@ -136,12 +149,12 @@ class WebDevelopmentController extends SiteController
 
     protected function getServices()
     {
-        return $this->se_rep->get(/*['img', 'title', 'alias']*/);
+        return $this->se_rep->get(['img', 'title', 'alias']);
     }
 
     protected function getService($alias)
     {
-        return $this->se_rep->one($alias/*, ['img', 'title', 'alias', 'text', 'customer', 'techs', 'created_at']*/);
+        return $this->se_rep->one($alias, ['img', 'title', 'alias', 'text', 'customer', 'techs', 'created_at']);
     }
 
     protected function getWebAnimations()

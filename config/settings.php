@@ -12,7 +12,7 @@ return [
     'webAnimations_dir' => 'assets/portfolio/web-development/web-animations',
 
     'brand_dir' => 'assets/images/brand',
-
+    'extra_dir' => 'assets/extra',
     'gif_dir' => 'assets/images/gif',
     'video_dir' => 'assets/video',
 

@@ -59,5 +59,6 @@
 @endif--}}
 {{--<script type="text/javascript" src="{{ asset('assets') }}/js/mail.js"></script>--}}
 <script type="text/javascript" src="{{ asset('assets') }}/extra/jcprogress/jcprogress.js"></script>
+{{--<script type="text/javascript" src="{{ asset('assets') }}/extra/clipboard/dist/clipboard.min.js"></script>--}}
 </body>
 </html>
