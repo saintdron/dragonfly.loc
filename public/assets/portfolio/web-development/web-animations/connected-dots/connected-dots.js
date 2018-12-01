@@ -1,5 +1,3 @@
-var webAnimationIntervalId;     // Single identifier for all web animations
-
 (function () {
     let dotsCount = 180;        // Amount of points
     let neighborsCount = 10;    // The number of connections at one node

@@ -50,10 +50,16 @@
     border: 2px solid #d2d2d0;
 }
 
+#processed {
+    /*background-color: rgba(0, 255, 0, 0.1);*/
+    background-color: rgba(52, 179, 160, 0.1);
+}
+
 #original:focus,
-#processed:focus {
-    border-color: #43ffe3;
-    box-shadow: 0 0 0 0.2rem rgba(0, 172, 146, 0.25);
+#processed:focus,
+[type=text]:focus {
+    border-color: #34B3A0;
+    box-shadow: 0 0 0 0.2rem rgba(52, 179, 160, 0.25);
 }
 
 .description {

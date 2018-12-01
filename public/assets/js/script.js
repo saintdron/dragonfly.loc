@@ -1,3 +1,5 @@
+var webAnimationIntervalId;     // Single identifier for all web animations
+
 function runProgressBars() {
     if ($('.skills').length) {
 

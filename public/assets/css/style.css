@@ -534,8 +534,8 @@ a:hover {
 }
 
 .cv .feedback .form-control:focus {
-    border-color: #43ffe3;
-    box-shadow: 0 0 0 0.2rem rgba(0, 172, 146, 0.25);
+    border-color: #34B3A0;
+    box-shadow: 0 0 0 0.2rem rgba(52, 179, 160, 0.25);
 }
 
 .cv .feedback textarea {
