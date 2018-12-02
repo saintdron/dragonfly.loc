@@ -80,7 +80,7 @@
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="delete_line_breaks" checked="checked">
                         <label class="form-check-label" for="delete_line_breaks">
-                            Удалить повторяющиеся <strong>переносы строки</strong>
+                            Удалить лишние <strong>пустые строки</strong>
                         </label>
                     </div>
                     <div class="form-check">
@@ -98,7 +98,7 @@
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="number_sign" checked="checked">
                         <label class="form-check-label" for="number_sign">
-                            Унифицировать знак <strong>номера</strong>
+                            Унифицировать знак <strong>номера</strong> и сопутствующие пробелы
                         </label>
                     </div>
                     <div class="form-check">
