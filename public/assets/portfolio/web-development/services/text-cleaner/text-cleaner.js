@@ -144,7 +144,14 @@ jQuery(document).ready(function ($) {
             let reg, m,
                 beforeLength, afterLength;
 
-            let options = $('.text-cleaner form').serializeArray();
+            let options = {};
+            $('.text-cleaner form').serializeArray().forEach(v => {
+                if (options[v.name]) {
+                    options[v.name] = [].concat(options[v.name], v.value);
+                } else {
+                    options[v.name] = v.value;
+                }
+            });
             console.log(options);
 
             // UNICODE TIPS
@@ -234,43 +241,44 @@ jQuery(document).ready(function ($) {
                 // console.log(template);
                 if (templateMatch) {
                     let [_, t_plus, t_three, t_eight, t_b_code, t_code, t_b_n1, t_n1, t_b_n2, t_n2, t_b_n3, t_n3] = templateMatch;
-                    /*console.log('t_plus', t_plus);
-                    console.log('t_three', t_three);
-                    console.log('t_eight', t_eight);
-                    console.log('t_b_code', t_b_code);
-                    console.log('t_code', t_code);
-                    console.log('t_b_n1', t_b_n1);
-                    console.log('t_n1', t_n1);
-                    console.log('t_b_n2', t_b_n2);
-                    console.log('t_n2', t_n2);
-                    console.log('t_b_n3', t_b_n3);
-                    console.log('t_n3', t_n3);*/
+                    // console.log('t_plus', t_plus);
+                    // console.log('t_three', t_three);
+                    // console.log('t_eight', t_eight);
+                    // console.log('t_b_code', t_b_code);
+                    // console.log('t_code', t_code);
+                    // console.log('t_b_n1', t_b_n1);
+                    // console.log('t_n1', t_n1);
+                    // console.log('t_b_n2', t_b_n2);
+                    // console.log('t_n2', t_n2);
+                    // console.log('t_b_n3', t_b_n3);
+                    // console.log('t_n3', t_n3);
 
                     r(reg, function (match) {
-                        let [_, plus, three, eight, code, n1, n2, n3] = match.match(/(?:(\+)?(3)?([87]))?[-(\s]*(\d{3,5})[-)\s]+(\d{2,3})[-\s]*(\d{2})[-\s]*(\d{2})/);
-                        /*console.log(plus);
-                        console.log(three);
-                        console.log(eight);
-                        console.log(code);
-                        console.log(n1);
-                        console.log(n2);
-                        console.log(n3);*/
-                        if (plus && three && eight) {
-                            corrs++;
-                            return "" + (t_plus ? plus : '')
-                                + (t_three ? three : '')
-                                + (t_eight ? eight : '')
-                                + (t_b_code ? t_b_code : '')
-                                + (t_code ? code : '')
-                                + (t_b_n1 ? t_b_n1 : '')
-                                + (t_n1 ? n1 : '')
-                                + (t_b_n2 ? t_b_n2 : '')
-                                + (t_n2 ? n2 : '')
-                                + (t_b_n3 ? t_b_n3 : '')
-                                + (t_n3 ? n3 : '');
-                        } else {
-                            return match;
-                        }
+                        let [_, plus, three, eight, code, n1, n2, n3] = match.match(/(?:\D|^)(?:(\+)?(3)?([87]))?[-(\s]*(\d{3,5})[-)\s]+(\d{2,3})[-\s]*(\d{2})[-\s]*(\d{2})(?=\D|$)/);
+                        // console.log(plus);
+                        // console.log(three);
+                        // console.log(eight);
+                        // console.log(code);
+                        // console.log(n1);
+                        // console.log(n2);
+                        // console.log(n3);
+                        // if (plus && three && eight) {
+                        corrs++;
+                        let result = "" + (t_plus ? plus : '')
+                            + (t_three ? three : '')
+                            + (t_eight ? eight : '')
+                            + (t_b_code ? t_b_code : '')
+                            + (t_code ? code : '')
+                            + (t_b_n1 ? t_b_n1 : '')
+                            + (t_n1 ? n1 : '')
+                            + (t_b_n2 ? t_b_n2 : '')
+                            + (t_n2 ? n2 : '')
+                            + (t_b_n3 ? t_b_n3 : '')
+                            + (t_n3 ? n3 : '');
+                        return result ? result : match;
+                        // } else {
+                        //     return match;
+                        // }
                     });
                 } else {
                     // TODO: невалидный шаблон
@@ -293,11 +301,13 @@ jQuery(document).ready(function ($) {
                 let beforeOpenQuotesNumber = m ? m.length : 0;
 
                 // Sentence to lower case
-                r(/(?<=[\r\n]|^)([^\r\na-z\u0430-\u045F]+)(?=[\r\n]|$)/g, function (match) {
+                reg = /([\r\n]|^)([^\r\na-z\u0430-\u045F]+)(?=[\r\n]|$)/g;
+                r(reg, function (match) {
+                    let [_, $1, $2] = match.match(/([\r\n]|^)([^\r\na-z\u0430-\u045F]+)(?=[\r\n]|$)/);
                     if ($('#upper_first').is(':checked')) {
-                        return match.slice(0, 1).toUpperCase() + match.slice(1).toLowerCase();
+                        return match.replace(reg, $1 + $2.slice(0, 1).toUpperCase() + $2.slice(1).toLowerCase());
                     } else {
-                        return match.toLowerCase();
+                        return match.replace(reg, $1 + $2.toLowerCase());
                     }
                 });
 
@@ -402,11 +412,13 @@ jQuery(document).ready(function ($) {
                 r(/([\da-z\u0430-\u045F])-(?:(?:\r\n)|(?:\n\r)|\r|\n)([\da-z\u0430-\u045F])/g, '$1-$2');
 
                 // e.g. 1982- 2018, 1982 -2018
-                // reg = /(?<=[^№\d-]|^)([\d.,:-]+)\s*([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63])\s*([\d.,:]+)/g;
-                reg = /(?<=[^№\d-]|^)(\d{4})\s*([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63])\s*(\d{4})/g;
+                reg = /([^№\d-]|^)(\d{4})\s*([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63])\s*(\d{4})/g;
                 if (reg.test(text)) {
                     if ($('#date_intervals').is(':checked')) {
                         r(reg, function (match) {
+                            let lbMatch = match.match(/^[^№\d-]/),
+                                lb = (lbMatch) ? lbMatch[0] : '';
+                            match = match.match(/(\d{4})\s*([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63])\s*(\d{4})/)[0];
                             match = match.replace(/\s/g, '');
                             let delimiter = match.match(/[-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63]/)[0];
                             let [start, end] = match.split(delimiter);
@@ -414,16 +426,16 @@ jQuery(document).ready(function ($) {
                                 if (delimiter !== "\u2011") {
                                     corrs++;
                                 }
-                                return `${start}\u2011${end}`;
+                                return `${lb}${start}\u2011${end}`;
                             } else {
                                 if (delimiter !== "\u2013") {
                                     corrs++;
                                 }
-                                return `${start}\u2013${end}`;
+                                return `${lb}${start}\u2013${end}`;
                             }
                         });
                     } else {
-                        r(reg, '$1$2$3');
+                        r(reg, '$1$2$3$4');
                     }
                 }
 
@@ -453,18 +465,18 @@ jQuery(document).ready(function ($) {
                 r(/( ){2,}/g, '$1');
 
                 // e.g. хз , че за ?
-                r(/(?<=\S)\s+(?=[.,;:?!»%)\u2019\u201d/\\}\]>@])/g, '');
+                r(/(\S)\s+(?=[.,;:?!»%)\u2019\u201d/\\}\]>@])/g, '$1');
 
                 // ненужный,
                 // перенос
                 r(/([,&\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63-])\s+/g, '$1 ');
 
                 // e.g. ( скобки), « кавычки»
-                r(/(?<=[^/][(«\u2018\u201e/\\{\[<@§])\s+(?=\S)/g, '');
+                r(/([^/][(«\u2018\u201e/\\{\[<@§])\s+(?=\S)/g, '$1');
 
                 if ($('#number_sign').is(':checked')) {
                     // e.g. # hashtag, № 5436-2
-                    r(/(?<=[№#])\s+(?=\S)/g, '');
+                    r(/([№#])\s+(?=\S)/g, '$1');
 
                     // e.g. №5436 -2
                     r(/([№#][\d\w\u0400-\u04FF]+)\s*-\s*(\d)/g, '$1-$2');
@@ -485,7 +497,7 @@ jQuery(document).ready(function ($) {
                 // TODO Аналіз ст. 119 ЗК  почему-то 2 пробела
 
                 // e.g. забыли,зажали.Даже так
-                r(/(?<=\D)([.,;:?!»%)])([\d\u0400-\u04FF])/g, '$1 $2');
+                r(/(\D)([.,;:?!»%)])([\d\u0400-\u04FF])/g, '$1$2 $3');
 
                 // e.g. потерянный– пробел с тире
                 reg = /([^\s\d])([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63])\s/g;
@@ -521,59 +533,59 @@ jQuery(document).ready(function ($) {
                 r(/([)»\u201d}\]>])([\w\u0400-\u04FF])/g, '$1 $2');
 
                 // e.g. 1900р рр. г гг
-                reg = /(?<=\d)((?:р)|(?:рр)|(?:г)|(?:гг))(\.?)(?=[^\w\u0400-\u04FF'.]|$)/g;
+                reg = /(\d)((?:р)|(?:рр)|(?:г)|(?:гг))(\.?)(?=[^\w\u0400-\u04FF'.]|$)/g;
                 if ($('#punctuation').is(':checked')) {
-                    r(reg, " $1.");
+                    r(reg, "$1 $2.");
                 } else {
-                    r(reg, " $1$2");
+                    r(reg, "$1 $2$3");
                 }
 
                 // пп45
-                reg = /(?<=[^\w\u0400-\u04FF'.]|^)((?:п)|(?:п\.п)|(?:пп)|(?:гл)|(?:ст\.ст)|(?:ст)|(?:ч)|(?:розд)|(?:разд)|(?:рис)|(?:табл)|(?:c)|(?:стор)|(?:стр)|(?:подп)|(?:абз))(\.?)(?=\d)/gi;
+                reg = /([^\w\u0400-\u04FF'.]|^)((?:п)|(?:п\.п)|(?:пп)|(?:гл)|(?:ст\.ст)|(?:ст)|(?:ч)|(?:розд)|(?:разд)|(?:рис)|(?:табл)|(?:c)|(?:стор)|(?:стр)|(?:подп)|(?:абз))(\.?)(?=\d)/gi;
                 if ($('#non_breaking_spaces').is(':checked')) {
                     if ($('#punctuation').is(':checked')) {
-                        r(reg, "$1.\u00A0");
+                        r(reg, "$1$2.\u00A0");
                     } else {
-                        r(reg, "$1$2\u00A0");
+                        r(reg, "$1$2$3\u00A0");
                     }
                 } else {
                     if ($('#punctuation').is(':checked')) {
-                        r(reg, "$1. ");
+                        r(reg, "$1$2. ");
                     } else {
-                        r(reg, "$1$2 ");
+                        r(reg, "$1$2$3 ");
                     }
                 }
 
                 // пп.б
-                reg = /(?<=[^\w\u0400-\u04FF'.]|^)((?:п)|(?:п\.п)|(?:пп)|(?:гл)|(?:ст\.ст)|(?:ст)|(?:ч)|(?:розд)|(?:разд)|(?:рис)|(?:табл)|(?:c)|(?:стор)|(?:стр)|(?:подп)|(?:абз))\.(?=[\w\u0400-\u04FF])/gi;
+                reg = /([^\w\u0400-\u04FF'.]|^)((?:п)|(?:п\.п)|(?:пп)|(?:гл)|(?:ст\.ст)|(?:ст)|(?:ч)|(?:розд)|(?:разд)|(?:рис)|(?:табл)|(?:c)|(?:стор)|(?:стр)|(?:подп)|(?:абз))\.(?=[\w\u0400-\u04FF])/gi;
                 if ($('#non_breaking_spaces').is(':checked')) {
-                    r(reg, "$1.\u00A0");
+                    r(reg, "$1$2.\u00A0");
                 } else {
-                    r(reg, "$1. ");
+                    r(reg, "$1$2. ");
                 }
 
                 // м.Дарница, ул.Малышка
-                reg = /(?<=[^\w\u0400-\u04FF'.]|^)((?:м)|(?:г)|(?:вул)|(?:ул)|(?:пгт)|(?:смт))\.(?=[\w\u0400-\u04FF])/gi;
+                reg = /([^\w\u0400-\u04FF'.]|^)((?:м)|(?:г)|(?:вул)|(?:ул)|(?:пгт)|(?:смт))\.(?=[\w\u0400-\u04FF])/gi;
                 if ($('#non_breaking_spaces').is(':checked')) {
-                    r(reg, "$1.\u00A0");
+                    r(reg, "$1$2.\u00A0");
                 } else {
-                    r(reg, "$1. ");
+                    r(reg, "$1$2. ");
                 }
 
                 // д.45
-                reg = /(?<=[^\w\u0400-\u04FF'.]|^)((?:б)|(?:д))\.(?=\d)/gi;
+                reg = /([^\w\u0400-\u04FF'.]|^)(д)\.(?=\d)/gi;
                 if ($('#non_breaking_spaces').is(':checked')) {
-                    r(reg, "$1.\u00A0");
+                    r(reg, "$1$2.\u00A0");
                 } else {
-                    r(reg, "$1. ");
+                    r(reg, "$1$2. ");
                 }
 
                 // 74000
-                reg = /(?<=^|\D)(\d{2,3})?(\d{3})(?=\D|$)/g;
+                reg = /(^|\D)(\d{2,3})(\d{3})(?=\D|$)/g;
                 if ($('#non_breaking_spaces').is(':checked')) {
-                    r(reg, "$1\u00A0$2");
+                    r(reg, "$1$2\u00A0$3");
                 } else {
-                    r(reg, "$1 $2");
+                    r(reg, "$1$2 $3");
                 }
 
                 // вернуть назад ст. ст.
@@ -599,12 +611,12 @@ jQuery(document).ready(function ($) {
                 let beforeCloseQuotesNumber = m ? m.length : 0;
 
                 // "открывающая кавычка
-                reg = /(?<=^|\s)([\u00AB\u2039\u201E\u201A\u201C\u201F\u2018\u201B\u0022]+) ?(?=[\w\u0400-\u04FF$§#({\[<])/g;
-                r(reg, oQuote);
+                reg = /(^|\s)([\u00AB\u2039\u201E\u201A\u201C\u201F\u2018\u201B\u0022]+) ?(?=[\w\u0400-\u04FF$§#({\[<])/g;
+                r(reg, "$1" + oQuote);
 
                 // закрывающая кавычка"
-                reg = /(?<=[\w\u0400-\u04FF!?%)}\]>$]) ?([\u00BB\u203A\u201C\u2018\u201D\u2019\u0022]+)(?=$|[^\w\u0400-\u04FF'])/g;
-                r(reg, cQuote);
+                reg = /([\w\u0400-\u04FF!?%)}\]>$]) ?([\u00BB\u203A\u201C\u2018\u201D\u2019\u0022]+)(?=$|[^\w\u0400-\u04FF'])/g;
+                r(reg, "$1" + cQuote);
 
                 m = text.match(new RegExp(oQuote, 'g'));
                 let afterOpenQuotesNumber = m ? m.length : 0;
@@ -635,43 +647,43 @@ jQuery(document).ready(function ($) {
                 let beforeYearsNumber = m ? m.length : 0;
 
                 // 2001 год
-                reg = /(?<=(^|\s)\d{4})\s?год[\u0430-\u045F]*(?=[^\u0430-\u045F]|$)/g;
+                reg = /(^|\s)(\d{4})\s?год[\u0430-\u045F]*(?=[^\u0430-\u045F]|$)/g;
                 if ($('#non_breaking_spaces').is(':checked')) {
-                    r(reg, "\u00A0г.");
+                    r(reg, "$1$2\u00A0г.");
                 } else {
-                    r(reg, " г.");
+                    r(reg, "$1$2 г.");
                 }
 
                 // 2001–2015 года
-                reg = /(?<=(^|\s)\d{4}\s?[-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63]\s?\d{4})\s?год[\u0430-\u045F]*(?=[^\u0430-\u045F]|$)/g;
+                reg = /(^|\s)(\d{4}\s?[-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63]\s?\d{4})\s?год[\u0430-\u045F]*(?=[^\u0430-\u045F]|$)/g;
                 if ($('#non_breaking_spaces').is(':checked')) {
-                    r(reg, "\u00A0гг.");
+                    r(reg, "$1$2\u00A0гг.");
                 } else {
-                    r(reg, " гг.");
+                    r(reg, "$1$2 гг.");
                 }
 
                 // 2001 рік/року
-                reg = /(?<=(^|\s)\d{4})\s?р[іо]к[\u0430-\u045F]*(?=[^\u0430-\u045F]|$)/g;
+                reg = /(^|\s)(\d{4})\s?р[іо]к[\u0430-\u045F]*(?=[^\u0430-\u045F]|$)/g;
                 if ($('#non_breaking_spaces').is(':checked')) {
-                    r(reg, "\u00A0р.");
+                    r(reg, "$1$2\u00A0р.");
                 } else {
-                    r(reg, " р.");
+                    r(reg, "$1$2 р.");
                 }
 
                 // 2001–2015 роки/років
-                reg = /(?<=(^|\s)\d{4}\s?[-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63]\s?\d{4})\s?рок[\u0430-\u045F]*(?=[^\u0430-\u045F]|$)/g;
+                reg = /(^|\s)(\d{4}\s?[-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63]\s?\d{4})\s?рок[\u0430-\u045F]*(?=[^\u0430-\u045F]|$)/g;
                 if ($('#non_breaking_spaces').is(':checked')) {
-                    r(reg, "\u00A0рр.");
+                    r(reg, "$1$2\u00A0рр.");
                 } else {
-                    r(reg, " рр.");
+                    r(reg, "$1$2 рр.");
                 }
 
                 // 25.07.2014 року
-                reg = /(?<=\d{2}\.\d{2}\.\d{4})\s?р[іо]к[\u0430-\u045F]*(?=[^\u0430-\u045F]|$)/g;
+                reg = /(\d{2}\.\d{2}\.\d{4})\s?р[іо]к[\u0430-\u045F]*(?=[^\u0430-\u045F]|$)/g;
                 if ($('#non_breaking_spaces').is(':checked')) {
-                    r(reg, "\u00A0р.");
+                    r(reg, "$1\u00A0р.");
                 } else {
-                    r(reg, " р.");
+                    r(reg, "$1 р.");
                 }
 
                 // 25.07.2014 (без року)
@@ -717,16 +729,16 @@ jQuery(document).ready(function ($) {
                 beforeLength = text.length;
 
                 // убираем лишние точки?!..
-                r(/(?<=(\?!)|(!\?))\.+(?=\s|$)/g, "");
+                r(/((\?!)|(!\?))\.+(?=\s|$)/g, "$1");
 
                 // убираем лишние точки?.
-                r(/(?<=[!?])\.(?=\s|$)/g, "");
+                r(/([!?])\.(?=\s|$)/g, "$1");
 
                 // убираем лишние точки?...
-                r(/(?<=[!?])\.{3,}(?=\s|$)/g, "..");
+                r(/([!?])\.{3,}(?=\s|$)/g, "$1..");
 
                 // убираем лишние точки..
-                r(/(?<=[^!?.])\.{2}(?=\s|$|[^.])/g, ".");
+                r(/([^!?.])\.{2}(?=\s|$|[^.])/g, "$1.");
 
                 // убираем лишние точки....
                 r(/\.{4,}/g, "...");
@@ -735,19 +747,19 @@ jQuery(document).ready(function ($) {
                 let beforeDotsNumber = m ? m.length : 0;
 
                 // доставить точки в конце абзаца
-                r(/(?<=[\r\n]|^)([\dA-Z\u0400-\u0429\u0460-\u04FF\u00AB\u2039\u201E\u201A\u201C\u201F\u2018\u201B\u0022\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63-][^\r\n]{81,}[^.:;?!\r\n])(?=[\r\n]|$)/g, "$1.");
+                r(/([\r\n]|^)([\dA-Z\u0400-\u0429\u0460-\u04FF\u00AB\u2039\u201E\u201A\u201C\u201F\u2018\u201B\u0022\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63-][^\r\n]{81,}[^.:;?!\r\n])(?=[\r\n]|$)/g, "$1$2.");
 
                 // доставить точки в 1900р гг
-                r(/(?<=\d)(\s?)((?:р)|(?:рр)|(?:г)|(?:гг))(?=[^\w\u0400-\u04FF'.]|$)/g, "$1$2.");
+                r(/(\d)(\s?)((?:р)|(?:рр)|(?:г)|(?:гг))(?=[^\w\u0400-\u04FF'.]|$)/g, "$1$2$3.");
 
                 // доставить точки в п пп гл
-                r(/(?<=[^\w\u0400-\u04FF'.]|^)((?:п)|(?:п\.п)|(?:пп)|(?:гл)|(?:ст\.ст)|(?:ст)|(?:ч)|(?:розд)|(?:разд)|(?:рис)|(?:табл)|(?:c)|(?:стор)|(?:стр)|(?:подп)|(?:абз))(\s)(?=[\w\u0400-\u04FF])/gi, "$1.$2");
+                r(/([^\w\u0400-\u04FF'.]|^)((?:п)|(?:п\.п)|(?:пп)|(?:гл)|(?:ст\.ст)|(?:ст)|(?:ч)|(?:розд)|(?:разд)|(?:рис)|(?:табл)|(?:c)|(?:стор)|(?:стр)|(?:подп)|(?:абз))(\s)(?=[\w\u0400-\u04FF])/gi, "$1$2.$3");
 
                 // доставить точки в д 45
-                r(/(?<=[^\w\u0400-\u04FF'.]|^)((?:б)|(?:д))(\s)(?=\d)/gi, "$1.$2");
+                r(/([^\w\u0400-\u04FF'.]|^)(д)(\s)(?=\d)/gi, "$1$2.$3");
 
                 // доставить точки в вул пгт
-                r(/(?<=[^\w\u0400-\u04FF'.]|^)((?:м)|(?:г)|(?:вул)|(?:ул)|(?:пгт)|(?:смт))(\s)(?=[\w\u0400-\u04FF])/gi, "$1.$2");
+                r(/([^\w\u0400-\u04FF'.]|^)((?:м)|(?:г)|(?:вул)|(?:ул)|(?:пгт)|(?:смт))(\s)(?=[\w\u0400-\u04FF])/gi, "$1$2.$3");
 
                 m = text.match(/\./g);
                 let afterDotsNumber = m ? m.length : 0;
@@ -774,30 +786,31 @@ jQuery(document).ready(function ($) {
                     let lineBreaker = match.slice(0, firstCharIndex);
                     match = match.slice(firstCharIndex);
                     let index = prevOriginal.search(new RegExp(match.replace(/\)/g, '\\)'), 'i')),
-                        matchedReg = /(\S)([^\r\n]{2,80})/;
+                        matchedReg = /(\S)([^\r\n]{2,80})/,
+                        [_, $1, $2] = match.match(matchedReg);
                     if (index !== 0) {
                         if (/[\r\n]/.test(prevOriginal[index - 1])) {
                             if ($('#delete_line_breaks').is(':checked')) {
                                 corrs--;
                                 if ($('#upper_first').is(':checked')) {
-                                    return match.replace(matchedReg, lineBreaker.repeat(2) + "$1".toUpperCase() + "$2");
+                                    return match.replace(matchedReg, lineBreaker.repeat(2) + $1.toUpperCase() + $2);
                                 } else {
-                                    return match.replace(matchedReg, lineBreaker.repeat(2) + "$1$2");
+                                    return match.replace(matchedReg, lineBreaker.repeat(2) + $1 + $2);
                                 }
                             }
                         } else {
                             corrs++;
                             if ($('#upper_first').is(':checked')) {
-                                return match.replace(matchedReg, lineBreaker.repeat(2) + "$1".toUpperCase() + "$2");
+                                return match.replace(matchedReg, lineBreaker.repeat(2) + $1.toUpperCase() + $2);
                             } else {
-                                return match.replace(matchedReg, "$1$1$2$3");
+                                return match.replace(matchedReg, $1 + $1 + $2);
                             }
                         }
                     }
                     if ($('#upper_first').is(':checked')) {
-                        return match.replace(matchedReg, lineBreaker + "$1".toUpperCase() + "$2");
+                        return match.replace(matchedReg, lineBreaker + $1.toUpperCase() + $2);
                     } else {
-                        return match.replace(matchedReg, lineBreaker + "$1$2");
+                        return match.replace(matchedReg, lineBreaker + $1 + $2);
                     }
                 });
             }
@@ -881,8 +894,8 @@ jQuery(document).ready(function ($) {
                 }
 
                 // in the start of a paragraph
-                reg = /(?<=^|[\n\r])[-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63]\s/g;
-                r(reg, `${uniDecode(DASH_SIGN)} `);
+                reg = /(^|[\n\r])[-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63]\s/g;
+                r(reg, "$1" + `${uniDecode(DASH_SIGN)} `);
             }
 
 
@@ -900,20 +913,22 @@ jQuery(document).ready(function ($) {
 
             // UPPER_FIRST
             if ($('#upper_first').is(':checked')) {
-                reg = /(?<=[\n\r]|^)[a-z\u0430-\u045F]/g;
+                reg = /([\n\r]|^)([a-z\u0430-\u045F])/g;
                 r(reg, function (match) {
                     corrs++;
-                    return match.toUpperCase();
+                    let [_, $1, $2] = match.match(/([\n\r]|^)([a-z\u0430-\u045F])/);
+                    return match.replace(reg, $1 + $2.toUpperCase());
                 });
             }
 
 
             // LISTS
             if ($('#lists').is(':checked')) {
-                reg = /(?<=(?:[\r\n]|^)[-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7]\s*)(\S[^\r\n]+[^!?.;])(?=\s*(?:[\r\n]|$))/g;
+                reg = /([\r\n]|^)([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7]\s*)(\S[^\r\n]+[^!?.;])(?=\s*(?:[\r\n]|$))/g;
                 r(reg, function (match) {
                     corrs++;
-                    return match + (/[A-Z\u0400-\u0429\u0460-\u04FF]/.test(match[0]) ? '.' : ';');
+                    let [_, $1, $2, $3] = match.match(/([\r\n]|^)([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7]\s*)(\S[^\r\n]+[^!?.;])/);
+                    return match.replace(reg, $1 + $2 + $3 + ($3.search(/[A-Z\u0400-\u0429\u0460-\u04FF]/) === 0) ? '.' : ';');
                 });
             }
 
@@ -962,17 +977,17 @@ jQuery(document).ready(function ($) {
                 r(/(\d)\s([\w\u0400-\u04FF])/g, "$1\u00A0$2");
 
                 // п._145
-                r(/(?<=[^\w\u0400-\u04FF'.]|^)((?:п)|(?:п\.п)|(?:пп)|(?:гл)|(?:ст\.ст)|(?:ст)|(?:ч)|(?:розд)|(?:разд)|(?:рис)|(?:табл)|(?:c)|(?:стор)|(?:стр)|(?:подп)|(?:абз))\.\s/gi, "$1.\u00A0");
+                r(/([^\w\u0400-\u04FF'.]|^)((?:п)|(?:п\.п)|(?:пп)|(?:гл)|(?:ст\.ст)|(?:ст)|(?:ч)|(?:розд)|(?:разд)|(?:рис)|(?:табл)|(?:c)|(?:стор)|(?:стр)|(?:подп)|(?:абз))\.\s/gi, "$1$2.\u00A0");
 
                 // м._Київ
-                r(/(?<=[^\w\u0400-\u04FF'.]|^)((?:м)|(?:г)|(?:вул)|(?:ул)|(?:пгт)|(?:смт))\.\s/gi, "$1.\u00A0");
+                r(/([^\w\u0400-\u04FF'.]|^)((?:м)|(?:г)|(?:вул)|(?:ул)|(?:пгт)|(?:смт))\.\s/gi, "$1$2.\u00A0");
 
                 // д._45
-                r(/(?<=[^\w\u0400-\u04FF'.]|^)((?:б)|(?:д))\.\s(?=\d)/gi, "$1.\u00A0");
+                r(/([^\w\u0400-\u04FF'.]|^)(д)\.\s(?=\d)/gi, "$1$2.\u00A0");
 
                 // И
                 // потерялся
-                r(/(?<=[^a-zA-Z\u0400-\u04FF])([a-zA-Z\u0400-\u04FF])\s([\w\u0400-\u04FF])/g, "$1\u00A0$2");
+                r(/([^a-zA-Z\u0400-\u04FF])([a-zA-Z\u0400-\u04FF])\s([\w\u0400-\u04FF])/g, "$1$2\u00A0$3");
 
                 // _грн, _руб, _дол
                 r(/\s((?:грн)|(?:руб)|(?:дол)|(?:євро)|(?:евро))(?=[^\w\u0400-\u04FF])/g, "\u00A0$1");
@@ -991,7 +1006,7 @@ jQuery(document).ready(function ($) {
                 });
 
                 // перенос по дефису
-                r(/(?<=[a-z\u0400-\u04FF]{3,})-(?=[a-z\u0400-\u04FF]{3,})/gi, "-\u00AD");
+                r(/([a-z\u0400-\u04FF]{3,})-(?=[a-z\u0400-\u04FF]{3,})/gi, "$1-\u00AD");
 
                 // перенос по =
                 r(/=/g, "=\u00AD");
@@ -1001,10 +1016,16 @@ jQuery(document).ready(function ($) {
             // NON_BREAKING_HYPHEN
             if ($('#non_breaking_hyphen').is(':checked')) {
                 // запретить перенос коротких слов по дефису
-                r(/(?<=[\w\u0400-\u04FF]{1,2})-(?=[\w\u0400-\u04FF]{1,2})/g, "\u2011");
+                r(/([\w\u0400-\u04FF]{1,2})-(?=[\w\u0400-\u04FF]{1,2})/g, "$1\u2011");
 
                 // 1900-1901, 220-18-03
-                r(/(?<=\d{2,})-(?=\d{2,})/g, "\u2011");
+                r(/(\d{2,})-(?=\d{2,})/g, "$1\u2011");
+
+                // топ-5
+                r(/([\w\u0400-\u04FF])-(?=\d)/g, "$1\u2011");
+
+                // №7-б
+                r(/(\d)-(?=[\w\u0400-\u04FF])/g, "$1\u2011");
             }
 
             // CUSTOM_REPLACE
@@ -1136,7 +1157,7 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    $('#abbreviations').on('change', function(e) {
+    $('#abbreviations').on('change', function (e) {
         if ($(this).prop('checked') === false) {
             $('#abbreviations_text').multiselect('disable');
         } else {
