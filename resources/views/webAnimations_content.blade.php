@@ -13,23 +13,23 @@
                     </div>
                     @if($selected->alias === 'connected-dots')
                         <div class="tuning">
-                            <div class="tuning__dots">
+                            <div class="tuning__dots" style="width: 20%">
                                 <label for="dots">Точки</label>
                                 <input type="range" min="1" max="400" step="1" value="180" name="dots" id="dots">
                                 <output>180</output>
                             </div>
-                            <div class="tuning__connections">
+                            <div class="tuning__connections" style="width: 20%">
                                 <label for="connections">Линии</label>
                                 <input type="range" min="0" max="25" step="1" value="10" name="connections"
                                        id="connections">
                                 <output>10</output>
                             </div>
-                            <div class="tuning__range">
+                            <div class="tuning__range" style="width: 20%">
                                 <label for="connections">Радиус</label>
                                 <input type="range" min="100" max="22500" step="1" value="6400" name="range" id="range">
                                 <output>80</output>
                             </div>
-                            <div class="tuning__nodes">
+                            <div class="tuning__nodes" style="width: 20%">
                                 <label for="nodes">Узлы</label>
                                 <input type="checkbox" class="checkbox-switch" name="nodes" id="nodes">
                             </div>

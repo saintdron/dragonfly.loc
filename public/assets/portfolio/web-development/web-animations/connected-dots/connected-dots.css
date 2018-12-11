@@ -10,9 +10,9 @@
 }
 
 .tuning > div {
-    flex: 1;
-    margin: 0 2.5%;
-    /*width: 20%;*/
+    width: 20%;
+    /*flex: 1;*/
+    /*margin: 0 2.5%;*/
     text-align: center;
     /*border: 1px solid #101010;*/
     padding: 50px 10px 15px;

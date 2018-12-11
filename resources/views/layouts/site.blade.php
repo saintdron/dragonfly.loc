@@ -26,11 +26,14 @@
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/style.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/errors.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/navigation.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/extra/bootstrap-multiselect/css/bootstrap-multiselect.css"/>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=cyrillic-ext" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700&amp;subset=cyrillic-ext"
+    {{--<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700&amp;subset=cyrillic-ext"
+          rel="stylesheet">--}}
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400i,500,500i,700&amp;subset=cyrillic-ext"
           rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 </head>
@@ -43,6 +46,7 @@
 @yield('navigation')
 <!-- Script -->
 <script type="text/javascript" src="{{ asset('assets') }}/js/jquery.min.js"></script>
+<script type="text/javascript" src="{{ asset('assets') }}/js/popper.min.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/extra/lightbox2-master/dist/js/lightbox.min.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/radialprogress.js"></script>
@@ -50,16 +54,10 @@
 <script type="text/javascript" src="{{ asset('assets') }}/extra/switch/switch.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/script.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/menu.js"></script>
-
-
-{{--@if($additional_scripts && !empty($additional_scripts))
-    @foreach($additional_scripts as $script)
-        <script type="text/javascript" src="{{ asset('assets') }}/js/{{ $script }}.js"></script>
-    @endforeach
-@endif--}}
 {{--<script type="text/javascript" src="{{ asset('assets') }}/js/mail.js"></script>--}}
 <script type="text/javascript" src="{{ asset('assets') }}/extra/jcprogress/jcprogress.js"></script>
 {{--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>--}}
 <script type="text/javascript" src="{{ asset('assets') }}/extra/clipboard/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="{{ asset('assets') }}/extra/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
 </body>
 </html>

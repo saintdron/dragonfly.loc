@@ -46,7 +46,7 @@
 #original,
 #processed {
     width: 100%;
-    min-height: 350px;
+    min-height: 360px;
     border: 2px solid #d2d2d0;
 }
 
@@ -163,6 +163,7 @@
 
 label {
     font-family: Roboto, sans-serif;
+    user-select: none;
 }
 
 label strong {
@@ -170,7 +171,9 @@ label strong {
     color: #302F2E;
 }
 
-button {
+#button-copy,
+#button-check-all,
+#button-uncheck-all {
     /*position: absolute;*/
     bottom: 0;
     left: 0;
@@ -193,11 +196,15 @@ button {
     transition: .2s ease-in-out;
 }
 
-button:hover {
+#button-copy:hover,
+#button-check-all:hover,
+#button-uncheck-all:hover {
     background: linear-gradient(rgb(126, 126, 134), rgb(70, 71, 76)) rgb(126, 126, 134);
 }
 
-button:active {
+#button-copy:active,
+#button-check-all:active,
+#button-uncheck-all:active {
     /*top: 1px;*/
     background: linear-gradient(rgb(76, 77, 82), rgb(56, 57, 62)) rgb(76, 77, 82);
     box-shadow: 0 0 1px rgba(0, 0, 0, .5) inset,
@@ -208,3 +215,18 @@ button:active {
 .form-check-inline {
     width: 100%;
 }
+
+.multiselect {
+    background: white;
+    border: 1px solid #ced4da;
+}
+
+.multiselect-container a:hover {
+    text-decoration: none;
+}
+
+.multiselect-container label {
+    justify-content: left;
+    /*padding-left: 0 !important;*/
+}
+

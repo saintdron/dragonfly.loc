@@ -20,12 +20,13 @@
                             <img src="{{ asset(config('settings.services_dir')) . '/' . $work->alias . '/arrow.png' }}">
                             <p title="Количество исправлений при обработке текста">
                                 <span id="corrections__count">0</span><br/>
-                                <span id="corrections__word">исправлений</span>
+                                <span id="corrections__word">изменений</span>
                             </p>
                         </div>
                         <button id="button-copy" data-clipboard-action="copy" data-clipboard-target="#processed"
+                                data-toggle="tooltip" data-placement="top" data-trigger="manual"
                                 title="Скопировать обработанный текст в буфер обмена">
-                            <i class="fas fa-copy"></i> Готово
+                            <i class="far fa-copy"></i> Готово
                         </button>
                     </div>
                     <div class="text-processed">
@@ -53,152 +54,159 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <button id="button-check-all" title="Активировать все пункты">
+                        <i class="far fa-check-square"></i>{{-- Выбрать все--}}
+                    </button>
+                    <button id="button-uncheck-all" title="Отключить все пункты">
+                        <i class="far fa-square"></i>{{-- Отключить все--}}
+                    </button>
+                </div>
+                <div class="form-group">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="tab_to_space" checked="checked">
+                        <input class="form-check-input" type="checkbox" id="trailing_spaces" name="trailing_spaces" checked="checked" disabled>
+                        <label class="form-check-label" for="trailing_spaces">
+                            Удалить <strong>пробелы в конце</strong> и начале строк
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="tab_to_space" name="tab_to_space" checked="checked">
                         <label class="form-check-label" for="tab_to_space">
                             Заменить знак <strong>табуляции</strong> на пробел
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="delete_spaces" checked="checked">
+                        <input class="form-check-input" type="checkbox" id="delete_spaces" name="delete_spaces" checked="checked">
                         <label class="form-check-label" for="delete_spaces">
                             Удалить <strong>лишние пробелы</strong>
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="add_spaces" checked="checked">
+                        <input class="form-check-input" type="checkbox" id="add_spaces" name="add_spaces" checked="checked">
                         <label class="form-check-label" for="add_spaces">
                             Добавить <strong>недостающие пробелы</strong>
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="date_intervals" checked="checked">
+                        <input class="form-check-input" type="checkbox" id="date_intervals" name="date_intervals" checked="checked">
                         <label class="form-check-label" for="date_intervals">
-                            Правильно записать <strong>временные интервалы</strong>
+                            Правильно записать диапазоны <strong>дат</strong>
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="delete_line_breaks" checked="checked">
+                        <input class="form-check-input" type="checkbox" id="delete_line_breaks" name="delete_line_breaks" checked="checked">
                         <label class="form-check-label" for="delete_line_breaks">
                             Удалить лишние <strong>пустые строки</strong>
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="lowercase" checked="checked">
+                        <input class="form-check-input" type="checkbox" id="lowercase" name="lowercase" checked="checked">
                         <label class="form-check-label" for="lowercase">
                             Перевести предложения в нижний <strong>регистр</strong>
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="tegs" checked="checked">
-                        <label class="form-check-label" for="tegs">
+                        <input class="form-check-input" type="checkbox" id="tags" name="tags" checked="checked">
+                        <label class="form-check-label" for="tags">
                             Убрать <strong>теги</strong>
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="number_sign" checked="checked">
+                        <input class="form-check-input" type="checkbox" id="number_sign" name="number_sign" checked="checked">
                         <label class="form-check-label" for="number_sign">
                             Унифицировать знак <strong>номера</strong> и сопутствующие пробелы
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="headings" checked="checked">
+                        <input class="form-check-input" type="checkbox" id="headings" name="headings">
                         <label class="form-check-label" for="headings">
                             Выделить <strong>заголовки</strong>
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="indices" checked="checked">
+                        <input class="form-check-input" type="checkbox" id="indices" name="indices" checked="checked">
                         <label class="form-check-label" for="indices">
-                            Сделать верхние и нижние <strong>индексы</strong>, <strong>градусы</strong> и пр.
-                        </label>
-                    </div>
-                    {{--<div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="delete_dots_in_headers"
-                               checked="checked">
-                        <label class="form-check-label" for="delete_dots_in_headers">
-                            Убрать <strong>точки в заголовках</strong>
-                        </label>
-                    </div>--}}
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="final_punctuation" checked="checked">
-                        <label class="form-check-label" for="final_punctuation">
-                            Проверить <strong>точки в конце</strong> предложений/абзацев
+                            Оформить верхние <strong>индексы</strong>, <strong>градусы</strong> и пр.
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="years" checked="checked">
+                        <input class="form-check-input" type="checkbox" id="soft_hyphenation" name="soft_hyphenation">
+                        <label class="form-check-label" for="soft_hyphenation">
+                            Проставить <strong>мягкие переносы</strong>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="non_breaking_hyphen" name="non_breaking_hyphen" checked="checked">
+                        <label class="form-check-label" for="non_breaking_hyphen">
+                            Проставить <strong>неразрывные дефисы</strong>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="punctuation" name="punctuation" checked="checked">
+                        <label class="form-check-label" for="punctuation">
+                            Проверить <strong>точки в конце</strong> абзацев, заголовков, сокращений
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="years" name="years" checked="checked">
                         <label class="form-check-label" for="years">
-                            Заменить <strong>год (рік)</strong> на г. (р.)
+                            Заменить <strong>год (рік)</strong> на г. (р.) и добавить пропущенные
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="footnotes" checked="checked">
+                        <input class="form-check-input" type="checkbox" id="footnotes" name="footnotes" checked="checked">
                         <label class="form-check-label" for="footnotes">
                             Убрать <strong>сноски</strong> ([9])
                         </label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="lists" checked="checked">
+                        <input class="form-check-input" type="checkbox" id="lists" name="lists" checked="checked">
                         <label class="form-check-label" for="lists">
-                            Правильная пунктуация в конце пунктов <strong>списка</strong>
+                            Правильная пунктуация в <strong>спискаx</strong>
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="first_letter" checked="checked">
-                        <label class="form-check-label" for="first_letter">
-                            <strong>Заглавная</strong> буква в начале предложения
+                        <input class="form-check-input" type="checkbox" id="upper_first" name="upper_first" checked="checked">
+                        <label class="form-check-label" for="upper_first">
+                            <strong>Заглавная</strong> буква в начале абзаца
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="initials" checked="checked">
-                        <label class="form-check-label" for="initials">
-                            Правильно поставить <strong>инициалы</strong>
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="dashes" checked="checked">
-                        <label class="form-check-label" for="dashes">
-                            <strong>Тире</strong> и <strong>дефисы</strong> по правилам правописания
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="non_breaking_spaces" checked="checked">
+                        <input class="form-check-input" type="checkbox" id="non_breaking_spaces" name="non_breaking_spaces" checked="checked">
                         <label class="form-check-label" for="non_breaking_spaces">
-                            Проставить <strong>неразрывные</strong> пробелы
+                            Проставить <strong>неразрывные пробелы</strong>
                         </label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="apostrophes" checked="checked">
+                        <input class="custom-control-input" type="checkbox" id="apostrophes" name="apostrophes" checked="checked">
                         <label class="custom-control-label" for="apostrophes">
                             Унифицировать <strong>апострофы</strong>
                         </label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="ellipsis">
+                        <input class="custom-control-input" type="checkbox" id="ellipsis" name="ellipsis">
                         <label class="custom-control-label" for="ellipsis">
                             Заменить <strong>многоточие</strong> одним символом
                         </label>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="form-inline">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="phone_numbers" checked="checked">
+                            <input class="form-check-input" type="checkbox" id="phone_numbers" name="phone_numbers" checked="checked">
                             <label for="phone_numbers" class="col-form-label">Преобразовать&nbsp;<strong>телефонные
                                     номера</strong>&nbsp;в&nbsp;формат:</label>
                         </div>
-                        <input type="text" class="form-control" id="phone_numbers_text"
-                               value="(XXX) XXX-XX-XX" placeholder="+38 (XXX) XXX-XX-XX" spellcheck="false">
+                        <input type="text" class="form-control" id="phone_numbers_text" name="phone_numbers_text"
+                               value="(XXX) XXX-XX-XX" placeholder="+XX (XXX) XXX-XX-XX" spellcheck="false">
                     </div>
                     <div class="form-inline">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="quotes" checked="checked">
-                            <label for="quotes" class="col-form-label">Изменить&nbsp;<strong>кавычки</strong>&nbsp;на:</label>
+                            <input class="form-check-input" type="checkbox" id="quotes" name="quotes" checked="checked">
+                            <label for="quotes"
+                                   class="col-form-label">Изменить&nbsp;<strong>кавычки</strong>&nbsp;на&nbsp;</label>
                         </div>
-                        <select class="custom-select" id="quotes_text">
+                        <select class="custom-select" id="quotes_text" name="quotes_text">
                             <option selected value="\u00ab\u00bb">&laquo;ёлочки&raquo;</option>
                             <option value="\u201e\u201c">&#8222;лапки&#8220;</option>
                             <option value="\u201c\u201d">&#8220;английские двойные&#8221;</option>
@@ -208,41 +216,83 @@
                             <option value="\u0027\u0027">&#39;апострофы&#39;</option>
                         </select>
                     </div>
-                    {{--<div class="form-inline">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="quotes" checked="checked">
-                            <label for="quotes" class="col-form-label">Исправить&nbsp;<strong>кавычки</strong>&nbsp;на:</label>
-                        </div>
-                        <input type="text" class="form-control" id="quotes_text"
-                               value="«»" placeholder="«»" spellcheck="false">
-                    </div>--}}
-                    {{--<div class="form-inline">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="dashes" checked="checked">
-                            <label for="dashes" class="col-form-label">Исправить&nbsp;<strong>тире</strong>&nbsp;на:</label>
-                        </div>
-                        <input type="text" class="form-control" id="dashes_text"
-                               value="–" placeholder="–" spellcheck="false">
-                    </div>--}}
-
                     <div class="form-inline">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="dashes" name="dashes" checked="checked">
+                            <label for="dashes"
+                                   class="col-form-label">Заменить&nbsp;<strong>тире</strong>&nbsp;на&nbsp;</label>
+                        </div>
+                        <select class="custom-select" id="dashes_text" name="dashes_text">
+                            <option selected value="\u2014">длинное: &mdash;</option>
+                            <option value="\u2013">среднее: &ndash;</option>
+                        </select>
+                    </div>
+                    <div class="form-inline">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="initials" name="initials" checked="checked">
+                            <label for="initials"
+                                   class="col-form-label">Поставить&nbsp;<strong>инициалы</strong>&nbsp;</label>
+                        </div>
+                        <select class="custom-select" id="initials_text" name="initials_text">
+                            <option selected value="start">в начале: Т. Г. Шевченко</option>
+                            <option value="end">в конце: Шевченко Т. Г.</option>
+                        </select>
+                    </div>
+
+                    {{--<div class="form-inline">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="abbreviations" checked="checked">
                             <label for="abbreviations" class="col-form-label">
                                 <strong>Сокращать</strong> слова:</label>
                         </div>
                         <input type="text" class="form-control" id="abbreviations_text"
-                               value="грн млрд млн ст. п. пп." placeholder="грн млрд млн ст. п. пп." spellcheck="false">
-                    </div>
+                               value="грн руб. дол. млрд млн тис. ст. табл. рис." placeholder="грн руб. дол. млрд млн тис. ст. табл. рис." spellcheck="false">
+                    </div>--}}
 
                     <div class="form-inline">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="abbreviations" checked="checked">
+                            <input class="form-check-input" type="checkbox" id="abbreviations" name="abbreviations" checked="checked">
                             <label for="abbreviations" class="col-form-label">
-                                Заменить * на *: (свой вариант)</label>
+                                <strong>Сокращать</strong> слова:</label>
                         </div>
-                        <input type="text" class="form-control" id="abbreviations_text"
-                               value="грн млрд млн ст. п. пп." placeholder="грн млрд млн ст. п. пп." spellcheck="false">
+                        <select id="abbreviations_text" {{--name="abbreviations_text[]"--}} multiple="multiple">
+                            <optgroup label="Валюта" class="group-1">
+                                <option value="грн" selected="selected">грн</option>
+                                <option value="руб." selected="selected">руб.</option>
+                                <option value="дол." selected="selected">дол. (долл.)</option>
+                            </optgroup>
+                            <optgroup label="Числа" class="group-2">
+                                <option value="млрд" selected="selected">млрд</option>
+                                <option value="млн" selected="selected">млн</option>
+                                <option value="тис." selected="selected">тис.</option>
+                            </optgroup>
+                            <optgroup label="Публикация" class="group-3">
+                                <option value="ст." selected="selected">ст. (ст.ст.)</option>
+                                <option value="табл." selected="selected">табл.</option>
+                                <option value="рис." selected="selected">мал. (рис.)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+
+                    <div class="form-inline">
+                        <div class="form-group form-check">
+                            <input class="form-check-input" type="checkbox" id="custom_replace" name="custom_replace" checked="checked">
+                            <label for="custom_replace" class="col-form-label">
+                                Пользовательская замена:&nbsp;</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="custom_replace_from" class="col-form-label">
+                                Найти текст:&nbsp;</label>
+                            <input type="text" class="form-control" id="custom_replace_from" name="custom_replace_from"
+                                   placeholder="регулярное выражение или текст" spellcheck="false">
+                        </div>
+                        <div class="form-group">
+                            <label for="custom_replace_to" class="col-form-label">
+                                Заменить на:&nbsp;</label>
+                            <input type="text" class="form-control" id="custom_replace_to" name="custom_replace_to"
+                                   placeholder="текст" spellcheck="false">
+                        </div>
                     </div>
                 </div>
             </form>
