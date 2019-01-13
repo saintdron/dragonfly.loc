@@ -108,7 +108,7 @@
             </div>
         </div>
     </section>
-    <section class="feedback">
+    <section id="feedback">
         <h3>Обратная связь</h3>
 
         {{--Статус отправки сообщения--}}
@@ -143,7 +143,7 @@
                     <span class="add-on"><i class="fas fa-comment-alt"></i></span>
                 </div>
             </div>
-            <button type="submit" name="submit"><i class="fas fa-envelope"></i> Отправить</button>
+            <button type="submit" name="submit" class="btn-d"><i class="fas fa-envelope"></i> Отправить</button>
         </form>
     </section>
 </div>

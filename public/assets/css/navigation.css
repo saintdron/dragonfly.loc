@@ -9,6 +9,7 @@
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    z-index: 3000;
 }
 
 .navigation_center {

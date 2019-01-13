@@ -17,6 +17,8 @@ Route::group(['prefix' => 'web-development'], function () {
     Route::match(['get', 'post'], 'sites/{alias?}', ['uses' => 'WebDevelopmentController@sites', 'as' => 'sites']);
     Route::match(['get', 'post'], 'services/{alias?}', ['uses' => 'WebDevelopmentController@services', 'as' => 'services']);
     Route::match(['get', 'post'], 'animations/{alias?}', ['uses' => 'WebDevelopmentController@webAnimations', 'as' => 'webAnimations']);
+
+//    Route::post('services/mailing/sending', ['uses' => 'ServiceMailingController@sending', 'as' => 'sending']);
 });
 
 Route::group(['prefix' => 'graphic-design'], function () {

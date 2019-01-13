@@ -15,7 +15,7 @@
                         <div class="tuning">
                             <div class="tuning__dots" style="width: 20%">
                                 <label for="dots">Точки</label>
-                                <input type="range" min="1" max="400" step="1" value="180" name="dots" id="dots">
+                                <input type="range" min="1" max="400" step="19" value="180" name="dots" id="dots">
                                 <output>180</output>
                             </div>
                             <div class="tuning__connections" style="width: 20%">
@@ -26,7 +26,7 @@
                             </div>
                             <div class="tuning__range" style="width: 20%">
                                 <label for="connections">Радиус</label>
-                                <input type="range" min="100" max="22500" step="1" value="6400" name="range" id="range">
+                                <input type="range" min="100" max="22500" step="1000" value="6400" name="range" id="range">
                                 <output>80</output>
                             </div>
                             <div class="tuning__nodes" style="width: 20%">
@@ -49,7 +49,7 @@
                     @endif
                 @endif
             </div>
-            <div class="description">
+            <div class="description_note">
                 <div class="desc_header">
                     @if($works && count($works) > 1)
                         <a href="{{ route('webAnimations', $selected->prev->alias) }}"
@@ -101,5 +101,7 @@
                 @endforeach
             </ul>
         </section>
+    @else
+        <footer></footer>
     @endif
 </div>

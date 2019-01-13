@@ -45,23 +45,11 @@
                 polyfill: false,
                 onSlide: function (position, value) {
                     $('.tuning__dots output').text(value);
-                    dotsCount = value;
                 },
                 onSlideEnd: function (position, value) {
+                    dotsCount = value;
                     dots = new Array(dotsCount);
                     getStartCoords();
-                }
-            });
-
-            let nodesSwitch = new Switch(document.querySelector('.checkbox-switch'), {
-                size: 'small',
-                checked: true,
-                offJackColor: '#f2f2f2',
-                onJackColor: '#f2f2f2',
-                offSwitchColor: '#d1d1d1',
-                onSwitchColor: '#34b3a0',
-                onChange: function () {
-                    showDots = !showDots;
                 }
             });
 
@@ -81,12 +69,23 @@
                 polyfill: false,
                 onSlide: function (position, value) {
                     $('.tuning__range output').text(Math.round(Math.sqrt(value)));
-
                 },
                 onSlideEnd: function (position, value) {
                     maxRange = value;
                     dots = new Array(dotsCount);
                     getStartCoords();
+                }
+            });
+
+            let nodesSwitch = new Switch(document.querySelector('.checkbox-switch'), {
+                size: 'small',
+                checked: true,
+                offJackColor: '#f2f2f2',
+                onJackColor: '#f2f2f2',
+                offSwitchColor: '#d1d1d1',
+                onSwitchColor: '#34b3a0',
+                onChange: function () {
+                    showDots = !showDots;
                 }
             });
 

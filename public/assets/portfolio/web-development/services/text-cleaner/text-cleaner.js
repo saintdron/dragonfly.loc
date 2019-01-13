@@ -1,46 +1,207 @@
 jQuery(document).ready(function ($) {
 
-    // Hide sticky note
-    $('.description').on('click', function () {
-        let $desc = $(this);
-        $(this).addClass('animated swing');
-        setTimeout(function () {
-            $desc.addClass('fadeOutDownBig');
-            setTimeout(function () {
-                $desc.hide();
-            }, 250);
-        }, 750);
-    });
-
-    // Text processing
-    function wordend(num, words) {
-        return words[((num % 100 > 10 && num % 100 < 15) || num % 10 > 4 || num % 10 === 0) ? 2 : +(num % 10 !== 1)];
-    }
-
     let prevOriginal = '';
 
-    const uniDecode = (code) => String.fromCharCode(parseInt(code.slice(2), 16));
+    /* let optionsTest = localStorage.getItem('options'),
+         abbOptionsLength = (optionsTest.abbreviations_text) ? optionsTest.abbreviations_text.length : 0;*/
+
+    const ABBR_OPTIONS_COUNT = $('#abbreviations_text option').length;
+    const ABBR_OPTIONS_SHOW_LENGTH = 30;
+    $('#abbreviations_text').multiselect({
+        // nonSelectedText: 'Не выбраны',
+        enableClickableOptGroups: true,
+        enableHTML: false,
+        // buttonClass: 'btn btn-link',
+        // inheritClass: true,
+        // dropUp: true,
+        checkboxName: function (option) {
+            return 'abbreviations_text';
+        },
+        allSelectedText: 'Выбраны все сокращения!',
+        buttonText: function (opts, select) {
+            // console.log(opts.length);
+            if (opts.length === 0) {
+                return 'Не выбрано ни одно сокращение!';
+            } else if (opts.length === ABBR_OPTIONS_COUNT) {
+                // return 'Выбрано более трех сокращений...';
+                return 'Выбраны все сокращения!';
+            } else {
+                let labels = [];
+                opts.each(function () {
+                    if ($(this).attr('label') !== undefined) {
+                        labels.push($(this).attr('label'));
+                    }
+                    else {
+                        labels.push($(this).html());
+                    }
+                });
+                let result = labels.join(', ');
+                return (labels.length > 1 && result.length > ABBR_OPTIONS_SHOW_LENGTH) ? result.match(new RegExp(`^(.{1,${ABBR_OPTIONS_SHOW_LENGTH}})(?=,)`))[0] + ' ...' : result;
+            }
+        },
+        onChange: function (option, checked, select) {
+            /*alert('Changed option ' + $(option).val() + '.');
+            alert(checked);*/
+            // console.log(option);
+            /*if ($(option).prop()) {
+
+            }*/
+            if (checked) {
+                $(option).attr('selected', 'selected');
+            } else {
+                $(option).removeAttr('selected');
+            }
+        }
+    });
+
+    /* jQuery.values: get or set all of the name/value pairs from child input controls
+    * @argument data {array} If included, will populate all child controls.
+    * @returns element if data was provided, or array of values if not
+    */
+    $.fn.values = function (data) {
+        let els = $(this).find(':input').get();
+
+        if (typeof data !== 'object') {
+            // return all data
+            data = {};
+
+            $.each(els, function () {
+                if (this.name && !this.disabled && (this.checked
+                    || /select|textarea/i.test(this.nodeName)
+                    || /text|hidden|password/i.test(this.type))) {
+                    // data[this.name] = $(this).val();
+                    if (data[this.name]) {
+                        data[this.name] = [].concat(data[this.name], $(this).val());
+                    } else {
+                        data[this.name] = $(this).val();
+                    }
+                }
+            });
+            return data;
+        } else {
+            // console.log(data);
+            $.each(els, function () {
+                // console.log(this.name);
+                // console.log(data[this.name]);
+                if (this.name && data[this.name] !== undefined) {
+                    if (this.name !== 'abbreviations_text') {
+                        // console.log(this.name);
+                        if (this.type === 'checkbox' || this.type === 'radio') {
+                            // console.log($(this));
+                            // console.log(this.name);
+                            // console.log(data[this.name]);
+                            // console.log(typeof data[this.name]);
+                            $(this).prop("checked", true);
+                        } else {
+                            $(this).val(data[this.name]);
+                        }
+                    }
+                }
+            });
+
+            if (data['abbreviations'] && data['abbreviations_text'] && data['abbreviations_text'].length) {
+                data['abbreviations_text'].forEach(v => {
+                    $(`.multiselect-native-select option[value='${v}']`).attr("selected", "selected");
+                    $(`.multiselect-native-select input[value='${v}']`).prop("checked", true);
+                });
+            }
+            $(`.multiselect-native-select input[value=грн]`).click().click();
+
+            return $(this);
+        }
+    };
+
+    $.fn.check = function () {
+        $(this).parent().parent().find('select, [type=text], [type=button]').prop('disabled', !$(this).prop('checked'));
+        if ($('#abbreviations').prop('checked')) {
+            $('.multiselect').removeClass('disabled');
+        } else {
+            $('.multiselect').addClass('disabled');
+        }
+    };
+
+    // function (e) {}
+
+    $('#button-check-all').on('click', function (e) {
+        let $elems = $('[type=checkbox]:not(:disabled)');
+        $elems.each(function () {
+            if ($(this).attr('name') !== 'abbreviations_text') {
+                $(this).prop('checked', true).check();
+            }
+        });
+        $(`.multiselect-native-select input[value=грн]`).click().click();
+        process();
+        saveOptions();
+        e.preventDefault();
+    });
+
+    $('#button-uncheck-all').on('click', function (e) {
+        let $elems = $('[type=checkbox]:not(:disabled)');
+        $elems.each(function () {
+            if ($(this).attr('name') !== 'abbreviations_text') {
+                $(this).prop('checked', false).check();
+            }
+        });
+        $(`.multiselect-native-select input[value=грн]`).click().click();
+        process();
+        saveOptions();
+        e.preventDefault();
+    });
+
+    let options = localStorage.getItem('options');
+
+    // console.log(JSON.parse(options));
+
+    function saveOptions() {
+        options = $('.text-cleaner form').values();
+        localStorage.setItem('options', JSON.stringify(options));
+        // console.log(JSON.parse(localStorage.getItem('options')));
+    }
+
+    if (options) {
+        options = JSON.parse(options);
+        // console.log('options', options);
+        // $('#button-uncheck-all').click();
+        let $elems = $('[type=checkbox]:not(:disabled)');
+        $elems.each(function () {
+            if ($(this).attr('name') !== 'abbreviations_text') {
+                $(this).prop('checked', false);
+            }
+        });
+        $('.text-cleaner form').values(options);
+        $elems.each(function () {
+            $(this).check();
+        });
+    } else {
+        $('.multiselect-native-select option').prop("selected", "selected");
+        $('.multiselect-native-select input').prop("checked", true);
+        $('.multiselect-native-select [value=грн]').click().click();
+        options = $('.text-cleaner form').values();
+    }
+
+    function uniDecode(code) {
+        return String.fromCharCode(parseInt(code.slice(2), 16))
+    }
 
     const CLEANED_SOFT_HYPHENATION = [
-        "україн ськ", "краї н", "іо нальн", "прий ня", "реє стр", "проб лем", "фак тичн", "спеціa л", "сис тем",
+        "україн ськ", "іо нальн", "прий ня", "реє стр", "проб лем", "фак тичн", "спеціa л", "сис тем",
         "приватно правов", "законо проект", "вро пейс", "транс порт", "взаємо зв'яз", "час тин", "закріп л",
         "зобо в'яз", "вис новк", "особ лив", "пуб лі", "зар плат", "кноп к", "життє здатн", "здійс ню", "віт чизн",
         "пост радян", "зав дан", "трап ля", "конт рол", "інф ляц", "поперед н", "спів прац", "біз несмен", "конс тит",
         "інформа ці", "супереч лив", "зай ня", "нав паки", "будс мен", "на вчан", "фесіо нал", "контр агент", "лю юч",
         "спів роб", "Нац банк", "держ бюджет", "законодав ч", "транс фертн", "транс акц", "транз акц", "юрис кон",
-        "охоп л", "прог ноз", "гос подар", "зрос та", "cою з", "cіль ськ"
+        "охоп л", "прог ноз", "гос подар", "зрос та", "cою з", "cіль ськ", "праце в", "конф лікт"
     ];
 
     const SOFT_HYPHENATION = new Map([
         ["іональн", "іо\u00ADнальн"],
         ["онн", "он\u00ADн"],
-        ["українськ", "україн\u00ADськ"],
         ["Україн(?=[\u0430-\u045F]{1,2})", "Украї\u00ADн"],
         ["прийня", "прий\u00ADня"],
         ["реєстр(?=[\u0430-\u045F])", "реє\u00ADстр"],
         ["проблем", "проб\u00ADлем"],
         ["фактичн", "фак\u00ADтичн"],
-        ["країн(?=[\u0430-\u045F])", "краї\u00ADн"],
+        ["країн(?=[\u0430-\u045F]{3})", "країн\u00AD"],
         ["відео(?=[\u0430-\u045F])", "відео\u00AD"],
         ["видео(?=[\u0430-\u045F])", "видео\u00AD"],
         ["радіо(?=[\u0430-\u045F])", "радіо\u00AD"],
@@ -58,9 +219,9 @@ jQuery(document).ready(function ($) {
         ["кріпл", "кріп\u00ADл"],
         ["робля", "роб\u00ADля"],
         ["зобов'я", "зобо\u00ADв'я"],
-        ["висновк", "вис\u00ADновк"],
+        ["виснов", "вис\u00ADнов"],
         ["прийма", "прий\u00ADма"],
-        ["ширше", "шир\u00ADше"],
+        ["ширш", "шир\u00ADш"],
         ["навко", "нав\u00ADко"],
         ["особлив", "особ\u00ADлив"],
         ["дієв", "діє\u00ADв"],
@@ -87,7 +248,7 @@ jQuery(document).ready(function ($) {
         ["прийня", "прий\u00ADня"],
         ["регіон(?=[\u0430-\u045F])", "регіо\u00ADн"],
         ["зловжи", "зло\u00ADвжи"],
-        ["акціон", "акціо\u00ADн"],
+        ["кціон", "к\u00ADціон"],
         ["співпрац", "спів\u00ADпрац"],
         ["повноваж", "повно\u00ADваж"],
         ["бізнесмен", "біз\u00ADнес\u00ADмен"],
@@ -128,12 +289,279 @@ jQuery(document).ready(function ($) {
         ["зроста", "зрос\u00ADта"],
         ["cоюз(?=[\u0430-\u045F])", "cою\u00ADз"],
         ["cільськ", "cіль\u00ADськ"],
+        ["йн(?=[\u0430-\u045F])", "й\u00ADн"],
+        ["автомат", "авто\u00ADмат"],
+        ["тообіг", "то\u00ADобіг"],
+        ["вище(?=[\u0430-\u045F])", "вище\u00AD"],
+        ["діє(?=[\u0430-\u045F]{2})", "діє\u00AD"],
+        ["часто", "час\u00ADто"],
+        ["часті", "час\u00ADті"],
+        ["працев", "праце\u00ADв"],
+        ["конфлікт", "конф\u00ADлікт"],
+        ["([\u0430-\u045F])(цією)", "$1\u00ADцією"],
     ]);
 
+    const HTML_ENTITIES = {
+        '&lsaquo;': '\u2039',
+        '&rsaquo;': '\u203A',
+        '&laquo;': '\u00AB',
+        '&raquo;': '\u00BB',
+        '&sbquo;': '\u201A',
+        '&lsquo;': '\u2018',
+        '&rsquo;': '\u2019',
+        '&bdquo;': '\u201E',
+        '&ldquo;': '\u201C',
+        '&rdquo;': '\u201D',
+        '&quot;': '\u0022',
+        '&prime;': '\u2032',
+        '&Prime;': '\u2033',
+        '&mdash;': '\u2014',
+        '&ndash;': '\u2013',
+        '&hellip;': '\u2026',
+        '&iexcl;': '\u00A1',
+        '&iquest;': '\u00BF',
+        '&larr;': '\u2190',
+        '&rarr;': '\u2192',
+        '&uarr;': '\u2191',
+        '&darr;': '\u2193',
+        '&lArr;': '\u21D0',
+        '&rArr;': '\u21D2',
+        '&uArr;': '\u21D1',
+        '&dArr;': '\u21D3',
+        '&harr;': '\u2194',
+        '&hArr;': '\u21D4',
+        '&crarr;': '\u21B5',
+        '&bull;': '\u2022',
+        '&middot;': '\u00B7',
+        '&sdot;': '\u22C5',
+        '&lowast;': '\u2217',
+        '&clubs;': '\u2663',
+        '&diams;': '\u2666',
+        '&hearts;': '\u2665',
+        '&spades;': '\u2660',
+        '&loz;': '\u25CA',
+        '&nbsp;': '\u00A0',
+        '&ensp;': '\u2002',
+        '&emsp;': '\u2003',
+        '&thinsp;': '\u2009',
+        '&zwj;': '\u200D',
+        '&zwnj;': '\u200C',
+        '&times;': '\u00D7',
+        '&divide;': '\u00F7',
+        '&frasl;': '\u2044',
+        '&minus;': '\u2212',
+        '&plusmn;': '\u00B1',
+        '&lt;': '\u003C',
+        '&gt;': '\u003E',
+        '&le;': '\u2264',
+        '&ge;': '\u2265',
+        '&asymp;': '\u2248',
+        '&cong;': '\u2245',
+        '&equiv;': '\u2261',
+        '&ne;': '\u2260',
+        '&deg;': '\u00B0',
+        '&frac12;': '\u00BD',
+        '&frac14;': '\u00BC',
+        '&frac34;': '\u00BE',
+        '&sup1;': '\u00B9',
+        '&sup2;': '\u00B2',
+        '&sup3;': '\u00B3',
+        '&amp;': '\u0026',
+        '&sim;': '\u223C',
+        '&and;': '\u2227',
+        '&or;': '\u2228',
+        '&not;': '\u00AC',
+        '&alefsym;': '\u2135',
+        '&ang;': '\u2220',
+        '&cap;': '\u2229',
+        '&cup;': '\u222A',
+        '&sub;': '\u2282',
+        '&sube;': '\u2286',
+        '&sup;': '\u2283',
+        '&supe;': '\u2287',
+        '&ni;': '\u220B',
+        '&isin;': '\u2208',
+        '&notin;': '\u2209',
+        '&nsub;': '\u2284',
+        '&exist;': '\u2203',
+        '&fnof;': '\u0192',
+        '&forall;': '\u2200',
+        '&infin;': '\u221E',
+        '&int;': '\u222B',
+        '&micro;': '\u00B5',
+        '&nabla;': '\u2207',
+        '&part;': '\u2202',
+        '&perp;': '\u22A5',
+        '&prod;': '\u220F',
+        '&prop;': '\u221D',
+        '&radic;': '\u221A',
+        '&sum;': '\u2211',
+        '&empty;': '\u2205',
+        '&oplus;': '\u2295',
+        '&otimes;': '\u2297',
+        '&there4;': '\u2234',
+        '&lang;': '\u2329',
+        '&rang;': '\u232A',
+        '&lceil;': '\u2308',
+        '&lfloor;': '\u230A',
+        '&rceil;': '\u2309',
+        '&rfloor;': '\u230B',
+        '&curren;': '\u00A4',
+        '&cent;': '\u00A2',
+        '&euro;': '\u20AC',
+        '&pound;': '\u00A3',
+        '&yen;': '\u00A5',
+        '&copy;': '\u00A9',
+        '&trade;': '\u2122',
+        '&reg;': '\u00AE',
+        '&sect;': '\u00A7',
+        '&brvbar;': '\u00A6',
+        '&dagger;': '\u2020',
+        '&Dagger;': '\u2021',
+        '&image;': '\u2111',
+        '&real;': '\u211C',
+        '&weierp;': '\u2118',
+        '&oline;': '\u203E',
+        '&ordf;': '\u00AA',
+        '&ordm;': '\u00BA',
+        '&para;': '\u00B6',
+        '&permil;': '\u2030',
+        '&shy;': '\u00AD',
+        '&lrm;': '\u200E',
+        '&rlm;': '\u200F',
+        '&Alpha;': '\u0391',
+        '&alpha;': '\u03B1',
+        '&Beta;': '\u0392',
+        '&beta;': '\u03B2',
+        '&Gamma;': '\u0393',
+        '&gamma;': '\u03B3',
+        '&Delta;': '\u0394',
+        '&delta;': '\u03B4',
+        '&Epsilon;': '\u0395',
+        '&epsilon;': '\u03B5',
+        '&Zeta;': '\u0396',
+        '&zeta;': '\u03B6',
+        '&Eta;': '\u0397',
+        '&eta;': '\u03B7',
+        '&Theta;': '\u0398',
+        '&theta;': '\u03B8',
+        '&thetasym;': '\u03D1',
+        '&Iota;': '\u0399',
+        '&iota;': '\u03B9',
+        '&Kappa;': '\u039A',
+        '&kappa;': '\u03BA',
+        '&Lambda;': '\u039B',
+        '&lambda;': '\u03BB',
+        '&Mu;': '\u039C',
+        '&mu;': '\u03BC',
+        '&Nu;': '\u039D',
+        '&nu;': '\u03BD',
+        '&Xi;': '\u039E',
+        '&xi;': '\u03BE',
+        '&Omicron;': '\u039F',
+        '&omicron;': '\u03BF',
+        '&Pi;': '\u03A0',
+        '&pi;': '\u03C0',
+        '&piv;': '\u03D6',
+        '&Rho;': '\u03A1',
+        '&rho;': '\u03C1',
+        '&Sigma;': '\u03A3',
+        '&sigma;': '\u03C3',
+        '&sigmaf;': '\u03C2',
+        '&Tau;': '\u03A4',
+        '&tau;': '\u03C4',
+        '&Upsilon;': '\u03A5',
+        '&upsilon;': '\u03C5',
+        '&upsih;': '\u03D2',
+        '&Phi;': '\u03A6',
+        '&phi;': '\u03C6',
+        '&Chi;': '\u03A7',
+        '&chi;': '\u03C7',
+        '&Psi;': '\u03A8',
+        '&psi;': '\u03C8',
+        '&Omega;': '\u03A9',
+        '&omega;': '\u03C9',
+        '&acute;': '\u00B4',
+        '&cedil;': '\u00B8',
+        '&circ;': '\u02C6',
+        '&macr;': '\u00AF',
+        '&tilde;': '\u02DC',
+        '&uml;': '\u00A8',
+        '&Aacute;': '\u00C1',
+        '&aacute;': '\u00E1',
+        '&Acirc;': '\u00C2',
+        '&acirc;': '\u00E2',
+        '&AElig;': '\u00C6',
+        '&aelig;': '\u00E6',
+        '&Agrave;': '\u00C0',
+        '&agrave;': '\u00E0',
+        '&Aring;': '\u00C5',
+        '&aring;': '\u00E5',
+        '&Atilde;': '\u00C3',
+        '&atilde;': '\u00E3',
+        '&Auml;': '\u00C4',
+        '&auml;': '\u00E4',
+        '&Ccedil;': '\u00C7',
+        '&ccedil;': '\u00E7',
+        '&Eacute;': '\u00C9',
+        '&eacute;': '\u00E9',
+        '&Ecirc;': '\u00CA',
+        '&ecirc;': '\u00EA',
+        '&Egrave;': '\u00C8',
+        '&egrave;': '\u00E8',
+        '&ETH;': '\u00D0',
+        '&eth;': '\u00F0',
+        '&Euml;': '\u00CB',
+        '&euml;': '\u00EB',
+        '&Iacute;': '\u00CD',
+        '&iacute;': '\u00ED',
+        '&Icirc;': '\u00CE',
+        '&icirc;': '\u00EE',
+        '&Igrave;': '\u00CC',
+        '&igrave;': '\u00EC',
+        '&Iuml;': '\u00CF',
+        '&iuml;': '\u00EF',
+        '&Ntilde;': '\u00D1',
+        '&ntilde;': '\u00F1',
+        '&Oacute;': '\u00D3',
+        '&oacute;': '\u00F3',
+        '&Ocirc;': '\u00D4',
+        '&ocirc;': '\u00F4',
+        '&OElig;': '\u0152',
+        '&oelig;': '\u0153',
+        '&Ograve;': '\u00D2',
+        '&ograve;': '\u00F2',
+        '&Oslash;': '\u00D8',
+        '&oslash;': '\u00F8',
+        '&Otilde;': '\u00D5',
+        '&otilde;': '\u00F5',
+        '&Ouml;': '\u00D6',
+        '&ouml;': '\u00F6',
+        '&Scaron;': '\u0160',
+        '&scaron;': '\u0161',
+        '&szlig;': '\u00DF',
+        '&THORN;': '\u00DE',
+        '&thorn;': '\u00FE',
+        '&Uacute;': '\u00DA',
+        '&uacute;': '\u00FA',
+        '&Ucirc;': '\u00DB',
+        '&ucirc;': '\u00FB',
+        '&Ugrave;': '\u00D9',
+        '&ugrave;': '\u00F9',
+        '&Uuml;': '\u00DC',
+        '&uuml;': '\u00FC',
+        '&Yacute;': '\u00DD',
+        '&yacute;': '\u00FD',
+        '&Yuml;': '\u0178',
+        '&yuml;': '\u00FF'
+    };
 
+
+    // TEXT PROCESSING
     function process() {
         let text = $('#original').val();
         prevOriginal = text;
+        options = $('.text-cleaner form').values();
 
         const r = (reg, str) => {
             text = text.replace(reg, str);
@@ -144,21 +572,25 @@ jQuery(document).ready(function ($) {
             let reg, m,
                 beforeLength, afterLength;
 
-            let options = {};
+            /*let options = {};
             $('.text-cleaner form').serializeArray().forEach(v => {
                 if (options[v.name]) {
                     options[v.name] = [].concat(options[v.name], v.value);
                 } else {
                     options[v.name] = v.value;
                 }
-            });
-            console.log(options);
+            });*/
+            // console.log(options);
+
+            /*options2 = $('.text-cleaner form').values();
+            delete options2.abbreviations;
+            console.log(options2);*/
 
             // UNICODE TIPS
 
             // \u0400-\u04FF' Cyrillic all
             // \u0430-\u045F' Cyrillic lowercase
-            // \u0400-\u0429\u0460-\u04FF' Cyrillic uppercase
+            // \u0400-\u042F\u0460-\u04FF' Cyrillic uppercase
 
             // -\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63 Все тире
             // -(\u002D) Дефис-минус
@@ -189,26 +621,53 @@ jQuery(document).ready(function ($) {
             let beforeNonBreakingHyphenNumber = m ? m.length : 0;
 
 
+            // LISTS(1/2)
+            if (options.lists) {
+                m = text.match(/•/g);
+                let beforeListMarkersNumber = m ? m.length : 0;
+
+                // добавить потерянные маркеры []
+                r(/([\r\n])([\uf0fc]\s)(?=\S)/g, '$1• ');
+
+                m = text.match(/•/g);
+                let afterListMarkersNumber = m ? m.length : 0;
+                corrs += afterListMarkersNumber - beforeListMarkersNumber;
+            }
+
             // TAGS
-            if ($('#tags').is(':checked')) {
+            if (options.tags) {
                 beforeLength = text.length;
+
                 // delete all tags
                 r(/<\/?[a-z][^>]*>/gi, '');
+
                 afterLength = text.length;
                 corrs += beforeLength - afterLength;
             }
 
+            // HTML_ENTITIES
+            if (options.html_entities) {
+                m = text.match(/&/g);
+                let beforeEntitiesNumber = m ? m.length : 0;
+
+                // &nbsp;
+                for (let k in HTML_ENTITIES) {
+                    r(new RegExp(k, 'g'), HTML_ENTITIES[k]);
+                }
+
+                m = text.match(/&/g);
+                let afterEntitiesNumber = m ? m.length : 0;
+                corrs += beforeEntitiesNumber - afterEntitiesNumber;
+            }
 
             /* MANDATORY */
 
             // TRAILING_SPACES
-            if ($('#trailing_spaces').is(':checked')) {
-                beforeLength = text.length;
-                // extra spaces around line breaks
-                r(/[\t ]*(((\r\n)|(\n\r)|\r|\n)+)[\t ]*/g, '$1');
-                afterLength = text.length;
-                corrs += beforeLength - afterLength;
-            }
+            beforeLength = text.length;
+            // extra spaces around line breaks
+            r(/\s*((\r\n)|(\n\r)|\r|\n)+\s*/g, '$1');
+            afterLength = text.length;
+            corrs += beforeLength - afterLength;
 
             // перевод многоточия в три точки
             r(/\u2026/g, '...');
@@ -222,7 +681,7 @@ jQuery(document).ready(function ($) {
             /* END OF MANDATORY */
 
             // TAB_TO_SPACE
-            if ($('#tab_to_space').is(':checked')) {
+            if (options.tab_to_space) {
                 reg = /\t/g;
                 m = text.match(reg);
                 if (m) {
@@ -233,13 +692,14 @@ jQuery(document).ready(function ($) {
 
 
             // PHONE_NUMBERS
-            if ($('#phone_numbers').is(':checked')) {
+            if (options.phone_numbers) {
                 reg = /(?:\D|^)(?:(\+)?(3)?([87]))?[-(\s]*(\d{3,5})[-)\s]+(\d{2,3})[-\s]*(\d{2})[-\s]*(\d{2})(?=\D|$)/g;
                 // console.log(text.match(reg));
-                let template = $('#phone_numbers_text').val().trim(),
-                    templateMatch = template.match(/(?:(\+)?([XХ])?([XХ]))?([^XХ]+)?([XХ]{3,5})([^XХ]+)([XХ]{2,3})([^XХ]+)([XХ]{2})([^XХ]+)([XХ]{2})/);
-                // console.log(template);
+                let template = options.phone_numbers_text.trim(),
+                    templateMatch = template.match(/^(?:(\+)?([XХ])?([XХ]))?([^XХ]+)?([XХ]{3,5})([^XХ]+)([XХ]{2,3})([^XХ]+)([XХ]{2})([^XХ]+)([XХ]{2})$/);
+                // console.log(templateMatch);
                 if (templateMatch) {
+                    $('#phone_numbers_text').css('color', '#495057');
                     let [_, t_plus, t_three, t_eight, t_b_code, t_code, t_b_n1, t_n1, t_b_n2, t_n2, t_b_n3, t_n3] = templateMatch;
                     // console.log('t_plus', t_plus);
                     // console.log('t_three', t_three);
@@ -281,22 +741,26 @@ jQuery(document).ready(function ($) {
                         // }
                     });
                 } else {
-                    // TODO: невалидный шаблон
+                    // console.log('red');
+                    $('#phone_numbers_text').css('color', 'red');
                 }
             }
 
 
             // DELETE_EXCESS_LINE_BREAKS
-            if ($('#delete_line_breaks').is(':checked')) {
+            if (options.delete_line_breaks) {
                 beforeLength = text.length;
+
+                // console.log('DELETE_EXCESS_LINE_BREAKS');
                 r(/((\r\n)|(\n\r)|\r|\n){2,}/g, '$1');
+
                 afterLength = text.length;
                 corrs += beforeLength - afterLength;
             }
 
 
             // LOWERCASE
-            if ($('#lowercase').is(':checked')) {
+            if (options.lowercase) {
                 m = text.match(/[a-z\u0430-\u045F]/g);
                 let beforeOpenQuotesNumber = m ? m.length : 0;
 
@@ -304,7 +768,7 @@ jQuery(document).ready(function ($) {
                 reg = /([\r\n]|^)([^\r\na-z\u0430-\u045F]+)(?=[\r\n]|$)/g;
                 r(reg, function (match) {
                     let [_, $1, $2] = match.match(/([\r\n]|^)([^\r\na-z\u0430-\u045F]+)(?=[\r\n]|$)/);
-                    if ($('#upper_first').is(':checked')) {
+                    if (options.upper_first) {
                         return match.replace(reg, $1 + $2.slice(0, 1).toUpperCase() + $2.slice(1).toLowerCase());
                     } else {
                         return match.replace(reg, $1 + $2.toLowerCase());
@@ -318,90 +782,110 @@ jQuery(document).ready(function ($) {
 
 
             // ABBREVIATIONS
-            if ($('#abbreviations').is(':checked')) {
-                // let abbrText = $('#abbreviations_text').val();
+            if (options.abbreviations && options.abbreviations_text) {
+                m = text.match(/(грн)|(руб.)|(дол.)|(долл.)|(млрд)|(млн)|(тис.)|(ст.)|(ст.ст.)|(табл.)|(мал.)|(рис.)/g);
+                let beforeAbbreviationsNumber = m ? m.length : 0;
 
                 // грн
-                /*if (abbrText.contains(грн)) {
+                if (options.abbreviations_text.includes('грн')) {
+                    r(/(\d\s)грив[\u0430-\u045F]?н[\u0430-\u045F]*/g, "$1грн");
+                }
 
-                }*/
-                r(/грив[\u0430-\u045F]?н[\u0430-\u045F]*/g, "грн");
+                // руб.
+                if (options.abbreviations_text.includes('руб.')) {
+                    r(/(\d\s)рубл[\u0430-\u045F]*/g, "$1руб.");
+                }
 
-                // руб
-                r(/рубл[\u0430-\u045F]*/g, "руб.");
-
-                // дол
-                reg = /доллар[\u0430-\u045F]*/g;
-                if (/[ыэъ]/.test(prevOriginal)) {
-                    // русский
-                    r(reg, "долл.");
-                } else {
-                    // украинский
-                    r(reg, "дол.");
+                // дол.
+                if (options.abbreviations_text.includes('дол.')) {
+                    reg = /(\d\s)доллар[\u0430-\u045F]*/g;
+                    if (/[ыэъ]/.test(prevOriginal)) {
+                        // русский
+                        r(reg, "$1долл.");
+                    } else {
+                        // украинский
+                        r(reg, "$1дол.");
+                    }
                 }
 
                 // млрд
-                r(/миллиард[\u0430-\u045F]*/g, "млрд");
-                r(/мільярд[\u0430-\u045F]*/g, "млрд");
+                if (options.abbreviations_text.includes('млрд')) {
+                    r(/(\d\s)миллиард[\u0430-\u045F]*/g, "$1млрд");
+                    r(/(\d\s)мільярд[\u0430-\u045F]*/g, "$1млрд");
+                }
 
                 // млн
-                r(/миллион[\u0430-\u045F]*/g, "млн");
-                r(/мільйон[\u0430-\u045F]*/g, "млн");
+                if (options.abbreviations_text.includes('млн')) {
+                    r(/(\d\s)миллион[\u0430-\u045F]*/g, "$1млн");
+                    r(/(\d\s)мільйон[\u0430-\u045F]*/g, "$1млн");
+                }
 
                 // тис.
-                r(/тысяч[\u0430-\u045F]*/g, "тыс.");
-                r(/тисяч[\u0430-\u045F]*/g, "тис.");
+                if (options.abbreviations_text.includes('тис.')) {
+                    r(/(\d\s)тысяч[\u0430-\u045F]*/g, "$1тыс.");
+                    r(/(\d\s)тисяч[\u0430-\u045F]*/g, "$1тис.");
+                }
 
                 // ст.
-                r(/стат[\u0430-\u045F]+\s[\d\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63-]+/gi, function (match) {
-                    let numbers = match.match(/\d+[\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63-]\d+/g), // 26-35
-                        number = match.match(/\d+/g); // 26
-                    if (numbers) {
-                        if ($('#non_breaking_spaces').is(':checked')) {
-                            return "ст.ст.\u00A0" + numbers;
-                        } else {
-                            return "ст.ст. " + numbers;
+                if (options.abbreviations_text.includes('ст.')) {
+                    r(/стат[\u0430-\u045F]+\s[\d\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63-]+/gi, function (match) {
+                        let numbers = match.match(/\d+[\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63-]\d+/g), // 26-35
+                            number = match.match(/\d+/g); // 26
+                        if (numbers) {
+                            if (options.non_breaking_spaces) {
+                                return "ст.ст.\u00A0" + numbers;
+                            } else {
+                                return "ст.ст. " + numbers;
+                            }
                         }
-                    }
-                    if (number) {
-                        if ($('#non_breaking_spaces').is(':checked')) {
-                            return "ст.\u00A0" + number;
-                        } else {
-                            return "ст. " + number;
+                        if (number) {
+                            if (options.non_breaking_spaces) {
+                                return "ст.\u00A0" + number;
+                            } else {
+                                return "ст. " + number;
+                            }
                         }
-                    }
-                    return match;
-                });
+                        return match;
+                    });
+                }
 
                 // табл.
-                reg = /таблиц[\u0430-\u045F]+\s(?=\d)/gi;
-                if ($('#non_breaking_spaces').is(':checked')) {
-                    r(reg, "табл.\u00A0");
-                } else {
-                    r(reg, "табл. ");
+                if (options.abbreviations_text.includes('табл.')) {
+                    reg = /таблиц[\u0430-\u045F]+\s(?=\d)/gi;
+                    if (options.non_breaking_spaces) {
+                        r(reg, "табл.\u00A0");
+                    } else {
+                        r(reg, "табл. ");
+                    }
                 }
 
-                // рис.
-                reg = /рисун[\u0430-\u045F]+\s(?=\d)/gi;
-                if ($('#non_breaking_spaces').is(':checked')) {
-                    r(reg, "рис.\u00A0");
-                } else {
-                    r(reg, "рис. ");
+                // рис., мал.
+                if (options.abbreviations_text.includes('мал.')) {
+                    reg = /рисун[\u0430-\u045F]+\s(?=\d)/gi;
+                    if (options.non_breaking_spaces) {
+                        r(reg, "рис.\u00A0");
+                    } else {
+                        r(reg, "рис. ");
+                    }
+                    reg = /малюн[\u0430-\u045F]+\s(?=\d)/gi;
+                    if (options.non_breaking_spaces) {
+                        r(reg, "мал.\u00A0");
+                    } else {
+                        r(reg, "мал. ");
+                    }
                 }
 
-                // мал.
-                reg = /малюн[\u0430-\u045F]+\s(?=\d)/gi;
-                if ($('#non_breaking_spaces').is(':checked')) {
-                    r(reg, "мал.\u00A0");
-                } else {
-                    r(reg, "мал. ");
-                }
+                m = text.match(/(грн)|(руб.)|(дол.)|(долл.)|(млрд)|(млн)|(тис.)|(ст.)|(ст.ст.)|(табл.)|(мал.)|(рис.)/g);
+                let afterAbbreviationsNumber = m ? m.length : 0;
+                corrs += afterAbbreviationsNumber - beforeAbbreviationsNumber;
             }
 
 
             // DELETE_EXCESS_SPACES
-            if ($('#delete_spaces').is(':checked')) {
+            if (options.delete_spaces) {
                 beforeLength = text.length;
+
+                //
 
                 // e.g. Трудове право/
                 // Соцзабезпечення
@@ -414,24 +898,19 @@ jQuery(document).ready(function ($) {
                 // e.g. 1982- 2018, 1982 -2018
                 reg = /([^№\d-]|^)(\d{4})\s*([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63])\s*(\d{4})/g;
                 if (reg.test(text)) {
-                    if ($('#date_intervals').is(':checked')) {
+                    if (options.date_intervals) {
                         r(reg, function (match) {
-                            let lbMatch = match.match(/^[^№\d-]/),
-                                lb = (lbMatch) ? lbMatch[0] : '';
-                            match = match.match(/(\d{4})\s*([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63])\s*(\d{4})/)[0];
-                            match = match.replace(/\s/g, '');
-                            let delimiter = match.match(/[-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63]/)[0];
-                            let [start, end] = match.split(delimiter);
-                            if (parseInt(start) + 1 === parseInt(end)) {
+                            let [_, lb, from, delimiter, to] = match.match(/([^№\d-]|^)(\d{4})\s*([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63])\s*(\d{4})/);
+                            if (parseInt(from) + 1 === parseInt(to)) {
                                 if (delimiter !== "\u2011") {
                                     corrs++;
                                 }
-                                return `${lb}${start}\u2011${end}`;
+                                return `${lb}${from}\u2011${to}`;
                             } else {
                                 if (delimiter !== "\u2013") {
                                     corrs++;
                                 }
-                                return `${lb}${start}\u2013${end}`;
+                                return `${lb}${from}\u2013${to}`;
                             }
                         });
                     } else {
@@ -439,17 +918,22 @@ jQuery(document).ready(function ($) {
                     }
                 }
 
+                // Переносы каретки:
+                m = text.match(/ /g);
+                let beforeSpacesNumber = m ? m.length : 0;
+
                 // e.g. не конец
                 // предложения
-                reg = /([^.?! ]) *(?:(?:\r\n)|(?:\n\r)|\r|\n)([^A-Z\u0400-\u0429\u0460-\u04FF\u00ab\u201e\u201c\u2018\u0022\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7\r\n-])/g;
-                if (reg.test(text)) {
-                    m = text.match(/ /g);
-                    let beforeSpacesNumber = m ? m.length : 0;
-                    r(reg, '$1 $2');
-                    m = text.match(/ /g);
-                    let afterSpacesNumber = m ? m.length : 0;
-                    corrs += afterSpacesNumber - beforeSpacesNumber;
-                }
+                r(/((?:р.)|(?:г.)|[^.?!:; ]) *(?:(?:\r\n)|(?:\n\r)|\r|\n)([^A-Z\d\u0400-\u042F\u0460-\u04FF\u00ab\u201e\u201c\u2018\u0022\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7\r\n-])/g, '$1 $2');
+
+                // e.g. не конец
+                // Предложения
+                // r(/([\r\n]|^)([\dA-Z\u0400-\u042F\u0460-\u04FF\u00AB\u2039\u201E\u201A\u201C\u201F\u2018\u201B\u0022\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63-][^\r\n]{81,}[^.:;?!\r\n])(?:(?:\r\n)|(?:\n\r)|\r|\n)([A-Z\u0400-\u042F\u0460-\u04FF({\[<&#№])/g, '$1$2 $3');
+
+                m = text.match(/ /g);
+                let afterSpacesNumber = m ? m.length : 0;
+                corrs += afterSpacesNumber - beforeSpacesNumber;
+
 
                 // e.g. кое--
                 // что (принудительный перенос слова с дефисом)
@@ -460,6 +944,9 @@ jQuery(document).ready(function ($) {
 
                 // extra spaces at the end of the text
                 r(/\s*$/g, '');
+
+                // пробелы в конце абзацев
+                r(/ *(?=[\r\n])/g, '');
 
                 // double spaces
                 r(/( ){2,}/g, '$1');
@@ -474,7 +961,7 @@ jQuery(document).ready(function ($) {
                 // e.g. ( скобки), « кавычки»
                 r(/([^/][(«\u2018\u201e/\\{\[<@§])\s+(?=\S)/g, '$1');
 
-                if ($('#number_sign').is(':checked')) {
+                if (options.number_sign) {
                     // e.g. # hashtag, № 5436-2
                     r(/([№#])\s+(?=\S)/g, '$1');
 
@@ -483,7 +970,7 @@ jQuery(document).ready(function ($) {
                 }
 
                 // удаление принудительных переносов, превративщихся в пробел
-                CLEANED_SOFT_HYPHENATION.forEach(v => r(new RegExp(v, 'g'), v.replace(/\s/, '')));
+                CLEANED_SOFT_HYPHENATION.forEach(v => r(new RegExp(v, 'gi'), v.replace(/\s/, '')));
 
                 afterLength = text.length;
                 corrs += beforeLength - afterLength;
@@ -491,10 +978,8 @@ jQuery(document).ready(function ($) {
 
 
             // ADD_SPACES
-            if ($('#add_spaces').is(':checked')) {
+            if (options.add_spaces) {
                 beforeLength = text.length;
-
-                // TODO Аналіз ст. 119 ЗК  почему-то 2 пробела
 
                 // e.g. забыли,зажали.Даже так
                 r(/(\D)([.,;:?!»%)])([\d\u0400-\u04FF])/g, '$1$2 $3');
@@ -502,14 +987,14 @@ jQuery(document).ready(function ($) {
                 // e.g. потерянный– пробел с тире
                 reg = /([^\s\d])([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63])\s/g;
                 if (reg.test(text)) {
-                    if ($('#dashes').is(':checked')) {
-                        if ($('#non_breaking_spaces').is(':checked')) {
+                    if (options.dashes) {
+                        if (options.non_breaking_spaces) {
                             r(reg, "$1\u00A0\u2014 ");
                         } else {
                             r(reg, "$1 \u2014 ");
                         }
                     } else {
-                        if ($('#non_breaking_spaces').is(':checked')) {
+                        if (options.non_breaking_spaces) {
                             r(reg, "$1\u00A0$2 ");
                         } else {
                             r(reg, "$1 $2 ");
@@ -520,7 +1005,7 @@ jQuery(document).ready(function ($) {
                 // e.g. потерянный –пробел с тире
                 reg = /(\s)([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63])([^\d ])/g;
                 if (reg.test(text)) {
-                    if ($('#dashes').is(':checked')) {
+                    if (options.dashes) {
                         r(reg, "$1\u2014 $3");
                     } else {
                         text = text.replace(reg, "$1$2 $3");
@@ -534,7 +1019,7 @@ jQuery(document).ready(function ($) {
 
                 // e.g. 1900р рр. г гг
                 reg = /(\d)((?:р)|(?:рр)|(?:г)|(?:гг))(\.?)(?=[^\w\u0400-\u04FF'.]|$)/g;
-                if ($('#punctuation').is(':checked')) {
+                if (options.punctuation) {
                     r(reg, "$1 $2.");
                 } else {
                     r(reg, "$1 $2$3");
@@ -542,14 +1027,14 @@ jQuery(document).ready(function ($) {
 
                 // пп45
                 reg = /([^\w\u0400-\u04FF'.]|^)((?:п)|(?:п\.п)|(?:пп)|(?:гл)|(?:ст\.ст)|(?:ст)|(?:ч)|(?:розд)|(?:разд)|(?:рис)|(?:табл)|(?:c)|(?:стор)|(?:стр)|(?:подп)|(?:абз))(\.?)(?=\d)/gi;
-                if ($('#non_breaking_spaces').is(':checked')) {
-                    if ($('#punctuation').is(':checked')) {
+                if (options.non_breaking_spaces) {
+                    if (options.punctuation) {
                         r(reg, "$1$2.\u00A0");
                     } else {
                         r(reg, "$1$2$3\u00A0");
                     }
                 } else {
-                    if ($('#punctuation').is(':checked')) {
+                    if (options.punctuation) {
                         r(reg, "$1$2. ");
                     } else {
                         r(reg, "$1$2$3 ");
@@ -558,7 +1043,7 @@ jQuery(document).ready(function ($) {
 
                 // пп.б
                 reg = /([^\w\u0400-\u04FF'.]|^)((?:п)|(?:п\.п)|(?:пп)|(?:гл)|(?:ст\.ст)|(?:ст)|(?:ч)|(?:розд)|(?:разд)|(?:рис)|(?:табл)|(?:c)|(?:стор)|(?:стр)|(?:подп)|(?:абз))\.(?=[\w\u0400-\u04FF])/gi;
-                if ($('#non_breaking_spaces').is(':checked')) {
+                if (options.non_breaking_spaces) {
                     r(reg, "$1$2.\u00A0");
                 } else {
                     r(reg, "$1$2. ");
@@ -566,7 +1051,7 @@ jQuery(document).ready(function ($) {
 
                 // м.Дарница, ул.Малышка
                 reg = /([^\w\u0400-\u04FF'.]|^)((?:м)|(?:г)|(?:вул)|(?:ул)|(?:пгт)|(?:смт))\.(?=[\w\u0400-\u04FF])/gi;
-                if ($('#non_breaking_spaces').is(':checked')) {
+                if (options.non_breaking_spaces) {
                     r(reg, "$1$2.\u00A0");
                 } else {
                     r(reg, "$1$2. ");
@@ -574,15 +1059,16 @@ jQuery(document).ready(function ($) {
 
                 // д.45
                 reg = /([^\w\u0400-\u04FF'.]|^)(д)\.(?=\d)/gi;
-                if ($('#non_breaking_spaces').is(':checked')) {
+                if (options.non_breaking_spaces) {
                     r(reg, "$1$2.\u00A0");
                 } else {
                     r(reg, "$1$2. ");
                 }
 
                 // 74000
-                reg = /(^|\D)(\d{2,3})(\d{3})(?=\D|$)/g;
-                if ($('#non_breaking_spaces').is(':checked')) {
+                reg = /(^|[^\d№/])(\d{2,3})(\d{3})(?=\D|$)/g;
+                // console.log(text.match(reg));
+                if (options.non_breaking_spaces) {
                     r(reg, "$1$2\u00A0$3");
                 } else {
                     r(reg, "$1$2 $3");
@@ -602,7 +1088,7 @@ jQuery(document).ready(function ($) {
 
 
             // QUOTES
-            if ($('#quotes').is(':checked')) {
+            if (options.quotes) {
                 let [oQuote, cQuote] = $('#quotes_text').val().match(/\\\w+/g).map(uniDecode);
 
                 m = text.match(new RegExp(oQuote, 'g'));
@@ -628,7 +1114,7 @@ jQuery(document).ready(function ($) {
 
 
             // APOSTROPHES
-            if ($('#apostrophes').is(':checked')) {
+            if (options.apostrophes) {
                 m = text.match(/'/g);
                 let beforeApostrophesNumber = m ? m.length : 0;
 
@@ -642,13 +1128,13 @@ jQuery(document).ready(function ($) {
 
 
             // YEARS WORD
-            if ($('#years').is(':checked')) {
+            if (options.years) {
                 m = text.match(/г\.|гг\.|р\.|рр\./g);
                 let beforeYearsNumber = m ? m.length : 0;
 
                 // 2001 год
                 reg = /(^|\s)(\d{4})\s?год[\u0430-\u045F]*(?=[^\u0430-\u045F]|$)/g;
-                if ($('#non_breaking_spaces').is(':checked')) {
+                if (options.non_breaking_spaces) {
                     r(reg, "$1$2\u00A0г.");
                 } else {
                     r(reg, "$1$2 г.");
@@ -656,15 +1142,15 @@ jQuery(document).ready(function ($) {
 
                 // 2001–2015 года
                 reg = /(^|\s)(\d{4}\s?[-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63]\s?\d{4})\s?год[\u0430-\u045F]*(?=[^\u0430-\u045F]|$)/g;
-                if ($('#non_breaking_spaces').is(':checked')) {
+                if (options.non_breaking_spaces) {
                     r(reg, "$1$2\u00A0гг.");
                 } else {
                     r(reg, "$1$2 гг.");
                 }
 
                 // 2001 рік/року
-                reg = /(^|\s)(\d{4})\s?р[іо]к[\u0430-\u045F]*(?=[^\u0430-\u045F]|$)/g;
-                if ($('#non_breaking_spaces').is(':checked')) {
+                reg = /(^|\s)(\d{4})\s?р[іо][кц][\u0430-\u045F]*(?=[^\u0430-\u045F]|$)/g;
+                if (options.non_breaking_spaces) {
                     r(reg, "$1$2\u00A0р.");
                 } else {
                     r(reg, "$1$2 р.");
@@ -672,15 +1158,15 @@ jQuery(document).ready(function ($) {
 
                 // 2001–2015 роки/років
                 reg = /(^|\s)(\d{4}\s?[-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63]\s?\d{4})\s?рок[\u0430-\u045F]*(?=[^\u0430-\u045F]|$)/g;
-                if ($('#non_breaking_spaces').is(':checked')) {
+                if (options.non_breaking_spaces) {
                     r(reg, "$1$2\u00A0рр.");
                 } else {
                     r(reg, "$1$2 рр.");
                 }
 
                 // 25.07.2014 року
-                reg = /(\d{2}\.\d{2}\.\d{4})\s?р[іо]к[\u0430-\u045F]*(?=[^\u0430-\u045F]|$)/g;
-                if ($('#non_breaking_spaces').is(':checked')) {
+                reg = /(\d{2}\.\d{2}\.\d{4})\s?р[іо][кц][\u0430-\u045F]*(?=[^\u0430-\u045F]|$)/g;
+                if (options.non_breaking_spaces) {
                     r(reg, "$1\u00A0р.");
                 } else {
                     r(reg, "$1 р.");
@@ -688,7 +1174,7 @@ jQuery(document).ready(function ($) {
 
                 // 25.07.2014 (без року)
                 reg = /(\d{2}\.\d{2}\.\d{4})(?=\s?[^рг\s]|$)/g;
-                if ($('#non_breaking_spaces').is(':checked')) {
+                if (options.non_breaking_spaces) {
                     if (/[ыэъ]/.test(prevOriginal)) {
                         // русский
                         r(reg, "$1\u00A0г.");
@@ -705,11 +1191,11 @@ jQuery(document).ready(function ($) {
                 }
 
                 // 2000-2015 (без рр.)
-                reg = /\d{4}[-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63]\d{4}/g;
+                reg = /\d{4}[-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63]\d{4}(?=\s?[^рг\s]|$)/g;
                 r(reg, function (match) {
                     let [_, from, delimiter, to] = match.match(/(\d{4})([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63])(\d{4})/);
                     if (from > 1900 && from < 2050 && to > 1901 && to < 2051 && to > from) {
-                        if ($('#non_breaking_spaces').is(':checked')) {
+                        if (options.non_breaking_spaces) {
                             return from + delimiter + to + "\u00A0рр.";
                         } else {
                             return from + delimiter + to + " рр.";
@@ -725,7 +1211,7 @@ jQuery(document).ready(function ($) {
 
 
             // PUNCTUATION
-            if ($('#punctuation').is(':checked')) {
+            if (options.punctuation) {
                 beforeLength = text.length;
 
                 // убираем лишние точки?!..
@@ -747,16 +1233,16 @@ jQuery(document).ready(function ($) {
                 let beforeDotsNumber = m ? m.length : 0;
 
                 // доставить точки в конце абзаца
-                r(/([\r\n]|^)([\dA-Z\u0400-\u0429\u0460-\u04FF\u00AB\u2039\u201E\u201A\u201C\u201F\u2018\u201B\u0022\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63-][^\r\n]{81,}[^.:;?!\r\n])(?=[\r\n]|$)/g, "$1$2.");
+                r(/([\r\n]|^)([\dA-Z\u0400-\u042F\u0460-\u04FF\u00AB\u2039\u201E\u201A\u201C\u201F\u2018\u201B\u0022\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63-][^\r\n]{81,}[^.:;?!\r\n])(?=[\r\n]|$)/g, "$1$2.");
 
                 // доставить точки в 1900р гг
                 r(/(\d)(\s?)((?:р)|(?:рр)|(?:г)|(?:гг))(?=[^\w\u0400-\u04FF'.]|$)/g, "$1$2$3.");
 
                 // доставить точки в п пп гл
-                r(/([^\w\u0400-\u04FF'.]|^)((?:п)|(?:п\.п)|(?:пп)|(?:гл)|(?:ст\.ст)|(?:ст)|(?:ч)|(?:розд)|(?:разд)|(?:рис)|(?:табл)|(?:c)|(?:стор)|(?:стр)|(?:подп)|(?:абз))(\s)(?=[\w\u0400-\u04FF])/gi, "$1$2.$3");
+                r(/([^\w\u0400-\u04FF'.-]|^)((?:п)|(?:п\.п)|(?:пп)|(?:гл)|(?:ст\.ст)|(?:ст)|(?:ч)|(?:розд)|(?:разд)|(?:табл)|(?:c)|(?:стор)|(?:стр)|(?:подп)|(?:абз))(\s)(?=[\w\u0400-\u04FF])/gi, "$1$2.$3");
 
-                // доставить точки в д 45
-                r(/([^\w\u0400-\u04FF'.]|^)(д)(\s)(?=\d)/gi, "$1$2.$3");
+                // доставить точки в д 45, рис 5
+                r(/([^\w\u0400-\u04FF'.]|^)(д|рис)(\s)(?=\d)/gi, "$1$2.$3");
 
                 // доставить точки в вул пгт
                 r(/([^\w\u0400-\u04FF'.]|^)((?:м)|(?:г)|(?:вул)|(?:ул)|(?:пгт)|(?:смт))(\s)(?=[\w\u0400-\u04FF])/gi, "$1$2.$3");
@@ -771,28 +1257,38 @@ jQuery(document).ready(function ($) {
 
 
             // HEADINGS
-            if ($('#headings').is(':checked')) {
+            if (options.headings) {
 
                 // search headings
-                reg = /((?:\r\n)|(?:\n\r)|\r|\n|^)([^-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7 ])([^\r\n]{2,80})(?=[\r\n])/g;
+                reg = /((?:\r\n)|(?:\n\r)|\r|\n|^)+([^-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7 ])([^\r\n]{2,80})(?=[\r\n])/g;
+                // console.log(text.match(reg));
                 r(reg, function (match) {
                     // удалить точку в конце заголовка.
-                    if ($('#punctuation').is(':checked') && /[^?!. ]\.$/.test(match) && !/\s[рг]+\.$/.test(match)) {
+                    if (options.punctuation && /[^?!. ]\.$/.test(match) && !/\s[рг]+\.$/.test(match)) {
                         corrs++;
                         match = match.slice(0, -1);
                     }
                     // добавить строку и посчитать исправления
                     let firstCharIndex = match.search(/[^\r\n]/);
-                    let lineBreaker = match.slice(0, firstCharIndex);
+                    let lineBreaker = match.match(/(?:\r\n)|(?:\n\r)|\r|\n|^/)[0];
                     match = match.slice(firstCharIndex);
-                    let index = prevOriginal.search(new RegExp(match.replace(/\)/g, '\\)'), 'i')),
-                        matchedReg = /(\S)([^\r\n]{2,80})/,
-                        [_, $1, $2] = match.match(matchedReg);
+                    // let index = prevOriginal.search(new RegExp(match.replace(/\)/g, '\\)'), 'i')),
+                    let index;
+                    try {
+                        index = prevOriginal.search(match, 'i');
+                    } catch (e) {
+                        return match;
+                    }
+                    let matchedReg = /(\S)([^\r\n]{2,80})/;
+                    if (!matchedReg.test(match)) {
+                        return match;
+                    }
+                    let [_, $1, $2] = match.match(matchedReg);
                     if (index !== 0) {
                         if (/[\r\n]/.test(prevOriginal[index - 1])) {
-                            if ($('#delete_line_breaks').is(':checked')) {
+                            if (options.delete_line_breaks) {
                                 corrs--;
-                                if ($('#upper_first').is(':checked')) {
+                                if (options.upper_first) {
                                     return match.replace(matchedReg, lineBreaker.repeat(2) + $1.toUpperCase() + $2);
                                 } else {
                                     return match.replace(matchedReg, lineBreaker.repeat(2) + $1 + $2);
@@ -800,14 +1296,14 @@ jQuery(document).ready(function ($) {
                             }
                         } else {
                             corrs++;
-                            if ($('#upper_first').is(':checked')) {
+                            if (options.upper_first) {
                                 return match.replace(matchedReg, lineBreaker.repeat(2) + $1.toUpperCase() + $2);
                             } else {
                                 return match.replace(matchedReg, $1 + $1 + $2);
                             }
                         }
                     }
-                    if ($('#upper_first').is(':checked')) {
+                    if (options.upper_first) {
                         return match.replace(matchedReg, lineBreaker + $1.toUpperCase() + $2);
                     } else {
                         return match.replace(matchedReg, lineBreaker + $1 + $2);
@@ -817,13 +1313,13 @@ jQuery(document).ready(function ($) {
 
 
             // ELLIPSIS
-            if ($('#ellipsis').is(':checked')) {
+            if (options.ellipsis) {
                 r(/\.{3}/g, "\u2026");
             }
 
 
             // NUMBER_SIGN
-            if ($('#number_sign').is(':checked')) {
+            if (options.number_sign) {
                 // заменяем хеш номером
                 reg = /# *(?=\d)/g;
                 if (reg.test(text)) {
@@ -838,40 +1334,40 @@ jQuery(document).ready(function ($) {
 
 
             // INDICES
-            if ($('#indices').is(':checked')) {
+            if (options.indices) {
                 m = text.match(/[\u00B2\u00B3\u2103]/g);
                 let beforeIndicesNumber = m ? m.length : 0;
 
                 // cм²
-                if ($('#non_breaking_spaces').is(':checked')) {
+                if (options.non_breaking_spaces) {
                     r(/(\d) ?см2/g, "$1\u00A0см\u00B2");
                 } else {
                     r(/(\d) ?см2/g, "$1 см\u00B2");
                 }
 
                 // м²
-                if ($('#non_breaking_spaces').is(':checked')) {
+                if (options.non_breaking_spaces) {
                     r(/(\d) ?м2/g, "$1\u00A0м\u00B2");
                 } else {
                     r(/(\d) ?м2/g, "$1 м\u00B2");
                 }
 
                 // м³
-                if ($('#non_breaking_spaces').is(':checked')) {
+                if (options.non_breaking_spaces) {
                     r(/(\d) ?м3/g, "$1\u00A0м\u00B3");
                 } else {
                     r(/(\d) ?м3/g, "$1 м\u00B3");
                 }
 
                 // км²
-                if ($('#non_breaking_spaces').is(':checked')) {
+                if (options.non_breaking_spaces) {
                     r(/(\d) ?км2/g, "$1\u00A0км\u00B2");
                 } else {
                     r(/(\d) ?км2/g, "$1 км\u00B2");
                 }
 
                 // ℃
-                if ($('#non_breaking_spaces').is(':checked')) {
+                if (options.non_breaking_spaces) {
                     r(/(\d) ?[СC](?=[^\w\u0400-\u04FF'\u02BC])/g, "$1\u00A0\u2103");
                 } else {
                     r(/(\d) ?[СC](?=[^\w\u0400-\u04FF'\u02BC])/g, "$1 \u2103");
@@ -884,10 +1380,10 @@ jQuery(document).ready(function ($) {
 
 
             // DASHES
-            if ($('#dashes').is(':checked')) {
+            if (options.dashes) {
                 // in the middle of a sentence
                 reg = /[ \t\u00A0][-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63]\s/g;
-                if ($('#non_breaking_spaces').is(':checked')) {
+                if (options.non_breaking_spaces) {
                     r(reg, "\u00A0" + `${uniDecode(DASH_SIGN)} `);
                 } else {
                     r(reg, ` ${uniDecode(DASH_SIGN)} `);
@@ -900,7 +1396,7 @@ jQuery(document).ready(function ($) {
 
 
             // FOOTNOTES
-            if ($('#footnotes').is(':checked')) {
+            if (options.footnotes) {
                 beforeLength = text.length;
 
                 // [9]
@@ -912,7 +1408,7 @@ jQuery(document).ready(function ($) {
 
 
             // UPPER_FIRST
-            if ($('#upper_first').is(':checked')) {
+            if (options.upper_first) {
                 reg = /([\n\r]|^)([a-z\u0430-\u045F])/g;
                 r(reg, function (match) {
                     corrs++;
@@ -922,31 +1418,37 @@ jQuery(document).ready(function ($) {
             }
 
 
-            // LISTS
-            if ($('#lists').is(':checked')) {
-                reg = /([\r\n]|^)([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7]\s*)(\S[^\r\n]+[^!?.;])(?=\s*(?:[\r\n]|$))/g;
+            // LISTS(2/2)
+            if (options.lists) {
+                reg = /(\r\n|\n\r|\r|\n)([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7]\s*)(\S[^\r\n]+[^!?.;\r\n])(?=(?:\r\n|\n\r|\r|\n)[-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7]\s[a-z\u0430-\u045F])/g;
+                // console.log(text.match(reg));
                 r(reg, function (match) {
                     corrs++;
-                    let [_, $1, $2, $3] = match.match(/([\r\n]|^)([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7]\s*)(\S[^\r\n]+[^!?.;])/);
-                    return match.replace(reg, $1 + $2 + $3 + ($3.search(/[A-Z\u0400-\u0429\u0460-\u04FF]/) === 0) ? '.' : ';');
+                    return match + ';';
+                });
+                reg = /(\r\n|\n\r|\r|\n)([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7]\s*)(\S[^\r\n]+[^!?.;\r\n])(?=\r\n|\n\r|\r|\n|$)/g;
+                r(reg, function (match) {
+                    corrs++;
+                    // let [_, $1, $2, $3, $4] = match.match(/(\r\n|\n\r|\r|\n)([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7]\s*)(\S[^\r\n]+[^!?.;\r\n])((?:\r\n|\n\r|\r|\n)\S|$)/);
+                    return match + '.';
                 });
             }
 
 
             // INITIALS
-            if ($('#initials').is(':checked')) {
+            if (options.initials) {
                 const INITIALS_POSITION = $('#initials_text').val();
 
                 // Т. Г. Шевченко
-                reg = /([A-Z\u0400-\u0429\u0460-\u04FF][a-z]?\.) ?([A-Z\u0400-\u0429\u0460-\u04FF][a-z]?\.) ?([A-Z\u0400-\u0429\u0460-\u04FF][a-z\u0430-\u045F'\u02BC]+)(?=[^a-z\u0430-\u045F'\u02BC]|$)/g;
+                reg = /([A-Z\u0400-\u042F\u0460-\u04FF][a-z]?\.) ?([A-Z\u0400-\u042F\u0460-\u04FF][a-z]?\.) ?([A-Z\u0400-\u042F\u0460-\u04FF][a-z\u0430-\u045F'\u02BC]+)(?=[^a-z\u0430-\u045F'\u02BC]|$)/g;
                 if (INITIALS_POSITION === 'start') {
-                    if ($('#non_breaking_spaces').is(':checked')) {
+                    if (options.non_breaking_spaces) {
                         r(reg, "$1\u00A0$2\u00A0$3");
                     } else {
                         r(reg, "$1 $2 $3");
                     }
                 } else {
-                    if ($('#non_breaking_spaces').is(':checked')) {
+                    if (options.non_breaking_spaces) {
                         r(reg, "$3\u00A0$1\u00A0$2");
                     } else {
                         r(reg, "$3 $1 $2");
@@ -954,15 +1456,15 @@ jQuery(document).ready(function ($) {
                 }
 
                 // Шевченко Т. Г.
-                reg = /([A-Z\u0400-\u0429\u0460-\u04FF][a-z\u0430-\u045F'\u02BC]+) ([A-Z\u0400-\u0429\u0460-\u04FF][a-z]?\.) ?([A-Z\u0400-\u0429\u0460-\u04FF][a-z]?\.)(?=[^a-z\u0430-\u045F'\u02BC]|$)/g;
+                reg = /([A-Z\u0400-\u042F\u0460-\u04FF][a-z\u0430-\u045F'\u02BC]+) ([A-Z\u0400-\u042F\u0460-\u04FF][a-z]?\.) ?([A-Z\u0400-\u042F\u0460-\u04FF][a-z]?\.)(?=[^a-z\u0430-\u045F'\u02BC]|$)/g;
                 if (INITIALS_POSITION === 'start') {
-                    if ($('#non_breaking_spaces').is(':checked')) {
+                    if (options.non_breaking_spaces) {
                         r(reg, "$2\u00A0$3\u00A0$1");
                     } else {
                         r(reg, "$2 $3 $1");
                     }
                 } else {
-                    if ($('#non_breaking_spaces').is(':checked')) {
+                    if (options.non_breaking_spaces) {
                         r(reg, "$1\u00A0$2\u00A0$3");
                     } else {
                         r(reg, "$1 $2 $3");
@@ -972,9 +1474,12 @@ jQuery(document).ready(function ($) {
 
 
             // NON_BREAKING_SPACES
-            if ($('#non_breaking_spaces').is(':checked')) {
+            if (options.non_breaking_spaces) {
                 // 564_енотов, 1_000
-                r(/(\d)\s([\w\u0400-\u04FF])/g, "$1\u00A0$2");
+                r(/([^/])(\d+)\s([\w\u0400-\u04FF])/g, "$1$2\u00A0$3");
+
+                // XIX століття
+                r(/([IVX])\s(?=стол)/g, "$1\u00A0");
 
                 // п._145
                 r(/([^\w\u0400-\u04FF'.]|^)((?:п)|(?:п\.п)|(?:пп)|(?:гл)|(?:ст\.ст)|(?:ст)|(?:ч)|(?:розд)|(?:разд)|(?:рис)|(?:табл)|(?:c)|(?:стор)|(?:стр)|(?:подп)|(?:абз))\.\s/gi, "$1$2.\u00A0");
@@ -987,7 +1492,10 @@ jQuery(document).ready(function ($) {
 
                 // И
                 // потерялся
-                r(/([^a-zA-Z\u0400-\u04FF])([a-zA-Z\u0400-\u04FF])\s([\w\u0400-\u04FF])/g, "$1$2\u00A0$3");
+                r(/([^a-zA-Z\u0400-\u04FF])([a-zA-Z\u0400-\u04FF])\s([\w\u0400-\u04FF]{2,})/g, "$1$2\u00A0$3");
+
+                // у 6 годині
+                r(/([^a-zA-Z\u0400-\u04FF])([a-zA-Z\u0400-\u04FF])\s(\d)/g, "$1$2\u00A0$3");
 
                 // _грн, _руб, _дол
                 r(/\s((?:грн)|(?:руб)|(?:дол)|(?:євро)|(?:евро))(?=[^\w\u0400-\u04FF])/g, "\u00A0$1");
@@ -999,9 +1507,10 @@ jQuery(document).ready(function ($) {
 
 
             // SOFT_HYPHENATION
-            if ($('#soft_hyphenation').is(':checked')) {
+            if (options.soft_hyphenation) {
                 // мягкие переносы из массива
                 SOFT_HYPHENATION.forEach((v, k) => {
+                    // console.log(k);
                     r(new RegExp(k, 'g'), v);
                 });
 
@@ -1014,7 +1523,7 @@ jQuery(document).ready(function ($) {
 
 
             // NON_BREAKING_HYPHEN
-            if ($('#non_breaking_hyphen').is(':checked')) {
+            if (options.non_breaking_hyphen) {
                 // запретить перенос коротких слов по дефису
                 r(/([\w\u0400-\u04FF]{1,2})-(?=[\w\u0400-\u04FF]{1,2})/g, "$1\u2011");
 
@@ -1029,7 +1538,7 @@ jQuery(document).ready(function ($) {
             }
 
             // CUSTOM_REPLACE
-            if ($('#custom_replace').is(':checked')) {
+            if (options.custom_replace) {
                 let from = $('#custom_replace_from').val(),
                     to = $('#custom_replace_to').val();
 
@@ -1082,13 +1591,16 @@ jQuery(document).ready(function ($) {
             let afterNonBreakingHyphenNumber = m ? m.length : 0;
             corrs += Math.abs(afterNonBreakingHyphenNumber - beforeNonBreakingHyphenNumber);
 
-
-            // corrs = (corrs > 0) ? corrs : 0;
+            corrs = (corrs > 0) ? corrs : 0;
         }
         $('#processed').val(text);
         $('#corrections__count').text(corrs);
-        // $('#corrections__word').text(wordend(corrs, ['исправление', 'исправления', 'исправлений']));
         $('#corrections__word').text(wordend(corrs, ['изменение', 'изменения', 'изменений']));
+    }
+
+
+    function wordend(num, words) {
+        return words[((num % 100 > 10 && num % 100 < 15) || num % 10 > 4 || num % 10 === 0) ? 2 : +(num % 10 !== 1)];
     }
 
     $('#original').on('input change keyup', function () {
@@ -1097,12 +1609,24 @@ jQuery(document).ready(function ($) {
             process();
         }
     });
-    $('[type=checkbox], [type=text], select').on('change keyup paste', process);
+    $('[type=checkbox], [type=text], select').on('change keyup paste', function () {
+        process();
+        saveOptions();
+    });
+
+
+    $('#original').on('mouseup', function () {
+        $('#processed').outerHeight($(this).outerHeight());
+    });
+
+    $('#processed').on('mouseup', function () {
+        $('#original').outerHeight($(this).outerHeight());
+    });
 
     // Init copy button
     new ClipboardJS('#button-copy');
     $('#button-copy').on('click', function (e) {
-        $(this).attr('title', 'Скопировано').tooltip('show');
+        $(this).attr('title', 'Текст скопирован').tooltip('show');
         $(this).on('shown.bs.tooltip', function () {
             setTimeout(function () {
                 $('#button-copy').tooltip('dispose');
@@ -1111,58 +1635,21 @@ jQuery(document).ready(function ($) {
         e.preventDefault();
     });
 
-    $('#button-check-all').on('click', function (e) {
-        $('[type=checkbox]:not(:disabled)').prop('checked', true);
-        process();
-        e.preventDefault();
+    $('[type=checkbox]').on('change', function () {
+        $(this).check();
     });
 
-    $('#button-uncheck-all').on('click', function (e) {
-        $('[type=checkbox]:not(:disabled)').prop('checked', false);
-        process();
-        e.preventDefault();
-    });
-
-    $('#abbreviations_text').multiselect({
-        // nonSelectedText: 'Не выбраны',
-        enableClickableOptGroups: true,
-        enableHTML: false,
-        // buttonClass: 'btn btn-link',
-        // inheritClass: true,
-        // dropUp: true,
-        checkboxName: function (option) {
-            return 'abbreviations_text';
-        },
-        allSelectedText: 'Выбраны все сокращения...',
-        buttonText: function (options, select) {
-
-            if (options.length === 0) {
-                return 'Не выбрано ни одно сокращение...';
-            }
-            else if (options.length === 9) {
-                // return 'Выбрано более трех сокращений...';
-                return 'Выбраны все сокращения...';
-            } else {
-                let labels = [];
-                options.each(function () {
-                    if ($(this).attr('label') !== undefined) {
-                        labels.push($(this).attr('label'));
-                    }
-                    else {
-                        labels.push($(this).html());
-                    }
-                });
-                return labels.join(', ') + '';
-            }
-        }
-    });
-
-    $('#abbreviations').on('change', function (e) {
-        if ($(this).prop('checked') === false) {
-            $('#abbreviations_text').multiselect('disable');
-        } else {
-            $('#abbreviations_text').multiselect('enable');
-        }
-    });
-
+    /*$(window).on('unload', function () {
+        /!*let options2 = {
+            add_spaces: "on",
+            apostrophes: "on",
+            custom_replace: "on",
+            phone_numbers_text: "+XX (XXX) XXX-XX-XX",
+            abbreviations: "on",
+            abbreviations_text: ["грн", "руб.", "дол."]
+        };*!/
+        saveOptions();
+        /!*options = $('.text-cleaner form').values();
+        localStorage.setItem('options', JSON.stringify(options));*!/
+    });*/
 });

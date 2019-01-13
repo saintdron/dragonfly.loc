@@ -17,7 +17,7 @@
                     <img src="{{ asset('assets') . '/images/dummy_big.png' }}">
                 @endif
             </div>
-            <div class="description">
+            <div class="description_note">
                 <div class="desc_header">
                     @if($works && count($works) > 1)
                         <a href="{{ route('graphicAnimations', $selected->prev->alias) }}"

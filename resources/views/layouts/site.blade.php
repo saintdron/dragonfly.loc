@@ -14,6 +14,7 @@
 
     <!-- Style -->
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/extra/jquery-ui/jquery-ui.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/animate.min.css"/>
     <link rel="stylesheet" type="text/css" media="all"
           href="{{ asset('assets') }}/extra/fontawesome-free-5.4.1-web/css/all.css"/>
@@ -26,7 +27,9 @@
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/style.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/errors.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/css/navigation.css"/>
-    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/extra/bootstrap-multiselect/css/bootstrap-multiselect.css"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="{{ asset('assets') }}/extra/bootstrap-multiselect/css/bootstrap-multiselect.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets') }}/extra/summernote/summernote.css"/>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
@@ -37,7 +40,7 @@
           rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 </head>
-<body>
+</body>
 <!-- Content -->
 <div id="content">
     @yield('content')
@@ -46,6 +49,7 @@
 @yield('navigation')
 <!-- Script -->
 <script type="text/javascript" src="{{ asset('assets') }}/js/jquery.min.js"></script>
+<script type="text/javascript" src="{{ asset('assets') }}/extra/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/popper.min.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/extra/lightbox2-master/dist/js/lightbox.min.js"></script>
@@ -58,6 +62,9 @@
 <script type="text/javascript" src="{{ asset('assets') }}/extra/jcprogress/jcprogress.js"></script>
 {{--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>--}}
 <script type="text/javascript" src="{{ asset('assets') }}/extra/clipboard/dist/clipboard.min.js"></script>
-<script type="text/javascript" src="{{ asset('assets') }}/extra/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
+<script type="text/javascript"
+        src="{{ asset('assets') }}/extra/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
+<script type="text/javascript" src="{{ asset('assets') }}/extra/summernote/summernote.min.js"></script>
+<script type="text/javascript" src="{{ asset('assets') }}/extra/summernote/lang/summernote-ru-RU.js"></script>
 </body>
 </html>

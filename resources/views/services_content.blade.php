@@ -4,16 +4,12 @@
     @endif
     @if($works)
         <section class="works">
-            <ul>
-                @foreach($works as $work)
-                    <li>
-                        <a href="{{ route('services', $work->alias) }}">
-                            <img src="{{ asset(config('settings.services_dir')) . '/' . $work->alias . '/' . $work->img->sign }}">
-                            <p>{{ $work->title }}</p>
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
+            @foreach($works as $work)
+                <a class="service-button" href="{{ route('services', $work->alias) }}">
+                    <img src="{{ asset(config('settings.services_dir')) . '/' . $work->alias . '/' . $work->img->sign }}">
+                    <p>{{ $work->title }}</p>
+                </a>
+            @endforeach
         </section>
     @endif
 </div>

@@ -15,7 +15,7 @@
                     @if($selected->img->original)
                 </a>
             @endif
-            <div class="description">
+            <div class="description_note">
                 <div class="desc_header">
                     @if($works && count($works) > 1)
                         <a href="{{ route('branding', $selected->prev->alias) }}" title="Перейти к предыдущей работе">

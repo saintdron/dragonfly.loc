@@ -11,7 +11,7 @@
             <h2 class="animated fadeInDown faster" style="display: none;">Веб-дизайн и&nbsp;разработка</h2>
             <p style="display: none;">
                 <span class="animated fadeInLeftBig faster">Сайты,</span><br>
-                <span class="animated fadeInLeftBig faster">онлайн утилиты,</span><br/>
+                <span class="animated fadeInLeftBig faster">онлайн-сервисы,</span><br/>
                 <span class="animated fadeInLeftBig faster">веб-анимации</span>
             </p>
         </div>

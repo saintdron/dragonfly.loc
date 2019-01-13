@@ -4,7 +4,7 @@
             <a class="nav-link {{ $partition === 'sites' ? 'active' : '' }}" href="{{ route('sites') }}">Сайты</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ $partition === 'services' ? 'active' : '' }}" href="{{ route('services') }}">Онлайн утилиты</a>
+            <a class="nav-link {{ $partition === 'services' ? 'active' : '' }}" href="{{ route('services') }}">Онлайн-сервисы</a>
         </li>
         <li class="nav-item">
             <a class="nav-link {{ $partition === 'webAnimations' ? 'active' : '' }}" href="{{ route('webAnimations') }}">Веб-анимации</a>

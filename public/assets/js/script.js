@@ -105,5 +105,17 @@ jQuery(document).ready(function ($) {
         runProgressBars();
         loadWorks();
         setFeedbackFormHandler();
+
+        // Hide sticky note
+        $('.description_note').on('click', function () {
+            let $desc = $(this);
+            $(this).addClass('animated swing');
+            setTimeout(function () {
+                $desc.addClass('fadeOutDownBig');
+                setTimeout(function () {
+                    $desc.hide();
+                }, 250);
+            }, 750);
+        });
     }
 );

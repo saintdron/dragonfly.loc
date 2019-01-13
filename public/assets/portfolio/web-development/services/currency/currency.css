@@ -1,0 +1,294 @@
+.currency #from, #to {
+    display: inline-block;
+    margin: 0 3px;
+}
+
+.currency label[for='to'] {
+    margin-left: 6px;
+}
+
+.currency [type="submit"] {
+    margin-left: 10px;
+}
+
+/*.currency [type="submit"]:focus {
+    box-shadow: none;
+}*/
+
+.currency .chart {
+    margin-top: 20px;
+}
+
+.currency .container-column {
+    float: left;
+    width: 150px;
+    margin-top: 10px;
+}
+
+.currency .overflow {
+    height: 310px;
+}
+
+.currency .ui-datepicker-trigger {
+    margin: 0 0 -2px -20px;
+    width: 15px;
+}
+
+.currency .form-inline {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.currency .current-currency {
+    flex-flow: row nowrap;
+    width: 100%;
+}
+
+.currency .ui-selectmenu-icon {
+    top: 2px;
+}
+
+.currency .current_rate {
+    margin-left: 75px;
+    margin-bottom: 25px;
+}
+
+.currency #current_rate {
+    font-weight: bold;
+    color: #34b3a0;
+}
+
+.currency .period {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.currency .period label[for=from] {
+    margin-right: 6px;
+}
+
+.currency .period label[for=to] {
+    margin-left: 16px;
+    margin-right: 6px;
+}
+
+.currency [type="submit"] {
+    margin-left: 16px;
+}
+
+.currency .main-block p {
+    margin-bottom: 6px;
+}
+
+.currency .ui-datepicker-trigger {
+    margin-left: -25px;
+}
+
+/*Load animating*/
+
+.currency .cssload-container {
+    position: relative;
+}
+
+.currency .cssload-whirlpool,
+.currency .cssload-whirlpool::before,
+.currency .cssload-whirlpool::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px solid rgb(204, 204, 204);
+    border-left-color: rgb(0, 0, 0);
+    border-radius: 974px;
+    -o-border-radius: 974px;
+    -ms-border-radius: 974px;
+    -webkit-border-radius: 974px;
+    -moz-border-radius: 974px;
+}
+
+.currency .cssload-whirlpool {
+    margin: -24px 0 0 -24px;
+    height: 49px;
+    width: 49px;
+    animation: cssload-rotate 1150ms linear infinite;
+    -o-animation: cssload-rotate 1150ms linear infinite;
+    -ms-animation: cssload-rotate 1150ms linear infinite;
+    -webkit-animation: cssload-rotate 1150ms linear infinite;
+    -moz-animation: cssload-rotate 1150ms linear infinite;
+}
+
+.currency .cssload-whirlpool::before {
+    content: "";
+    margin: -22px 0 0 -22px;
+    height: 43px;
+    width: 43px;
+    animation: cssload-rotate 1150ms linear infinite;
+    -o-animation: cssload-rotate 1150ms linear infinite;
+    -ms-animation: cssload-rotate 1150ms linear infinite;
+    -webkit-animation: cssload-rotate 1150ms linear infinite;
+    -moz-animation: cssload-rotate 1150ms linear infinite;
+}
+
+.currency .cssload-whirlpool::after {
+    content: "";
+    margin: -28px 0 0 -28px;
+    height: 55px;
+    width: 55px;
+    animation: cssload-rotate 2300ms linear infinite;
+    -o-animation: cssload-rotate 2300ms linear infinite;
+    -ms-animation: cssload-rotate 2300ms linear infinite;
+    -webkit-animation: cssload-rotate 2300ms linear infinite;
+    -moz-animation: cssload-rotate 2300ms linear infinite;
+}
+
+@keyframes cssload-rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@-o-keyframes cssload-rotate {
+    100% {
+        -o-transform: rotate(360deg);
+    }
+}
+
+@-ms-keyframes cssload-rotate {
+    100% {
+        -ms-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes cssload-rotate {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes cssload-rotate {
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+.currency .cssload-container {
+    /*width: 500px;*/
+    /*height: 225px;*/
+    width: 100%;
+    height: 250px;
+    background-color: rgb(237, 233, 217);
+}
+
+.currency .main-container {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-top: 10px;
+}
+
+.currency .main-container > * {
+    flex: 1 100%;
+    /*flex: 1;*/
+}
+
+.currency .main-container .main-block {
+    max-width: 800px;
+}
+
+.currency #currency-button {
+    font-size: 1em;
+    padding-left: 10px;
+    padding-right: 6px;
+    margin-left: 8px;
+    width: 83%;
+}
+
+.currency #currency-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(52, 179, 160, 0.35);
+}
+
+.currency #diagram {
+    width: 100%;
+    /*max-width: 1000px;*/
+}
+
+/*без .currency*/
+#currency-menu {
+    font-size: 1em;
+}
+
+/*без .currency*/
+.overflow {
+    height: 70vh;
+}
+
+/*
+
+
+
+.currency .text-cleaner .main-container .main-block {
+    flex: 2;
+}*/
+
+/*.currency .description_note {
+    max-width: 430px;
+}*/
+
+.currency .help-block {
+    display: inline-block;
+    font-size: 0.95em;
+    line-height: 1.2em;
+    color: darkgrey;
+}
+
+.currency #ui-datepicker-div,
+.currency #ui-datepicker-div select {
+    font-family: Roboto, Arial, sans-serif;
+}
+
+.currency .alert p {
+    margin-bottom: 0;
+}
+
+.currency #status {
+    margin-top: 10px;
+}
+
+@media all and (max-width: 819px) {
+    .currency .main-container .description_note {
+        max-width: none;
+        margin-bottom: 25px;
+    }
+
+    .currency .main-container .main-block {
+        margin-bottom: 150px;
+    }
+}
+
+@media all and (min-width: 820px) {
+    .currency .main-container {
+        flex-direction: row;
+    }
+
+    .currency .main-container .main-block {
+        margin-right: 20px;
+        flex: 3;
+    }
+
+    .currency .main-container .description_note {
+        flex: 2;
+    }
+}
+
+@media all and (max-width: 575px) {
+    .currency .period .form-control {
+        flex: 1;
+    }
+
+    .currency .period label {
+        margin-bottom: 0;
+    }
+
+    .currency .current-currency {
+        margin-bottom: 0;
+    }
+}

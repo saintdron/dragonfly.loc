@@ -1,0 +1,596 @@
+.mailing {
+    position: relative;
+}
+
+.mailing #fileForm {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.mailing .redSpan {
+    color: red;
+}
+
+.mailing table {
+    border-width: 0 !important;
+}
+
+.mailing tr > *:first-child {
+    text-align: center;
+}
+
+.mailing thead {
+    border-collapse: collapse;
+    border-spacing: 0 0;
+    color: rgb(51, 51, 51);
+    line-height: 20px;
+    text-align: left;
+    font-size: 1em;
+}
+
+.mailing thead > tr {
+    height: 50px;
+}
+
+.mailing thead > tr > th {
+    border-radius: 0;
+}
+
+.mailing thead > tr > th:first-child {
+    border-radius: 0;
+    border-top-left-radius: 5px;
+    border-top-width: 0;
+    border-left-width: 0;
+    vertical-align: middle;
+    padding-top: 16px;
+    padding-bottom: 0;
+}
+
+.mailing thead > tr > th:first-child > input {
+    margin: 0;
+}
+
+.mailing thead > tr > th:last-child {
+    border-radius: 0;
+    border-top-right-radius: 5px;
+    /*    border: 1px solid rgb(255, 255, 255);
+        border-bottom-color: rgb(221, 221, 221);*/
+    border-top-width: 0;
+    border-right-width: 0;
+}
+
+.mailing th {
+    background-color: rgb(101, 101, 101);
+    border-bottom-left-radius: 0;
+    border-collapse: collapse;
+    border-spacing: 0 0;
+    border-top-color: rgb(255, 255, 255);
+    border-top-right-radius: 5px;
+    border-top-style: none;
+    border-top-width: 0;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    line-height: 20px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 8px;
+    text-align: left;
+    text-shadow: rgb(65, 65, 65) 0 1px 0;
+    vertical-align: bottom;
+}
+
+.mailing tbody {
+    border: 1px solid #dddddd;
+}
+
+.mailing .table-striped > tbody > tr {
+    background-color: #f4f4f4;
+}
+
+.mailing .table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #ececec;
+}
+
+.mailing .table-hover > tbody > tr:hover {
+    background-color: #e3e3e3;
+}
+
+.mailing .clearfix {
+    *zoom: 1;
+}
+
+.mailing .clearfix:before, .clearfix:after {
+    display: table;
+    content: "";
+    line-height: 0;
+}
+
+.mailing .clearfix:after {
+    clear: both;
+}
+
+.mailing .hide-text {
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+}
+
+.mailing .input-block-level {
+    display: block;
+    width: 100%;
+    min-height: 30px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.mailing .btn-file {
+    overflow: hidden;
+    position: relative;
+    vertical-align: middle;
+    border-radius: 0 5px 5px 0;
+}
+
+.mailing .btn-file > input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0 0 9px 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    transform: translate(-300px, 0) scale(4);
+    font-size: 23px;
+    direction: ltr;
+    cursor: pointer;
+}
+
+.mailing .baseupload .uneditable-input {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+    cursor: text;
+}
+
+.mailing .baseupload .thumbnail {
+    overflow: hidden;
+    display: inline-block;
+    margin-bottom: 5px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.mailing .baseupload .thumbnail > img {
+    display: inline-block;
+    vertical-align: middle;
+    max-height: 100%;
+}
+
+.mailing .baseupload-exists .baseupload-new, .baseupload-new .baseupload-exists {
+    display: none;
+}
+
+.mailing .baseupload-inline .baseupload-controls {
+    display: inline;
+}
+
+.mailing .baseupload-new .input-append .btn-file {
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+}
+
+.mailing .thumbnail-borderless .thumbnail {
+    border: none;
+    padding: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.mailing .baseupload-new.thumbnail-borderless .thumbnail {
+    border: 1px solid #ddd;
+}
+
+.mailing .control-group.warning .baseupload .uneditable-input {
+    color: #a47e3c;
+    border-color: #a47e3c;
+}
+
+.mailing .control-group.warning .baseupload .baseupload-preview {
+    color: #a47e3c;
+}
+
+.mailing .control-group.warning .baseupload .thumbnail {
+    border-color: #a47e3c;
+}
+
+.mailing .control-group.error .baseupload .uneditable-input {
+    color: #b94a48;
+    border-color: #b94a48;
+}
+
+.mailing .control-group.error .baseupload .baseupload-preview {
+    color: #b94a48;
+}
+
+.mailing .control-group.error .baseupload .thumbnail {
+    border-color: #b94a48;
+}
+
+.mailing .control-group.success .baseupload .uneditable-input {
+    color: #468847;
+    border-color: #468847;
+}
+
+.mailing .control-group.success .baseupload .baseupload-preview {
+    color: #468847;
+}
+
+.mailing .control-group.success .baseupload .thumbnail {
+    border-color: #468847;
+}
+
+.mailing .container {
+    margin-top: 20px;
+}
+
+.mailing #warning {
+    color: red;
+    font-weight: normal;
+    margin: 0;
+    visibility: hidden;
+    vertical-align: bottom;
+}
+
+.mailing .div-inline {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.mailing .div-inline > div {
+    vertical-align: middle;
+    margin-right: 5px;
+    width: 100%;
+}
+
+.mailing .div-inline > div:last-child {
+    margin-right: 0;
+}
+
+/*.mailing .div-inline2 {
+    text-align: center;
+}
+
+.mailing .div-inline2 > div > input {
+    margin-top: 10px;
+}*/
+
+.mailing #editor {
+    overflow: scroll;
+    max-height: 300px;
+}
+
+.mailing tr.greyRow {
+    color: #DEDEDE;
+}
+
+.mailing tr > th:nth-child(2) {
+    text-align: center;
+}
+
+.mailing .numberColumn {
+    text-align: center;
+}
+
+.mailing .div-first {
+    display: inline-block;
+    width: calc(100vw - 195px);
+    margin-bottom: 5px;
+}
+
+.mailing .div-first [type=text] {
+    border-radius: 5px 0 0 5px;
+    position: relative;
+    z-index: 10;
+}
+
+.mailing .baseuploadDiv > label {
+    visibility: hidden;
+}
+
+.mailing .div-first + div {
+    clear: both;
+}
+
+.mailing #selectFrom,
+.mailing #selectTo {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.mailing .table {
+    margin-bottom: 15px;
+}
+
+.mailing .submitListDiv {
+    display: flex;
+    text-align: center;
+    position: relative;
+}
+
+.mailing .submitListDiv > div:last-of-type {
+    margin-left: auto;
+}
+
+.mailing .submitListDiv p {
+    /*margin: 0;*/
+    padding: 7px 0 7px 10px;
+}
+
+.mailing .note-editor {
+    margin-bottom: 20px;
+}
+
+.mailing .meCopy > label {
+    padding-left: 5px;
+}
+
+.mailing .relative-group {
+    position: relative;
+}
+
+.mailing .relative-group .btn {
+    border-radius: 5px 0 0 5px;
+}
+
+.mailing .relative-group [type=text] {
+    /*margin-left: 5px;*/
+    border-radius: 0 5px 5px 0;
+}
+
+.mailing .eraseAttachment {
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    z-index: 3;
+    visibility: hidden;
+}
+
+.mailing .note-editor {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+.mailing .note-editor a {
+    color: #101010;
+}
+
+.mailing .note-editor.note-frame .note-editing-area .note-editable {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.mailing .input-group-btn {
+    position: relative;
+    z-index: 10;
+    margin-bottom: 5px;
+}
+
+/*.mailing label[for=baseupload],*/
+.mailing .help-block {
+    color: darkgrey;
+}
+
+/*fixed summernote double arrow*/
+.mailing .dropdown-toggle::after {
+    content: none;
+}
+
+/*fixed summernote*/
+.mailing .note-form-label {
+    width: 100%;
+}
+
+.mailing .upper-table {
+    margin: 20px 0 15px 0;
+    display: flex;
+    flex-direction: row;
+    font-size: 16px;
+}
+
+.mailing .upper-table > * {
+    /*flex: 1;*/
+}
+
+.mailing .upper-table button,
+.mailing .upper-table a {
+    font-size: 0.9em;
+}
+
+.mailing .upper-table button {
+    margin: 10px 20px 0 0;
+}
+
+.mailing .upper-table a {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.mailing .upper-table label {
+    font-family: Roboto, Arial, sans-serif;
+    font-weight: normal;
+    /*margin-left: 5px;*/
+    margin-top: 5px;
+}
+
+.mailing .upper-table div:last-of-type {
+    margin-left: auto;
+}
+
+.mailing .btn-dm {
+    font-size: 0.9rem;
+}
+
+.mailing .btn-dm:focus {
+    box-shadow: none;
+}
+
+.mailing .btn-dm:active {
+    box-shadow: 0 0 1px rgba(0, 0, 0, .5) inset,
+    0 2px 3px rgba(0, 0, 0, .5) inset,
+    0 1px 1px rgba(255, 255, 255, .1);
+}
+
+.mailing #submitList {
+    font-size: 14.4px;
+}
+
+.mailing #status .alert ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mailing .csv-description {
+    line-height: 1.2em;
+    margin-bottom: 16px;
+    text-align: right;
+    width: 100%;
+}
+
+/*.mailing .send-button {
+    text-align: center;
+    margin-bottom: 100px;
+}*/
+
+.mailing .bottom-group {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-end;
+    margin-bottom: 150px;
+    margin-top: 30px;
+}
+
+.mailing .bottom-group .send-button {
+    margin-right: 5px;
+    margin-bottom: 1em;
+}
+
+/*.mailing .bottom-group div:last-of-type {
+    margin-bottom: 10px;
+}*/
+
+.mailing #sendSubmit {
+    font-size: 0.96em;
+}
+
+.mailing .sending {
+    margin-top: 20px;
+}
+
+.mailing .sending a {
+    font-size: 0.95em;
+    margin-right: 10px;
+}
+
+.mailing .sending .sending-table {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.mailing .sending .sending-table th:first-of-type {
+    width: 50px;
+}
+
+.mailing .sending .sending-table th:nth-of-type(2) {
+    text-align: left;
+    width: 200px;
+}
+
+.mailing .sending .sending-table td {
+    padding: 8px;
+}
+
+.mailing .sending .btn-d {
+    font-size: 1em;
+}
+
+.mailing .attention {
+    /*width: 65%;*/
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-family: Roboto, Arial, sans-serif;
+    background: #ffc;
+    border-color: #e2d2a3;
+}
+
+.mailing .attention h5 {
+    font-size: 19px;
+    font-weight: bold;
+    margin: 5px 0 15px;
+}
+
+.mailing .attention p {
+    font-size: 14.4px;
+    margin-bottom: 1rem;
+}
+
+.mailing .attention a {
+    font-size: 1em;
+    margin-right: 0;
+}
+
+.mailing .attention p:last-of-type {
+    margin-bottom: 0;
+}
+
+.mailing_note {
+    /*text-align: center;*/
+    /*margin: auto;*/
+    /*max-width: 800px;*/
+    max-width: none;
+    z-index: 100;
+    display: flex;
+    flex-flow: wrap row;
+    align-items: start;
+}
+
+.mailing_note .desc_header {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.mailing_note > .desc_common {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.mailing_note > .desc_demonstration {
+    flex: 2;
+}
+
+.mailing_note .desc_demonstration img {
+    width: 100%;
+    height: 100%;
+}
+
+@media all and (max-width: 1100px) {
+    .mailing_note .desc_header {
+        margin-bottom: 5px;
+    }
+    .mailing_note .desc_common {
+        margin-bottom: 25px;
+    }
+
+    .mailing_note .desc_demonstration {
+        flex: unset;
+    }
+}
