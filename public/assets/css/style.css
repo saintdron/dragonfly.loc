@@ -1197,6 +1197,55 @@ footer {
     margin-top: 25px;
 }
 
+.dragonfly .special-2 .work-block {
+    width: 100%;
+}
+
+.dragonfly .error-runtime.preview {
+    padding-bottom: 50px;
+}
+
+.dragonfly .error-runtime.preview .partitions {
+    width: 80%;
+    margin: auto;
+}
+
+.dragonfly .error-runtime.preview p {
+    margin-bottom: 0;
+}
+
+.dragonfly .error-runtime.preview .content {
+    width: 80%;
+}
+
+.dragonfly .error-404.preview {
+    padding-bottom: 5%;
+}
+
+.dragonfly .error-404.preview .content {
+    margin-top: 0;
+}
+
+.dragonfly .error-404.preview .code,
+.dragonfly .error-404.preview .content p {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+.dragonfly .error-404.preview .code {
+    padding-bottom: 0;
+}
+
+.dragonfly .error-404.preview .code__number {
+    font-size: 55%;
+}
+
+.dragonfly .error-404.preview .code__image img {
+    height: 50%;
+    margin-bottom: 20px;
+}
+
 @media all and (max-width: 1100px) {
     .sites .site-row.reverse .work-block {
         order: 1;
@@ -1228,5 +1277,9 @@ footer {
 
     .dragonfly .special-1 > div:nth-child(1) {
         margin-left: unset;
+    }
+
+    .dragonfly .special-2 .work-block {
+        flex: none;
     }
 }

@@ -28,7 +28,6 @@ class GraphicDesignController extends SiteController
         $this->partitions_view = $this->getPartitionsView();
 
         try {
-//            throw new \Exception('Тестовое исключение');
             $works = $this->getBrandings();
             if ($works->isEmpty()) {
                 $content_view = $this->setError('Не удалось найти ни одной работы.');
