@@ -319,6 +319,12 @@
                                     <option value="табл.">табл.</option>
                                     <option value="мал.">мал. (рис.)</option>
                                 </optgroup>
+                                <optgroup label="Ученые степени" class="group-4">
+                                    <option value="к.ю.н.">к.ю.н.</option>
+                                    <option value="д.ю.н.">д.ю.н.</option>
+                                    <option value="к.е.н.">к.е.н. (к.э.н.)</option>
+                                    <option value="д.е.н.">д.е.н. (д.э.н.)</option>
+                                </optgroup>
                             </select>
                         </div>
                     </div>

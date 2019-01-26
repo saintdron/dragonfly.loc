@@ -66,5 +66,6 @@
         src="{{ asset('assets') }}/extra/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/extra/summernote/summernote.min.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/extra/summernote/lang/summernote-ru-RU.js"></script>
+<script type="text/javascript" src="{{ asset('assets') }}/js/wow.min.js"></script>
 </body>
 </html>

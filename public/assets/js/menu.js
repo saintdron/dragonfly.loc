@@ -24,6 +24,7 @@ jQuery(document).ready(function ($) {
                 changeTitle();
                 runProgressBars();
                 setFeedbackFormHandler();
+                checkRestAnimation();
             },
             error: function () {
                 // TODO: add error handler

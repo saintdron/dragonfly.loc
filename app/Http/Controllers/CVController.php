@@ -26,7 +26,7 @@ class CVController extends SiteController
                 ->render();
         } catch (\Exception $exception) {
             report($exception);
-            $content_view = $this->getError();
+            $content_view = $this->setError();
         }
 
         if ($request->isMethod('post')) {

@@ -27,7 +27,7 @@ function runProgressBars() {
             barArr[i] = new RadialProgress(v, {
                 colorBg: "#DDDDDD",
                 colorFg: color,
-                colorText: "#e4e4e4",
+                colorText: "#d0d0d0",
                 progress: level / 100,
                 thick: 12,
                 round: true,
@@ -101,21 +101,66 @@ function setFeedbackFormHandler() {
     });
 }
 
+// Add (or remove) "wow" class for first "work-desc" on mobile device
+function checkWow() {
+    if ($(window).width() > '1000') {
+        console.log('>1000');
+        $('.work-desc:first').removeClass('wow slideInRight');
+    } else {
+        $('.work-desc:first').addClass('wow slideInRight');
+    }
+}
+
+function checkRestAnimation() {
+
+    // wow.js initialization
+    new WOW({
+        offset: 200, // default 0
+    }).init();
+
+    // Hide sticky note
+    $('.description_note').on('click', function () {
+        let $desc = $(this);
+        $(this).addClass('animated swing');
+        setTimeout(function () {
+            $desc.addClass('fadeOutDownBig');
+            setTimeout(function () {
+                $desc.hide();
+            }, 250);
+        }, 750);
+    });
+
+    // Change service button image when hover it
+    $('.service-button').hover(function () {
+        let $img = $(this).find('img');
+        let name = $img.attr('class');
+        $img.attr('src', '/assets/portfolio/web-development/services/' + name + '/' + name + '_white.png');
+    }, function () {
+        let $img = $(this).find('img');
+        let name = $img.attr('class');
+        $img.attr('src', '/assets/portfolio/web-development/services/' + name + '/' + name + '.png');
+    });
+
+    // Animate site buttons when hover it
+    $('.site-button').hover(function () {
+        let $wing = $('#wing');
+        $(this).append($wing).addClass('animate');
+        $wing.show().addClass('animate');
+    }, function () {
+        let $wing = $('#wing');
+        $('body').append($wing);
+        $(this).removeClass('animate');
+        $wing.hide().removeClass('animate');
+    });
+
+/*    // или "два-в-одном", вместо двух последних строк:
+    $(window).on('load resize', checkWow);*/
+}
+
 jQuery(document).ready(function ($) {
         runProgressBars();
         loadWorks();
         setFeedbackFormHandler();
-
-        // Hide sticky note
-        $('.description_note').on('click', function () {
-            let $desc = $(this);
-            $(this).addClass('animated swing');
-            setTimeout(function () {
-                $desc.addClass('fadeOutDownBig');
-                setTimeout(function () {
-                    $desc.hide();
-                }, 250);
-            }, 750);
-        });
+        checkRestAnimation();
     }
 );

@@ -31,7 +31,7 @@ class GraphicDesignController extends SiteController
 //            throw new \Exception('Тестовое исключение');
             $works = $this->getBrandings();
             if ($works->isEmpty()) {
-                $content_view = $this->getError('Не удалось найти ни одной работы.');
+                $content_view = $this->setError('Не удалось найти ни одной работы.');
             } else {
                 $selected = $alias ? $this->getBranding($alias) : $this->getBranding($works[0]->alias);
                 $selected = $selected ?: $this->getBranding($works[0]->alias);
@@ -39,7 +39,7 @@ class GraphicDesignController extends SiteController
             }
         } catch (\Exception $exception) {
             report($exception);
-            $content_view = $this->getError();
+            $content_view = $this->setError();
         }
 
         if ($request->isMethod('post')) {
@@ -58,7 +58,7 @@ class GraphicDesignController extends SiteController
         try {
             $works = $this->getPrintings();
             if ($works->isEmpty()) {
-                $content_view = $this->getError('Не удалось найти ни одной работы.');
+                $content_view = $this->setError('Не удалось найти ни одной работы.');
             } else {
                 $selected = $alias ? $this->getPrinting($alias) : $this->getPrinting($works[0]->alias);
                 $selected = $selected ?: $this->getPrinting($works[0]->alias);
@@ -66,7 +66,7 @@ class GraphicDesignController extends SiteController
             }
         } catch (\Exception $exception) {
             report($exception);
-            $content_view = $this->getError();
+            $content_view = $this->setError();
         }
 
         if ($request->isMethod('post')) {
@@ -85,7 +85,7 @@ class GraphicDesignController extends SiteController
         try {
             $works = $this->getGraphicAnimations();
             if ($works->isEmpty()) {
-                $content_view = $this->getError('Не удалось найти ни одной работы.');
+                $content_view = $this->setError('Не удалось найти ни одной работы.');
             } else {
                 $selected = $alias ? $this->getGraphicAnimation($alias) : $this->getGraphicAnimation($works[0]->alias);
                 $selected = $selected ?: $this->getGraphicAnimation($works[0]->alias);
@@ -93,7 +93,7 @@ class GraphicDesignController extends SiteController
             }
         } catch (\Exception $exception) {
             report($exception);
-            $content_view = $this->getError();
+            $content_view = $this->setError();
         }
 
         if ($request->isMethod('post')) {

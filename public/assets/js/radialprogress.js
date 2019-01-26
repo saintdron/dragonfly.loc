@@ -61,7 +61,7 @@ function RadialProgress(container,cfg){
 		}else{
 			if(this.spin&&!this.noAnimations)this.rot=(this.rot+0.07*this.animationSpeed)%(2*Math.PI)
 			c.arc(centerX,centerY,radius,this.rot-Math.PI/2, this.rot+this.aniP*(2*Math.PI)-Math.PI/2);
-			if(!this.noPercentage)this.text.innerHTML=Math.round(100*this.aniP)+" %";
+			if(!this.noPercentage)this.text.innerHTML=Math.round(100*this.aniP)+"%";
 		}
 		c.stroke();
 		this.prevW=c.width; this.prevH=c.height; this.prevP=this.aniP;

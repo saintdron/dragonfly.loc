@@ -32,7 +32,7 @@
     flex-direction: column;
     align-self: stretch;
     flex: 1 0 0 50px;
-    font-family: Roboto, Arial, sans-serif;
+    /*font-family: Roboto, Arial, sans-serif;*/
     padding: 15px 20px 0;
     text-align: center;
 }
@@ -78,7 +78,7 @@
 }
 
 .text-cleaner label {
-    font-family: Roboto, Arial, sans-serif;
+    /*font-family: Roboto, Arial, sans-serif;*/
     user-select: none;
 }
 
@@ -303,7 +303,7 @@
 .text-cleaner .attention {
     width: 65%;
     margin-top: 25px;
-    font-family: Roboto, Arial, sans-serif;
+    /*font-family: Roboto, Arial, sans-serif;*/
     background: #ffc;
     border-color: #e2d2a3;
 }

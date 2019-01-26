@@ -6,7 +6,8 @@
         <section class="works">
             @foreach($works as $work)
                 <a class="service-button" href="{{ route('services', $work->alias) }}">
-                    <img src="{{ asset(config('settings.services_dir')) . '/' . $work->alias . '/' . $work->img->sign }}">
+                    <img class="{{ $work->alias }}"
+                         src="{{ asset(config('settings.services_dir')) . '/' . $work->alias . '/' . $work->img->sign }}">
                     <p>{{ $work->title }}</p>
                 </a>
             @endforeach

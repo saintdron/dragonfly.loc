@@ -49,7 +49,7 @@
                     @endif
                 @endif
             </div>
-            <div class="description_note">
+            <div class="description">
                 <div class="desc_header">
                     @if($works && count($works) > 1)
                         <a href="{{ route('webAnimations', $selected->prev->alias) }}"

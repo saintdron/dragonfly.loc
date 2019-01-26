@@ -65,7 +65,7 @@ class SiteController extends Controller
         return $menu;
     }
 
-    protected function getError($message = '')
+    protected function setError($message = '')
     {
         return view('errorRuntime_content', ['title' => $this->title, 'partitions_view' => $this->partitions_view, 'message' => $message])
             ->render();

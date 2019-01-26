@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                             <p>Показать динамику за период: </p>
                             <div class="period form-inline">
-                                <label for="from">С</label>
+                                <label for="from">с</label>
                                 <input class="form-control" name="from" id="from" type="text"
                                        value="<?= $dateFrom->format('d.m.Y')?>">
                                 <label for="to">по</label>

@@ -424,7 +424,7 @@
 }
 
 .mailing .upper-table label {
-    font-family: Roboto, Arial, sans-serif;
+    /*font-family: Roboto, Arial, sans-serif;*/
     font-weight: normal;
     /*margin-left: 5px;*/
     margin-top: 5px;
@@ -527,7 +527,7 @@
     /*width: 65%;*/
     margin-top: 15px;
     margin-bottom: 15px;
-    font-family: Roboto, Arial, sans-serif;
+    /*font-family: Roboto, Arial, sans-serif;*/
     background: #ffc;
     border-color: #e2d2a3;
 }

@@ -2,9 +2,6 @@ jQuery(document).ready(function ($) {
 
     let prevOriginal = '';
 
-    /* let optionsTest = localStorage.getItem('options'),
-         abbOptionsLength = (optionsTest.abbreviations_text) ? optionsTest.abbreviations_text.length : 0;*/
-
     const ABBR_OPTIONS_COUNT = $('#abbreviations_text option').length;
     const ABBR_OPTIONS_SHOW_LENGTH = 30;
     $('#abbreviations_text').multiselect({
@@ -19,11 +16,9 @@ jQuery(document).ready(function ($) {
         },
         allSelectedText: 'Выбраны все сокращения!',
         buttonText: function (opts, select) {
-            // console.log(opts.length);
             if (opts.length === 0) {
                 return 'Не выбрано ни одно сокращение!';
             } else if (opts.length === ABBR_OPTIONS_COUNT) {
-                // return 'Выбрано более трех сокращений...';
                 return 'Выбраны все сокращения!';
             } else {
                 let labels = [];
@@ -40,12 +35,6 @@ jQuery(document).ready(function ($) {
             }
         },
         onChange: function (option, checked, select) {
-            /*alert('Changed option ' + $(option).val() + '.');
-            alert(checked);*/
-            // console.log(option);
-            /*if ($(option).prop()) {
-
-            }*/
             if (checked) {
                 $(option).attr('selected', 'selected');
             } else {
@@ -64,12 +53,10 @@ jQuery(document).ready(function ($) {
         if (typeof data !== 'object') {
             // return all data
             data = {};
-
             $.each(els, function () {
                 if (this.name && !this.disabled && (this.checked
                     || /select|textarea/i.test(this.nodeName)
                     || /text|hidden|password/i.test(this.type))) {
-                    // data[this.name] = $(this).val();
                     if (data[this.name]) {
                         data[this.name] = [].concat(data[this.name], $(this).val());
                     } else {
@@ -79,18 +66,10 @@ jQuery(document).ready(function ($) {
             });
             return data;
         } else {
-            // console.log(data);
             $.each(els, function () {
-                // console.log(this.name);
-                // console.log(data[this.name]);
                 if (this.name && data[this.name] !== undefined) {
                     if (this.name !== 'abbreviations_text') {
-                        // console.log(this.name);
                         if (this.type === 'checkbox' || this.type === 'radio') {
-                            // console.log($(this));
-                            // console.log(this.name);
-                            // console.log(data[this.name]);
-                            // console.log(typeof data[this.name]);
                             $(this).prop("checked", true);
                         } else {
                             $(this).val(data[this.name]);
@@ -120,8 +99,6 @@ jQuery(document).ready(function ($) {
         }
     };
 
-    // function (e) {}
-
     $('#button-check-all').on('click', function (e) {
         let $elems = $('[type=checkbox]:not(:disabled)');
         $elems.each(function () {
@@ -150,18 +127,13 @@ jQuery(document).ready(function ($) {
 
     let options = localStorage.getItem('options');
 
-    // console.log(JSON.parse(options));
-
     function saveOptions() {
         options = $('.text-cleaner form').values();
         localStorage.setItem('options', JSON.stringify(options));
-        // console.log(JSON.parse(localStorage.getItem('options')));
     }
 
     if (options) {
         options = JSON.parse(options);
-        // console.log('options', options);
-        // $('#button-uncheck-all').click();
         let $elems = $('[type=checkbox]:not(:disabled)');
         $elems.each(function () {
             if ($(this).attr('name') !== 'abbreviations_text') {
@@ -783,7 +755,7 @@ jQuery(document).ready(function ($) {
 
             // ABBREVIATIONS
             if (options.abbreviations && options.abbreviations_text) {
-                m = text.match(/(грн)|(руб.)|(дол.)|(долл.)|(млрд)|(млн)|(тис.)|(ст.)|(ст.ст.)|(табл.)|(мал.)|(рис.)/g);
+                m = text.match(/(грн)|(руб.)|(дол.)|(долл.)|(млрд)|(млн)|(тис.)|(ст.)|(ст.ст.)|(табл.)|(мал.)|(рис.)|(к.ю.н.)|(д.ю.н.)|(к.е.н.)|(к.э.н.)|(д.е.н.)|(д.э.н.)/g);
                 let beforeAbbreviationsNumber = m ? m.length : 0;
 
                 // грн
@@ -875,7 +847,29 @@ jQuery(document).ready(function ($) {
                     }
                 }
 
-                m = text.match(/(грн)|(руб.)|(дол.)|(долл.)|(млрд)|(млн)|(тис.)|(ст.)|(ст.ст.)|(табл.)|(мал.)|(рис.)/g);
+                // к.ю.н.
+                if (options.abbreviations_text.includes('к.ю.н.')) {
+                    r(/канд[\u0430-\u045F.]+\s?юрид[\u0430-\u045F.]+\s?наук/gi, "к.ю.н.");
+                }
+
+                // к.е.н., к.э.н.
+                if (options.abbreviations_text.includes('к.ю.н.')) {
+                    r(/канд[\u0430-\u045F.]+\s?екон[\u0430-\u045F.]+\s?наук/gi, "к.е.н.");
+                    r(/канд[\u0430-\u045F.]+\s?экон[\u0430-\u045F.]+\s?наук/gi, "к.э.н.");
+                }
+
+                // д.ю.н.
+                if (options.abbreviations_text.includes('д.ю.н.')) {
+                    r(/докт[\u0430-\u045F.]+\s?юрид[\u0430-\u045F.]+\s?наук/gi, "д.ю.н.");
+                }
+
+                // д.е.н., д.э.н.
+                if (options.abbreviations_text.includes('к.ю.н.')) {
+                    r(/докт[\u0430-\u045F.]+\s?екон[\u0430-\u045F.]+\s?наук/gi, "д.е.н.");
+                    r(/докт[\u0430-\u045F.]+\s?экон[\u0430-\u045F.]+\s?наук/gi, "д.э.н.");
+                }
+
+                m = text.match(/(грн)|(руб.)|(дол.)|(долл.)|(млрд)|(млн)|(тис.)|(ст.)|(ст.ст.)|(табл.)|(мал.)|(рис.)|(к.ю.н.)|(д.ю.н.)|(к.е.н.)|(к.э.н.)|(д.е.н.)|(д.э.н.)/g);
                 let afterAbbreviationsNumber = m ? m.length : 0;
                 corrs += afterAbbreviationsNumber - beforeAbbreviationsNumber;
             }
@@ -984,23 +978,24 @@ jQuery(document).ready(function ($) {
                 // e.g. забыли,зажали.Даже так
                 r(/(\D)([.,;:?!»%)])([\d\u0400-\u04FF])/g, '$1$2 $3');
 
-                // e.g. потерянный– пробел с тире
-                reg = /([^\s\d])([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63])\s/g;
-                if (reg.test(text)) {
-                    if (options.dashes) {
-                        if (options.non_breaking_spaces) {
-                            r(reg, "$1\u00A0\u2014 ");
-                        } else {
-                            r(reg, "$1 \u2014 ");
-                        }
-                    } else {
-                        if (options.non_breaking_spaces) {
-                            r(reg, "$1\u00A0$2 ");
-                        } else {
-                            r(reg, "$1 $2 ");
-                        }
-                    }
-                }
+                // Удалил из-за проблем с видео-, аудио- и другим словами, заканчивающимися на дефис
+                /*                // e.g. потерянный– пробел с тире
+                                reg = /([^\s\d])([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63])\s/g;
+                                if (reg.test(text)) {
+                                    if (options.dashes) {
+                                        if (options.non_breaking_spaces) {
+                                            r(reg, "$1\u00A0\u2014 ");
+                                        } else {
+                                            r(reg, "$1 \u2014 ");
+                                        }
+                                    } else {
+                                        if (options.non_breaking_spaces) {
+                                            r(reg, "$1\u00A0$2 ");
+                                        } else {
+                                            r(reg, "$1 $2 ");
+                                        }
+                                    }
+                                }*/
 
                 // e.g. потерянный –пробел с тире
                 reg = /(\s)([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63])([^\d ])/g;
@@ -1013,7 +1008,7 @@ jQuery(document).ready(function ($) {
                 }
 
                 // e.g. пропущенный(пробел
-                r(/([^\s\d§#№(«\u2018\u201E{\[<])([§#№(«\u2018\u201E{\[<])/g, '$1 $2');
+                r(/([^\s\d§#№(«\u201E{\[<])([§#№(«\u201E{\[<])/g, '$1 $2');
                 // e.g. пропущенный)пробел
                 r(/([)»\u201d}\]>])([\w\u0400-\u04FF])/g, '$1 $2');
 
@@ -1079,11 +1074,29 @@ jQuery(document).ready(function ($) {
                 // вернуть назад п. п.
                 r(/п\.\s+п\./gi, 'п.п.');
                 // вернуть назад к. ю. н., д. ю. н.
-                r(/к\. ю\. н\./g, "к.ю.н.");
-                r(/д\. ю\. н\./g, "д.ю.н.");
+                r(/к\.\s?ю\.\s?н\./g, "к.ю.н.");
+                r(/д\.\s?ю\.\s?н\./g, "д.ю.н.");
+                r(/к\.\s?е\.\s?н\./g, "к.е.н.");
+                r(/д\.\s?е\.\s?н\./g, "д.е.н.");
+                r(/к\.\s?э\.\s?н\./g, "к.э.н.");
+                r(/д\.\s?э\.\s?н\./g, "д.э.н.");
 
                 afterLength = text.length;
                 corrs += afterLength - beforeLength;
+            }
+
+
+            // APOSTROPHES
+            if (options.apostrophes) {
+                m = text.match(/'/g);
+                let beforeApostrophesNumber = m ? m.length : 0;
+
+                // преобразуем всевозможные апострофы к единому виду
+                r(/([a-z\u0400-\u04FF])['\u0060\u055A\u07F4\u2019\u02BC\u2018]([a-z\u0400-\u04FF])/gi, "$1'$2");
+
+                m = text.match(/'/g);
+                let afterApostrophesNumber = m ? m.length : 0;
+                corrs += afterApostrophesNumber - beforeApostrophesNumber;
             }
 
 
@@ -1110,20 +1123,6 @@ jQuery(document).ready(function ($) {
                 let afterCloseQuotesNumber = m ? m.length : 0;
                 corrs += afterOpenQuotesNumber - beforeOpenQuotesNumber;
                 corrs += afterCloseQuotesNumber - beforeCloseQuotesNumber;
-            }
-
-
-            // APOSTROPHES
-            if (options.apostrophes) {
-                m = text.match(/'/g);
-                let beforeApostrophesNumber = m ? m.length : 0;
-
-                // преобразуем всевозможные апострофы к единому виду
-                r(/([a-z\u0400-\u04FF])['\u0060\u055A\u07F4\u2019\u02BC\u2018]([a-z\u0400-\u04FF])/gi, "$1'$2");
-
-                m = text.match(/'/g);
-                let afterApostrophesNumber = m ? m.length : 0;
-                corrs += afterApostrophesNumber - beforeApostrophesNumber;
             }
 
 
@@ -1421,7 +1420,6 @@ jQuery(document).ready(function ($) {
             // LISTS(2/2)
             if (options.lists) {
                 reg = /(\r\n|\n\r|\r|\n)([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7]\s*)(\S[^\r\n]+[^!?.;\r\n])(?=(?:\r\n|\n\r|\r|\n)[-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7]\s[a-z\u0430-\u045F])/g;
-                // console.log(text.match(reg));
                 r(reg, function (match) {
                     corrs++;
                     return match + ';';
@@ -1429,7 +1427,6 @@ jQuery(document).ready(function ($) {
                 reg = /(\r\n|\n\r|\r|\n)([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7]\s*)(\S[^\r\n]+[^!?.;\r\n])(?=\r\n|\n\r|\r|\n|$)/g;
                 r(reg, function (match) {
                     corrs++;
-                    // let [_, $1, $2, $3, $4] = match.match(/(\r\n|\n\r|\r|\n)([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7]\s*)(\S[^\r\n]+[^!?.;\r\n])((?:\r\n|\n\r|\r|\n)\S|$)/);
                     return match + '.';
                 });
             }
@@ -1456,6 +1453,7 @@ jQuery(document).ready(function ($) {
                 }
 
                 // Шевченко Т. Г.
+                // Не правит в конце предложения, так как невозможно отличить фамилию от первого (заглавного) слова последующего предложения
                 reg = /([A-Z\u0400-\u042F\u0460-\u04FF][a-z\u0430-\u045F'\u02BC]+) ([A-Z\u0400-\u042F\u0460-\u04FF][a-z]?\.) ?([A-Z\u0400-\u042F\u0460-\u04FF][a-z]?\.)(?=[^a-z\u0430-\u045F'\u02BC]|$)/g;
                 if (INITIALS_POSITION === 'start') {
                     if (options.non_breaking_spaces) {
@@ -1502,7 +1500,24 @@ jQuery(document).ready(function ($) {
 
                 // не переносил
                 // бы
-                r(/\s(б[иы]?)(?=[^\w\u0400-\u04FF'\u2011-]|$)/g, "\u00A0$1");
+                reg = /\s(б[иы]?)([^\w\u0400-\u04FF'\u2011-]|$)/g;
+                r(reg, function (match) {
+                    if (/[ \u00A0]б[иы]?\s/.test(match)) {
+                        return match.replace(reg, "\u00A0$1 ");
+                    } else {
+                        return match.replace(reg, "\u00A0$1$2");
+                    }
+                });
+
+                // аналогично_же
+                reg = /\s(же?)([^\w\u0400-\u04FF'\u2011-]|$)/g;
+                r(reg, function (match) {
+                    if (/[ \u00A0]же?\s/.test(match)) {
+                        return match.replace(reg, "\u00A0$1 ");
+                    } else {
+                        return match.replace(reg, "\u00A0$1$2");
+                    }
+                });
             }
 
 
@@ -1638,18 +1653,4 @@ jQuery(document).ready(function ($) {
     $('[type=checkbox]').on('change', function () {
         $(this).check();
     });
-
-    /*$(window).on('unload', function () {
-        /!*let options2 = {
-            add_spaces: "on",
-            apostrophes: "on",
-            custom_replace: "on",
-            phone_numbers_text: "+XX (XXX) XXX-XX-XX",
-            abbreviations: "on",
-            abbreviations_text: ["грн", "руб.", "дол."]
-        };*!/
-        saveOptions();
-        /!*options = $('.text-cleaner form').values();
-        localStorage.setItem('options', JSON.stringify(options));*!/
-    });*/
 });

@@ -242,7 +242,7 @@
 
 .currency #ui-datepicker-div,
 .currency #ui-datepicker-div select {
-    font-family: Roboto, Arial, sans-serif;
+    /*font-family: Roboto, Arial, sans-serif;*/
 }
 
 .currency .alert p {

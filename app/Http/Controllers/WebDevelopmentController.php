@@ -26,19 +26,41 @@ class WebDevelopmentController extends SiteController
         $this->partition = 'sites';
         $this->partitions_view = $this->getPartitionsView();
 
-        try {
-            $works = $this->getSites();
-            if ($works->isEmpty()) {
-                $content_view = $this->getError('Не удалось найти ни одной работы.');
+//        try {
+        $works = $this->getSites();
+        if ($works->isEmpty()) {
+            $content_view = $this->setError('Не удалось найти ни одной работы');
+        } else {
+            if ($alias) {
+                $work = $this->getSite($alias);
+                if (!$work) {
+                    $content_view = $this->setError('Не удалось найти указанную работу');
+                } else {
+                    $this->title = $work->title;
+
+                    // Определение порядкового номера выбранной работы
+                    $k = $works->search(function ($item) use ($work) {
+                        return $item->alias === $work->alias;
+                    });
+                    // Добавление псевдонимов предыдущей и слудующей работ
+                    $work->prev = ($k === 0) ? $works[count($works) - 1]->alias : $works[$k - 1]->alias;
+                    $work->next = ($k === count($works) - 1) ? $works[0]->alias : $works[$k + 1]->alias;
+
+                    $content_view = view($this->partition . '.' . $work->alias)
+                        ->with(['title' => $this->title, 'partitions_view' => $this->partitions_view, 'work' => $work])
+                        ->render();
+                }
             } else {
-                $selected = $alias ? $this->getSite($alias) : $this->getSite($works[0]->alias);
-                $selected = $selected ?: $this->getSite($works[0]->alias);
-                $content_view = $this->formContent($works, $selected);
+                $content_view = view($this->partition . '_content')
+                    ->with(['title' => $this->title, 'partitions_view' => $this->partitions_view, 'works' => $works])
+                    ->render();
             }
-        } catch (\Exception $exception) {
-            report($exception);
-            $content_view = $this->getError();
         }
+
+        /*} catch (\Exception $exception) {
+            report($exception);
+            $content_view = $this->setError();
+        }*/
 
         if ($request->isMethod('post')) {
             return response()->json($content_view);
@@ -53,11 +75,11 @@ class WebDevelopmentController extends SiteController
         $this->partition = 'services';
         $this->partitions_view = $this->getPartitionsView();
 
-//        try {
+        try {
             if ($alias) {
                 $work = $this->getService($alias);
                 if (!$work) {
-                    $content_view = $this->getError('Не удалось найти указанный сервис');
+                    $content_view = $this->setError('Не удалось найти указанный сервис');
                 } else {
                     $this->title = $work->title;
                     $content_view = view($this->partition . '.' . $work->alias)
@@ -67,17 +89,17 @@ class WebDevelopmentController extends SiteController
             } else {
                 $works = $this->getServices();
                 if ($works->isEmpty()) {
-                    $content_view = $this->getError('Не удалось найти ни одной работы.');
+                    $content_view = $this->setError('Не удалось найти ни одной работы');
                 } else {
                     $content_view = view($this->partition . '_content')
                         ->with(['title' => $this->title, 'partitions_view' => $this->partitions_view, 'works' => $works])
                         ->render();
                 }
             }
-        /*} catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             report($exception);
-            $content_view = $this->getError();
-        }*/
+            $content_view = $this->setError();
+        }
 
 
         if ($request->isMethod('post')) {
@@ -96,7 +118,7 @@ class WebDevelopmentController extends SiteController
         try {
             $works = $this->getWebAnimations();
             if ($works->isEmpty()) {
-                $content_view = $this->getError('Не удалось найти ни одной работы.');
+                $content_view = $this->setError('Не удалось найти ни одной работы');
             } else {
                 $selected = $alias ? $this->getWebAnimation($alias) : $this->getWebAnimation($works[0]->alias);
                 $selected = $selected ?: $this->getWebAnimation($works[0]->alias);
@@ -104,7 +126,7 @@ class WebDevelopmentController extends SiteController
             }
         } catch (\Exception $exception) {
             report($exception);
-            $content_view = $this->getError();
+            $content_view = $this->setError();
         }
 
         if ($request->isMethod('post')) {
@@ -139,12 +161,12 @@ class WebDevelopmentController extends SiteController
 
     protected function getSites()
     {
-        return $this->si_rep->get(/*['img', 'title', 'alias']*/);
+        return $this->si_rep->get(['img', 'title', 'alias']);
     }
 
     protected function getSite($alias)
     {
-        return $this->si_rep->one($alias/*, ['img', 'title', 'alias', 'text', 'customer', 'techs', 'created_at']*/);
+        return $this->si_rep->one($alias, ['img', 'title', 'alias', 'text', 'customer', 'techs', 'created_at', 'live_version']);
     }
 
     protected function getServices()
