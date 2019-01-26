@@ -27,7 +27,14 @@ jQuery(document).ready(function ($) {
                 checkRestAnimation();
             },
             error: function () {
-                // TODO: add error handler
+                $('#content').html("<div class='container-fluid error error-runtime' data-title='Ошибка'>" +
+                    "<div class='content'>" +
+                    "<figure>" +
+                    "<img src='/assets/images/gif/error-runtime.gif' alt='Стрекоза у пруда'>" +
+                    "<figcaption>Затянулась бурой тиной<br>Гладь старинного пруда...</figcaption>" +
+                    "</figure>" +
+                    "<p>При загрузке страницы произошла ошибка.<br>Попробуйте обновить страницу</p>" +
+                    "</div></div>");
             }
         });
     }

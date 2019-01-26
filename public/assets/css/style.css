@@ -35,7 +35,6 @@ a:hover {
 
 .nav {
     justify-content: center;
-    /*font-family: Roboto, Arial, sans-serif;*/
 }
 
 .nav-pills a {
@@ -64,8 +63,7 @@ footer {
     border-radius: 5px;
     background: linear-gradient(rgb(110, 112, 120), rgb(81, 81, 86)) rgb(110, 112, 120);
     box-shadow: 0 1px rgba(255, 255, 255, .2) inset,
-    0 3px 5px rgba(0, 1, 6, .15) /*,
-    0 0 1px 1px rgba(0, 1, 6, .2)*/;
+    0 3px 5px rgba(0, 1, 6, .15);
     transition: .2s ease-in-out;
 }
 
@@ -74,7 +72,6 @@ footer {
 }
 
 .btn-d:active {
-    /*top: 1px;*/
     background: linear-gradient(rgb(76, 77, 82), rgb(56, 57, 62)) rgb(76, 77, 82);
     box-shadow: 0 0 1px rgba(0, 0, 0, .5) inset,
     0 2px 3px rgba(0, 0, 0, .5) inset,
@@ -123,8 +120,6 @@ footer {
 /*Home*/
 .home-wrapper {
     height: 100%;
-    /*background: url(../images/gif/water2.gif) no-repeat;*/
-    /*background-size: cover;*/
     overflow: hidden;
 }
 
@@ -134,17 +129,6 @@ footer {
     object-fit: cover;
 
 }
-
-/*.home-wrapper .curtain {
-    position: absolute;
-    top: 0;
-    height: 0;
-    width: 100%;
-
-    height: 100%;
-    !*background: rgba(255, 255, 255, 0.25);*!
-    !*background: rgba(0, 0, 0, 0.55);*!
-}*/
 
 .home-wrapper .header,
 .home-wrapper .footer {
@@ -184,7 +168,6 @@ footer {
     border: 5px solid white;
     box-shadow: 0 0 0 1px #cccccc;
     border-radius: 0 65px;
-    /*cursor: pointer;*/
 }
 
 .graphic-design .main-work .work {
@@ -259,7 +242,6 @@ footer {
 }
 
 .graphic-design .main-work p {
-    /*font-family: Roboto, Arial, sans-serif;*/
     font-size: 15px;
     line-height: 19px;
     color: #101010;
@@ -280,7 +262,6 @@ footer {
 }
 
 .graphic-design .another-works h3 {
-    /*font-family: Roboto, Arial, sans-serif;*/
     font-size: 16px;
     color: #464646;
 }
@@ -332,7 +313,6 @@ footer {
 
 .graphic-design .another-works li h4 {
     padding: 6px 0 0 15px;
-    /*font-family: Roboto, Arial, sans-serif;*/
     font-size: 13px;
     line-height: 13px;
     font-weight: bold;
@@ -436,7 +416,6 @@ footer {
 
 .cv .load .load__pdf:active,
 .cv .load .load__doc:active {
-    /*top: 1px;*/
     box-shadow: 0 0 1px rgba(0, 0, 0, .5) inset,
     0 2px 3px rgba(0, 0, 0, .5) inset,
     0 1px 1px rgba(255, 255, 255, .1);
@@ -626,8 +605,7 @@ footer {
     border-radius: 5px;
     background: linear-gradient(rgb(110, 112, 120), rgb(81, 81, 86)) rgb(110, 112, 120);
     box-shadow: 0 1px rgba(255, 255, 255, .2) inset,
-    0 3px 5px rgba(0, 1, 6, .15) /*,
-    0 0 1px 1px rgba(0, 1, 6, .2)*/;
+    0 3px 5px rgba(0, 1, 6, .15);
     transition: .2s ease-in-out;
 }
 
@@ -636,7 +614,6 @@ footer {
 }
 
 .cv #feedback [type=submit]:active {
-    /*top: 1px;*/
     background: linear-gradient(rgb(76, 77, 82), rgb(56, 57, 62)) rgb(76, 77, 82);
     box-shadow: 0 0 1px rgba(0, 0, 0, .5) inset,
     0 2px 3px rgba(0, 0, 0, .5) inset,
@@ -735,7 +712,6 @@ footer {
     min-width: 200px;
     height: 200px;
     margin: 0 20px 25px 20px;
-    /*font-family: Roboto, Arial, sans-serif;*/
     font-size: 20px;
     line-height: 22px;
     font-weight: bold;
@@ -787,7 +763,6 @@ footer {
 }
 
 .description_note {
-    /*flex: 1;*/
     max-width: 550px;
     position: relative;
     align-self: flex-start;
@@ -833,7 +808,6 @@ footer {
 }
 
 .description_note p {
-    /*font-family: Roboto, Arial, sans-serif;*/
     font-size: 15px;
     line-height: 19px;
     color: #101010;
@@ -844,7 +818,6 @@ footer {
 }
 
 .description_note .desc_meta p {
-    /*font-family: Roboto, Arial, sans-serif;*/
     padding: 0;
     margin: 0;
     line-height: 22px;
@@ -853,11 +826,7 @@ footer {
 .description_note #description__close {
     display: inline-block;
     color: #FFFFFF;
-    /*background: linear-gradient(top, rgba(0, 0, 0, .15), rgba(0, 0, 0, .3));*/
     background-color: #34b3a0;
-    /*position: absolute;
-    top: 10px;
-    left: 45%;*/
     width: 30px;
     height: 30px;
     text-align: center;
@@ -867,10 +836,6 @@ footer {
     box-shadow: 1px 1px 3px rgba(0, 0, 0, .3), inset 0 -1px 2px -1px rgba(0, 0, 0, .5), inset 0 1px 2px 1px rgba(255, 255, 255, .3);
     text-shadow: 0 -1px 0 rgba(0, 0, 0, .3), 0 1px 0 rgba(255, 255, 255, .3);
     text-decoration: none;
-    /*transition: transform .150s, background .01s;*/
-    /*perspective: 1000;*/
-    /*backface-visibility: hidden;*/
-    /*transform: translate3d(0, 0, 0);*/
 }
 
 .description_note #description__close:hover {
@@ -894,17 +859,12 @@ footer {
     justify-content: flex-start;
 }
 
-.sites .works > * {
-    /*flex: 1 0 200px;*/
-}
-
 .site-button {
     display: inline-block;
     position: relative;
     width: 400px;
     height: 200px;
     margin: 0 20px 25px 20px;
-    /*font-family: Roboto, Arial, sans-serif;*/
     font-size: 20px;
     line-height: 22px;
     font-weight: bold;
@@ -924,8 +884,6 @@ footer {
 }
 
 .site-button.animate {
-    /*-webkit-filter: grayscale(100%); !* Safari 6.0 - 9.0 *!
-    filter: grayscale(100%);*/
     transition: filter .218s ease 0.5s;
 }
 
@@ -1059,9 +1017,6 @@ footer {
     right: 3px;
     bottom: 4px;
     border: 1px solid #d2d2d0;
-    /*border-top-color: transparent;*/
-    /*border-bottom-color: transparent;*/
-    /*border-right-color: transparent;*/
     border-left-color: transparent;
     border-radius: 0 30px;
 }
@@ -1075,16 +1030,12 @@ footer {
     bottom: 0;
     border: 2px solid #34b3a0;
     opacity: 0.6;
-    /*border-top-color: transparent;*/
-    /*border-bottom-color: transparent;*/
     border-right-color: transparent;
-    /*border-left-color: transparent;*/
     border-radius: 0 30px;
 }
 
 .sites .site-row .work-desc p {
     margin: 0;
-    /*font-family: Roboto, Arial, sans-serif;*/
     color: #101010;
 }
 
@@ -1197,6 +1148,55 @@ footer {
     margin-top: 25px;
 }
 
+.dragonfly .special-2 .work-block {
+    width: 100%;
+}
+
+.dragonfly .error-runtime.preview {
+    padding-bottom: 50px;
+}
+
+.dragonfly .error-runtime.preview .partitions {
+    width: 80%;
+    margin: auto;
+}
+
+.dragonfly .error-runtime.preview p {
+    margin-bottom: 0;
+}
+
+.dragonfly .error-runtime.preview .content {
+    width: 80%;
+}
+
+.dragonfly .error-404.preview {
+    padding-bottom: 5%;
+}
+
+.dragonfly .error-404.preview .content {
+    margin-top: 0;
+}
+
+.dragonfly .error-404.preview .code,
+.dragonfly .error-404.preview .content p {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+.dragonfly .error-404.preview .code {
+    padding-bottom: 0;
+}
+
+.dragonfly .error-404.preview .code__number {
+    font-size: 55%;
+}
+
+.dragonfly .error-404.preview .code__image img {
+    height: 50%;
+    margin-bottom: 20px;
+}
+
 @media all and (max-width: 1100px) {
     .sites .site-row.reverse .work-block {
         order: 1;
@@ -1228,5 +1228,9 @@ footer {
 
     .dragonfly .special-1 > div:nth-child(1) {
         margin-left: unset;
+    }
+
+    .dragonfly .special-2 .work-block {
+        flex: none;
     }
 }

@@ -54,8 +54,6 @@
 .mailing thead > tr > th:last-child {
     border-radius: 0;
     border-top-right-radius: 5px;
-    /*    border: 1px solid rgb(255, 255, 255);
-        border-bottom-color: rgb(221, 221, 221);*/
     border-top-width: 0;
     border-right-width: 0;
 }
@@ -264,14 +262,6 @@
     margin-right: 0;
 }
 
-/*.mailing .div-inline2 {
-    text-align: center;
-}
-
-.mailing .div-inline2 > div > input {
-    margin-top: 10px;
-}*/
-
 .mailing #editor {
     overflow: scroll;
     max-height: 300px;
@@ -330,7 +320,6 @@
 }
 
 .mailing .submitListDiv p {
-    /*margin: 0;*/
     padding: 7px 0 7px 10px;
 }
 
@@ -351,7 +340,6 @@
 }
 
 .mailing .relative-group [type=text] {
-    /*margin-left: 5px;*/
     border-radius: 0 5px 5px 0;
 }
 
@@ -405,10 +393,6 @@
     font-size: 16px;
 }
 
-.mailing .upper-table > * {
-    /*flex: 1;*/
-}
-
 .mailing .upper-table button,
 .mailing .upper-table a {
     font-size: 0.9em;
@@ -424,9 +408,7 @@
 }
 
 .mailing .upper-table label {
-    /*font-family: Roboto, Arial, sans-serif;*/
     font-weight: normal;
-    /*margin-left: 5px;*/
     margin-top: 5px;
 }
 
@@ -465,11 +447,6 @@
     width: 100%;
 }
 
-/*.mailing .send-button {
-    text-align: center;
-    margin-bottom: 100px;
-}*/
-
 .mailing .bottom-group {
     display: flex;
     flex-flow: row wrap;
@@ -482,10 +459,6 @@
     margin-right: 5px;
     margin-bottom: 1em;
 }
-
-/*.mailing .bottom-group div:last-of-type {
-    margin-bottom: 10px;
-}*/
 
 .mailing #sendSubmit {
     font-size: 0.96em;
@@ -524,10 +497,8 @@
 }
 
 .mailing .attention {
-    /*width: 65%;*/
     margin-top: 15px;
     margin-bottom: 15px;
-    /*font-family: Roboto, Arial, sans-serif;*/
     background: #ffc;
     border-color: #e2d2a3;
 }
@@ -553,9 +524,6 @@
 }
 
 .mailing_note {
-    /*text-align: center;*/
-    /*margin: auto;*/
-    /*max-width: 800px;*/
     max-width: none;
     z-index: 100;
     display: flex;

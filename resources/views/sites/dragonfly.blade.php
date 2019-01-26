@@ -87,4 +87,47 @@
                 продукции.</p>
         </div>
     </div>
+
+    <div class="site-row special-2">
+        <div class="work-block">
+            <div class="work-header"></div>
+            <div class="work">
+                <div class="error error-runtime preview">
+                    @if(isset($partitions_view) && $partitions_view)
+                        {!! $partitions_view !!}
+                    @endif
+                    <div class="content">
+                        <figure>
+                            <img src="{{ asset(config('settings.gif_dir')) . '/error-runtime.gif' }}"
+                                 alt="Стрекоза у пруда">
+                            <figcaption>Затянулась бурой тиной<br>
+                                Гладь старинного пруда...
+                            </figcaption>
+                        </figure>
+                        <p>При загрузке страницы произошла ошибка.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="work-footer"></div>
+        </div>
+        <div class="work-block">
+            <div class="work-header"></div>
+            <div class="work">
+                <div class="error error-404 preview">
+                    <div class="content">
+                        <div class="code">
+                            <div class="code__number">4</div>
+                            <div class="code__image">
+                                <img src="{{ asset(config('settings.gif_dir')) . '/404.gif' }}">
+                            </div>
+                            <div class="code__number">4</div>
+                        </div>
+                        <p>Добыть указанную страницу не удастся&nbsp;– она отсутствует на&nbsp;сайте.</p>
+                        <a href="javascript:void(0)" role="button">Вернуться на главную</a>
+                    </div>
+                </div>
+            </div>
+            <div class="work-footer"></div>
+        </div>
+    </div>
 @endsection

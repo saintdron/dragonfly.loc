@@ -26,41 +26,40 @@ class WebDevelopmentController extends SiteController
         $this->partition = 'sites';
         $this->partitions_view = $this->getPartitionsView();
 
-//        try {
-        $works = $this->getSites();
-        if ($works->isEmpty()) {
-            $content_view = $this->setError('Не удалось найти ни одной работы');
-        } else {
-            if ($alias) {
-                $work = $this->getSite($alias);
-                if (!$work) {
-                    $content_view = $this->setError('Не удалось найти указанную работу');
+        try {
+            $works = $this->getSites();
+            if ($works->isEmpty()) {
+                $content_view = $this->setError('Не удалось найти ни одной работы');
+            } else {
+                if ($alias) {
+                    $work = $this->getSite($alias);
+                    if (!$work) {
+                        $content_view = $this->setError('Не удалось найти указанную работу');
+                    } else {
+                        $this->title = $work->title;
+
+                        // Определение порядкового номера выбранной работы
+                        $k = $works->search(function ($item) use ($work) {
+                            return $item->alias === $work->alias;
+                        });
+                        // Добавление псевдонимов предыдущей и слудующей работ
+                        $work->prev = ($k === 0) ? $works[count($works) - 1]->alias : $works[$k - 1]->alias;
+                        $work->next = ($k === count($works) - 1) ? $works[0]->alias : $works[$k + 1]->alias;
+
+                        $content_view = view($this->partition . '.' . $work->alias)
+                            ->with(['title' => $this->title, 'partitions_view' => $this->partitions_view, 'work' => $work])
+                            ->render();
+                    }
                 } else {
-                    $this->title = $work->title;
-
-                    // Определение порядкового номера выбранной работы
-                    $k = $works->search(function ($item) use ($work) {
-                        return $item->alias === $work->alias;
-                    });
-                    // Добавление псевдонимов предыдущей и слудующей работ
-                    $work->prev = ($k === 0) ? $works[count($works) - 1]->alias : $works[$k - 1]->alias;
-                    $work->next = ($k === count($works) - 1) ? $works[0]->alias : $works[$k + 1]->alias;
-
-                    $content_view = view($this->partition . '.' . $work->alias)
-                        ->with(['title' => $this->title, 'partitions_view' => $this->partitions_view, 'work' => $work])
+                    $content_view = view($this->partition . '_content')
+                        ->with(['title' => $this->title, 'partitions_view' => $this->partitions_view, 'works' => $works])
                         ->render();
                 }
-            } else {
-                $content_view = view($this->partition . '_content')
-                    ->with(['title' => $this->title, 'partitions_view' => $this->partitions_view, 'works' => $works])
-                    ->render();
             }
-        }
-
-        /*} catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             report($exception);
             $content_view = $this->setError();
-        }*/
+        }
 
         if ($request->isMethod('post')) {
             return response()->json($content_view);

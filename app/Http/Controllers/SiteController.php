@@ -29,9 +29,6 @@ class SiteController extends Controller
     protected $partition; // current partition
     protected $partitions_view; // returned view of partitions
 
-//    protected $additional_scripts = []; // names of necessary additional scripts
-
-
     public function __construct()
     {
 
@@ -47,7 +44,6 @@ class SiteController extends Controller
         $this->vars = array_merge($this->vars, [
             'keywords' => $this->keywords,
             'meta_desc' => $this->meta_desc,
-//            'additional_scripts' => $this->additional_scripts,
             'title' => $this->title
         ]);
 

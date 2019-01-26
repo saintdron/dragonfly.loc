@@ -95,8 +95,6 @@ jQuery(document).ready(function ($) {
         });
 
         $('#diagram').on('error', function () {
-            // this.outerHTML = "<p>Отсутствуют данные за выбранный период.</p>";
-            // this.outerHTML = "<p>Не удалось найти данные за указанный период.</p>";
             $('#status').text("Не удалось найти данные за указанный период").slideDown();
             $('.cssload-container').hide();
         });
@@ -106,8 +104,5 @@ jQuery(document).ready(function ($) {
         $('#to').datepicker();
 
         $('.ui-datepicker-trigger').attr('title', 'Открыть календарь');
-
-        /*$('#logout').button();
-        $("[type='submit']").button();*/
     });
 });

@@ -10,6 +10,5 @@
             </figcaption>
         </figure>
         <p>{{ (isset($message) && $message) ? $message : 'При загрузке страницы произошла ошибка.' }}</p>
-        {{--<a href="{{ route('index') }}" role="button">Вернуться на главную</a>--}}
     </div>
 </div>

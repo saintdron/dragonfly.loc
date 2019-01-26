@@ -104,7 +104,6 @@ body {
 
 /*error-runtime*/
 .error-runtime .content {
-    /*margin: auto;*/
     max-width: 500px;
 }
 
@@ -128,8 +127,4 @@ body {
     border: 5px solid white;
     box-shadow: 0 0 0 1px #cccccc;
     border-radius: 0 65px;
-}
-
-.error-runtime p {
-    /*text-align: right;*/
 }

@@ -152,9 +152,6 @@ function checkRestAnimation() {
         $(this).removeClass('animate');
         $wing.hide().removeClass('animate');
     });
-
-/*    // или "два-в-одном", вместо двух последних строк:
-    $(window).on('load resize', checkWow);*/
 }
 
 jQuery(document).ready(function ($) {

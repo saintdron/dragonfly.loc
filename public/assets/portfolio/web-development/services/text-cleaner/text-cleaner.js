@@ -544,20 +544,6 @@ jQuery(document).ready(function ($) {
             let reg, m,
                 beforeLength, afterLength;
 
-            /*let options = {};
-            $('.text-cleaner form').serializeArray().forEach(v => {
-                if (options[v.name]) {
-                    options[v.name] = [].concat(options[v.name], v.value);
-                } else {
-                    options[v.name] = v.value;
-                }
-            });*/
-            // console.log(options);
-
-            /*options2 = $('.text-cleaner form').values();
-            delete options2.abbreviations;
-            console.log(options2);*/
-
             // UNICODE TIPS
 
             // \u0400-\u04FF' Cyrillic all
@@ -666,35 +652,13 @@ jQuery(document).ready(function ($) {
             // PHONE_NUMBERS
             if (options.phone_numbers) {
                 reg = /(?:\D|^)(?:(\+)?(3)?([87]))?[-(\s]*(\d{3,5})[-)\s]+(\d{2,3})[-\s]*(\d{2})[-\s]*(\d{2})(?=\D|$)/g;
-                // console.log(text.match(reg));
                 let template = options.phone_numbers_text.trim(),
                     templateMatch = template.match(/^(?:(\+)?([XХ])?([XХ]))?([^XХ]+)?([XХ]{3,5})([^XХ]+)([XХ]{2,3})([^XХ]+)([XХ]{2})([^XХ]+)([XХ]{2})$/);
-                // console.log(templateMatch);
                 if (templateMatch) {
                     $('#phone_numbers_text').css('color', '#495057');
                     let [_, t_plus, t_three, t_eight, t_b_code, t_code, t_b_n1, t_n1, t_b_n2, t_n2, t_b_n3, t_n3] = templateMatch;
-                    // console.log('t_plus', t_plus);
-                    // console.log('t_three', t_three);
-                    // console.log('t_eight', t_eight);
-                    // console.log('t_b_code', t_b_code);
-                    // console.log('t_code', t_code);
-                    // console.log('t_b_n1', t_b_n1);
-                    // console.log('t_n1', t_n1);
-                    // console.log('t_b_n2', t_b_n2);
-                    // console.log('t_n2', t_n2);
-                    // console.log('t_b_n3', t_b_n3);
-                    // console.log('t_n3', t_n3);
-
                     r(reg, function (match) {
                         let [_, plus, three, eight, code, n1, n2, n3] = match.match(/(?:\D|^)(?:(\+)?(3)?([87]))?[-(\s]*(\d{3,5})[-)\s]+(\d{2,3})[-\s]*(\d{2})[-\s]*(\d{2})(?=\D|$)/);
-                        // console.log(plus);
-                        // console.log(three);
-                        // console.log(eight);
-                        // console.log(code);
-                        // console.log(n1);
-                        // console.log(n2);
-                        // console.log(n3);
-                        // if (plus && three && eight) {
                         corrs++;
                         let result = "" + (t_plus ? plus : '')
                             + (t_three ? three : '')
@@ -708,12 +672,8 @@ jQuery(document).ready(function ($) {
                             + (t_b_n3 ? t_b_n3 : '')
                             + (t_n3 ? n3 : '');
                         return result ? result : match;
-                        // } else {
-                        //     return match;
-                        // }
                     });
                 } else {
-                    // console.log('red');
                     $('#phone_numbers_text').css('color', 'red');
                 }
             }
@@ -723,7 +683,6 @@ jQuery(document).ready(function ($) {
             if (options.delete_line_breaks) {
                 beforeLength = text.length;
 
-                // console.log('DELETE_EXCESS_LINE_BREAKS');
                 r(/((\r\n)|(\n\r)|\r|\n){2,}/g, '$1');
 
                 afterLength = text.length;
@@ -920,18 +879,9 @@ jQuery(document).ready(function ($) {
                 // предложения
                 r(/((?:р.)|(?:г.)|[^.?!:; ]) *(?:(?:\r\n)|(?:\n\r)|\r|\n)([^A-Z\d\u0400-\u042F\u0460-\u04FF\u00ab\u201e\u201c\u2018\u0022\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7\r\n-])/g, '$1 $2');
 
-                // e.g. не конец
-                // Предложения
-                // r(/([\r\n]|^)([\dA-Z\u0400-\u042F\u0460-\u04FF\u00AB\u2039\u201E\u201A\u201C\u201F\u2018\u201B\u0022\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63-][^\r\n]{81,}[^.:;?!\r\n])(?:(?:\r\n)|(?:\n\r)|\r|\n)([A-Z\u0400-\u042F\u0460-\u04FF({\[<&#№])/g, '$1$2 $3');
-
                 m = text.match(/ /g);
                 let afterSpacesNumber = m ? m.length : 0;
                 corrs += afterSpacesNumber - beforeSpacesNumber;
-
-
-                // e.g. кое--
-                // что (принудительный перенос слова с дефисом)
-                // r(/-­/g, '-');
 
                 // extra spaces at the beginning of the text
                 r(/^\s*/g, '');
@@ -1062,7 +1012,6 @@ jQuery(document).ready(function ($) {
 
                 // 74000
                 reg = /(^|[^\d№/])(\d{2,3})(\d{3})(?=\D|$)/g;
-                // console.log(text.match(reg));
                 if (options.non_breaking_spaces) {
                     r(reg, "$1$2\u00A0$3");
                 } else {
@@ -1260,7 +1209,6 @@ jQuery(document).ready(function ($) {
 
                 // search headings
                 reg = /((?:\r\n)|(?:\n\r)|\r|\n|^)+([^-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63\u2022\u25E6\u25D8\u2219\u2024\u00B7 ])([^\r\n]{2,80})(?=[\r\n])/g;
-                // console.log(text.match(reg));
                 r(reg, function (match) {
                     // удалить точку в конце заголовка.
                     if (options.punctuation && /[^?!. ]\.$/.test(match) && !/\s[рг]+\.$/.test(match)) {
@@ -1271,7 +1219,6 @@ jQuery(document).ready(function ($) {
                     let firstCharIndex = match.search(/[^\r\n]/);
                     let lineBreaker = match.match(/(?:\r\n)|(?:\n\r)|\r|\n|^/)[0];
                     match = match.slice(firstCharIndex);
-                    // let index = prevOriginal.search(new RegExp(match.replace(/\)/g, '\\)'), 'i')),
                     let index;
                     try {
                         index = prevOriginal.search(match, 'i');
@@ -1525,7 +1472,6 @@ jQuery(document).ready(function ($) {
             if (options.soft_hyphenation) {
                 // мягкие переносы из массива
                 SOFT_HYPHENATION.forEach((v, k) => {
-                    // console.log(k);
                     r(new RegExp(k, 'g'), v);
                 });
 
