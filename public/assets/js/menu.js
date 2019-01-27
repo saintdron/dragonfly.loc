@@ -39,13 +39,15 @@ jQuery(document).ready(function ($) {
         });
     }
 
-
     $('.menu').hover(function () {
-        let $elem = $(this);
-        let $navigation = $(this).closest('.navigation');
-        timerHoverId = setTimeout(function ($elem) {
-            $elem.addClass('show');
-        }, 300, $elem);
+        // Только для десктопов
+        if ($(window).width() > '800') {
+            let $elem = $(this);
+            let $navigation = $(this).closest('.navigation');
+            timerHoverId = setTimeout(function ($elem) {
+                $elem.addClass('show');
+            }, 300, $elem);
+        }
     }, function () {
         $(this).removeClass('show');
         clearTimeout(timerHoverId);

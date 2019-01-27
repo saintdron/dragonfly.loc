@@ -76,20 +76,12 @@
     box-shadow: inset 3px 3px 10px rgba(27, 90, 80, 0.1), inset -3px -3px 5px rgba(255, 255, 255, 0.1);
 }
 
-.navigation:not(.inCorner) .menu_left-top:hover {
-    transform: translate(-100%, -100%);
-}
-
 .menu_right-top {
     transform-origin: left bottom;
     transform: translate(0, -100%) scale(0.43, 0.43);
     border-radius: 100px 0 100px 0;
     border-width: 8px 8px 4px 4px;
     box-shadow: inset -3px 3px 10px rgba(27, 90, 80, 0.1), inset 3px -3px 5px rgba(255, 255, 255, 0.1);
-}
-
-.navigation:not(.inCorner) .menu_right-top:hover {
-    transform: translate(0, -100%);
 }
 
 .menu_left-bottom {
@@ -100,20 +92,12 @@
     box-shadow: inset 3px -3px 10px rgba(27, 90, 80, 0.1), inset -3px 3px 5px rgba(255, 255, 255, 0.1);
 }
 
-.navigation:not(.inCorner) .menu_left-bottom:hover {
-    transform: translate(-100%, 0);
-}
-
 .menu_right-bottom {
     transform-origin: left top;
     transform: scale(0.43, 0.43);
     border-radius: 0 100px 0 100px;
     border-width: 4px 8px 8px 4px;
     box-shadow: inset -3px -3px 10px rgba(27, 90, 80, 0.1), inset 3px 3px 5px rgba(255, 255, 255, 0.1);
-}
-
-.navigation:not(.inCorner) .menu_right-bottom:hover {
-    transform: scale(1, 1);
 }
 
 .menu a {
@@ -250,4 +234,28 @@
 
 .menu:hover ~ .menu-content > .menu-content_house {
     background-image: url('icons/house_white.png') !important;
+}
+
+@media all and (max-width: 500px) {
+    .lily_back {
+        display: none;
+    }
+}
+
+@media all and (min-width: 800px) {
+    .navigation:not(.inCorner) .menu_left-top:hover {
+        transform: translate(-100%, -100%);
+    }
+
+    .navigation:not(.inCorner) .menu_right-top:hover {
+        transform: translate(0, -100%);
+    }
+
+    .navigation:not(.inCorner) .menu_left-bottom:hover {
+        transform: translate(-100%, 0);
+    }
+
+    .navigation:not(.inCorner) .menu_right-bottom:hover {
+        transform: scale(1, 1);
+    }
 }

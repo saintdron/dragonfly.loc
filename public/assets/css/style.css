@@ -153,6 +153,7 @@ footer {
     display: flex;
     flex-flow: row wrap;
     align-items: stretch;
+    margin-bottom: 60px;
 }
 
 .graphic-design .main-work a {
@@ -342,12 +343,19 @@ footer {
     }
 }
 
+@media all and (max-width: 500px) {
+    .graphic-design .another-works {
+        padding-left: 130px;
+    }
+}
+
+
 /*Skills*/
 .skills ul {
     display: flex;
+    justify-content: space-evenly;
     list-style: none;
     flex-flow: row wrap;
-    justify-content: flex-start;
     margin: 0;
     padding: 50px 0 0;
 }
@@ -668,6 +676,12 @@ footer {
     }
 }
 
+@media all and (max-width: 500px) {
+    .cv .load-block {
+        left: 15px;
+    }
+}
+
 /*Web-animations*/
 .web-animations .main-work .work {
     flex: 1 100%;
@@ -701,6 +715,7 @@ footer {
     display: flex;
     padding: 10px 0 0;
     flex-flow: row wrap;
+    margin-bottom: 100px;
 }
 
 .services .works > * {
@@ -857,6 +872,7 @@ footer {
     padding: 10px 0 0;
     flex-flow: row wrap;
     justify-content: flex-start;
+    margin-bottom: 100px;
 }
 
 .site-button {
@@ -1234,3 +1250,26 @@ footer {
         flex: none;
     }
 }
+
+@media all and (max-width: 500px) {
+    .site-button {
+        display: flex;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .site-button .logo {
+        position: unset;
+    }
+
+    .site-button h3 {
+        display: none;
+    }
+
+    .site-button.tproger,
+    .site-button.unique {
+        justify-content: flex-start;
+    }
+}
+
+
