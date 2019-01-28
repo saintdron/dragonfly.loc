@@ -10,7 +10,7 @@
     <header>
         <h2>Full stack developer</h2>
         <p>
-            Семянович <b>Андрей Александрович</b><br/>
+            <b>Семянович Андрей Александрович</b><br/>
             Контактный телефон: <b>(095) 220-18-03</b><br/>
             E-mail: <a href="mailto:{{ config('settings.e-mail') }}">{{ config('settings.e-mail') }}</a>
         </p>
@@ -22,10 +22,10 @@
             <p>
                 05.2013 – фан-сайт «Inquisition» на шаблоне CMS Joomla<br/>
                 06.2013 – сайт под ключ «Catering Rinaldy» на шаблоне CMS Joomla<br/>
-                12.2013 – сайт под ключ «K-Gallery» на шаблоне CMS Joomla<br/>
-                07.2018 – landing page <a href="https://landing-dron.000webhostapp.com">«Unique»</a><br/>
-                09.2018 – корпоративный сайт <a href="http://www.corporate.byethost9.com">«Tproger»</a><br/>
-                01.2019 – сайт-портфолио <a href="#">«DragonFly»</a><br/>
+                12.2013 – сайт под ключ <a href="{{ route('sites', 'k-gallery') }}">«K-Gallery»</a> на шаблоне CMS Joomla<br/>
+                07.2018 – landing page <a href="{{ route('sites', 'unique') }}">«Unique»</a><br/>
+                09.2018 – корпоративный сайт <a href="{{ route('sites', 'tproger') }}">«Tproger»</a><br/>
+                01.2019 – сайт-портфолио <a href="{{ route('sites', 'dragonfly') }}">«DragonFly»</a><br/>
             </p>
             <h5>Мои преподаватели:</h5>
             <ul>
@@ -94,7 +94,7 @@
                     склонный к
                     самообучению, некурящий, имеющий слабость к математическим и логическим задачам, среди лучших
                     программистов по <a href="https://js.checkio.org/profile/leaderboard/full">рейтингу «js.checkiO»</a>
-                    (решил все 150 задач)
+                    (ник: SaintDron)
                 </p>
             </div>
             <div class="figure">

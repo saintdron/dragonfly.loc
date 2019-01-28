@@ -20,7 +20,7 @@ jQuery(document).ready(function ($) {
             }
         })
             .done(function (data) {
-                $('#current_rate').html(data);
+                $('#current_rate').html((data.length < 20) ? data : 'не удалось получить');
             });
     }
 
@@ -31,11 +31,12 @@ jQuery(document).ready(function ($) {
             dateTo = new Date(to),
             minDate = new Date(),
             maxDate = new Date();
+        maxDate.setMinutes(maxDate.getMinutes() + 60 * 2);
         minDate.setFullYear(minDate.getFullYear() - 20);
         minDate.setDate(minDate.getDate() - 1);
         if (!dateFrom || !dateTo
-            || dateFrom - minDate < 0 || maxDate - dateFrom < 0
-            || maxDate - dateTo < 0 || dateTo - minDate < 0) {
+            || dateFrom < minDate || dateFrom > maxDate
+            || dateTo < minDate || dateTo > maxDate) {
             $('#status').text("Неправильный выбор даты").slideDown();
             return false;
         }

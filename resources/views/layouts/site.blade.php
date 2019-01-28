@@ -34,8 +34,6 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=cyrillic-ext" rel="stylesheet">
-    {{--<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700&amp;subset=cyrillic-ext"
-          rel="stylesheet">--}}
     <link href="https://fonts.googleapis.com/css?family=Roboto:400i,500,500i,700&amp;subset=cyrillic-ext"
           rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">

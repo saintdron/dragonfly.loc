@@ -34,7 +34,8 @@ jQuery(document).ready(function ($) {
 //		placeholder:'Введите данные',
         toolbar: [
             //[groupname,[list buttons]]
-            ['insert', ['picture', 'link', 'video', 'table']],
+            // ['insert', ['picture', 'link', 'video', 'table']],
+            ['insert', ['link', 'table']],
             ['style', ['bold', 'italic', 'underline']],
 //			['font', ['strikethrough', 'superscript', 'subscript']],
             ['fontsize', ['fontsize', 'fontname']],
@@ -44,6 +45,9 @@ jQuery(document).ready(function ($) {
         ],
         disableDragAndDrop: true
     });
+
+    // Fix summernote bag
+    $('.note-popover').css('top', '-100px');
 
     if (localStorage.subjectS) subject.value = localStorage.subjectS;
     if (localStorage.bodyMailS) $("#bodyMail").summernote('code', localStorage.bodyMailS);

@@ -15,7 +15,7 @@ class Site extends Model
 
     public function getCreatedAtAttribute($value)
     {
-        return $this->formatCreatedAtDate("%B %Y", $value / 1000);
+        return $this->formatCreatedAtDate($value / 1000);
     }
 
     public function getImgAttribute($value)

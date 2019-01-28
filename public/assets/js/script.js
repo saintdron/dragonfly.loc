@@ -78,6 +78,9 @@ function setFeedbackFormHandler() {
     $('#mail-form').on('click', '[type=submit]', function (e) {
         e.preventDefault();
         let form = e.delegateTarget;
+        let $submit = $(this);
+        $submit.attr('disabled', 'disabled');
+        $('#status').slideUp(300);
         $.ajax({
             url: $(form).attr('action'),
             headers: {
@@ -93,9 +96,11 @@ function setFeedbackFormHandler() {
                     $(form).find('input').val('');
                     $(form).find('textarea').val('');
                 }
+                $submit.removeAttr('disabled');
             },
             error: function () {
                 $('#status').slideDown(showStatus);
+                $submit.removeAttr('disabled');
             }
         });
     });

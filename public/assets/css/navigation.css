@@ -13,7 +13,7 @@
 }
 
 .navigation_center {
-    top: 55vh;
+    top: 50vh;
     left: 50vw;
 }
 
@@ -131,7 +131,7 @@
 .menu-content div {
     width: 50%;
     height: 50%;
-    font-family: Philosopher, sans-serif;
+    font-family: Philosopher, serif;
     color: #fff9c7;
     background-size: 45px 45px;
     z-index: 10000;

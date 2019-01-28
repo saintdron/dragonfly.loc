@@ -24,7 +24,7 @@
                 </h2>
                 <div class="back">
                     <a href="{{ route('sites') }}">
-                        <span class="btn btn-d"><i class="fas fa-backspace"></i> Вернуться</span>
+                        <div class="btn btn-d"><i class="fas fa-backspace"></i><span> Вернуться</span></div>
                     </a>
                 </div>
             </div>

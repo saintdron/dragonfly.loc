@@ -27,7 +27,8 @@
             <h2 class="animated fadeInUp faster" style="display: none;">Обо мне</h2>
             <p style="display: none;">
                 <span class="animated fadeInLeftBig faster">Контактная информация,</span><br>
-                <span class="animated fadeInLeftBig faster">резюме</span>
+                <span class="animated fadeInLeftBig faster">резюме,</span><br>
+                <span class="animated fadeInLeftBig faster">обратная связь</span>
             </p>
         </div>
         <div class="menu-content_right-bottom {{ ($nav_position === 'left-top') ? 'menu-content_house' : '' }}">

@@ -30,7 +30,9 @@ return [
     */
 
 //    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-    'host' => env('MAIL_HOST', 'mail.dragonfly.co.ua'),
+//    'host' => env('MAIL_HOST', 'freemail.freehost.com.ua'),
+//    'host' => env('MAIL_HOST', 'mail.dragonfly.co.ua'),
+    'host' => env('MAIL_HOST', 'smtp.eu.mailgun.org'),
 
     /*
     |--------------------------------------------------------------------------
@@ -44,6 +46,7 @@ return [
     */
 
     'port' => env('MAIL_PORT', 587),
+//    'port' => env('MAIL_PORT', 250),
 
     /*
     |--------------------------------------------------------------------------
@@ -85,9 +88,9 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME', ''),
+    'username' => env('MAIL_USERNAME', 'postmaster@dragonfly.co.ua'),
 
-    'password' => env('MAIL_PASSWORD', ''),
+    'password' => env('MAIL_PASSWORD', '804907b9966192ae97e10aaeaa9784ee-2d27312c-9e268a02'),
 
     /*
     |--------------------------------------------------------------------------

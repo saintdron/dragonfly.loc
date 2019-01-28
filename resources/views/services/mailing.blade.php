@@ -59,7 +59,7 @@
                   method="POST" enctype="multipart/form-data" name="sendForm" id="sendForm"
                   class="form-horizontal">
                 <div class="form-group div-first">
-                    <label for="to">Кому:</label>
+                    <label for="to">Кому*:</label>
                     <input type="text" class="form-control" name="to" value="" id="to">
                 </div>
                 <label class="help-block csv-description">Чтобы получить файл <strong>.csv</strong>, выберите в Excel
@@ -69,7 +69,7 @@
                     <input type="text" class="form-control" name="subject" id="subject">
                 </div>
                 <div class="form-group bodyMail">
-                    <label for="bodyMail">Тело письма:</label>
+                    <label for="bodyMail">Тело письма*:</label>
                     <textarea class="form-control" placeholder="" name="bodyMail" id="bodyMail"></textarea>
                 </div>
                 <div class="form-group">
@@ -98,17 +98,11 @@
                         <input type="text" class="form-control" name="surname" id="surname">
                     </div>
                     <div>
-                        <label for="senderemail">E-mail:</label>
+                        <label for="senderemail">E-mail*:</label>
                         <input type="text" class="form-control" name="senderEmail"
                                id="senderEmail" value="">
                     </div>
                 </div>
-                {{--<div class="checkbox meCopy">
-                    <label>
-                        <input type="checkbox" name="meCopy">
-                        Отправить мне копию письма
-                    </label>
-                </div>--}}
                 <div class="form-group">
                     <div class="custom-control custom-checkbox">
                         <input class="custom-control-input" type="checkbox" id="meCopy" name="meCopy" checked="checked">

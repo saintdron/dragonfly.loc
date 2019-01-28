@@ -349,11 +349,10 @@ footer {
     }
 }
 
-
 /*Skills*/
 .skills ul {
     display: flex;
-    justify-content: space-evenly;
+    /*justify-content: space-evenly;*/
     list-style: none;
     flex-flow: row wrap;
     margin: 0;
@@ -377,6 +376,64 @@ footer {
     font-size: 20px;
     color: #424242;
     padding: 5px 0 0;
+}
+
+.skills .cut-in {
+    border: 5px solid lightgray;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    padding-left: 0;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    height: 128px;
+    width: 130px;
+    margin: auto;
+}
+
+.skills .cut-in p {
+    margin: 0 -40px;
+    color: darkgrey;
+    font-size: 1.1rem;
+    line-height: 1.2rem;
+}
+
+.skills .cut-in p b {
+    color: #34b3a0;
+    font-size: 1.5rem;
+    font-family: Philosopher, serif;
+}
+.skills .cut-in blockquote {
+    margin: 0;
+}
+
+.skills .cut-in blockquote p,
+.skills .cut-in blockquote cite {
+    font-size: 1rem;
+    line-height: 1.2rem;
+}
+
+.skills .cut-in blockquote cite {
+    font-style: normal;
+    font-family: Philosopher, serif;
+    font-weight: bold;
+    color: darkgray;
+}
+
+.skills .cut-in blockquote b{
+    font-size: 1.3rem;
+}
+
+@media all and (max-width: 429px) {
+    .skills ul {
+        margin-top: -110px;
+    }
+}
+
+@media all and (max-width: 829px) {
+    .skills ul {
+        justify-content: space-evenly;
+    }
 }
 
 /*CV*/
@@ -621,11 +678,16 @@ footer {
     background: linear-gradient(rgb(126, 126, 134), rgb(70, 71, 76)) rgb(126, 126, 134);
 }
 
-.cv #feedback [type=submit]:active {
+.cv #feedback [type=submit]:active,
+.cv #feedback [type=submit]:disabled {
     background: linear-gradient(rgb(76, 77, 82), rgb(56, 57, 62)) rgb(76, 77, 82);
     box-shadow: 0 0 1px rgba(0, 0, 0, .5) inset,
     0 2px 3px rgba(0, 0, 0, .5) inset,
     0 1px 1px rgba(255, 255, 255, .1);
+}
+
+.cv #feedback [type=submit]:disabled:hover {
+    background: linear-gradient(rgb(76, 77, 82), rgb(56, 57, 62)) rgb(76, 77, 82);
 }
 
 .cv #feedback .input-prepend {
@@ -866,6 +928,16 @@ footer {
     inset 0 1px 2px 1px rgba(0, 0, 0, .3);
 }
 
+@media all and (max-width: 500px) {
+    .mailing #sendForm .div-inline {
+        display: block;
+    }
+
+    .mailing #sendForm .div-inline > div {
+        margin-top: 10px;
+    }
+}
+
 /*Sites*/
 .sites .works {
     display: flex;
@@ -982,6 +1054,10 @@ footer {
     background-clip: text;
 }
 
+.sites .site-nav .back {
+    margin-left: 10px;
+}
+
 .sites .site-nav a {
     position: relative;
     top: -2px;
@@ -1015,6 +1091,10 @@ footer {
     position: relative;
     padding: 30px 25px;
     order: 2;
+}
+
+.sites .site-row .work-desc[style="opacity: 0;"] {
+    padding: 0;
 }
 
 .sites .site-row.reverse .work-block {
@@ -1269,6 +1349,22 @@ footer {
     .site-button.tproger,
     .site-button.unique {
         justify-content: flex-start;
+    }
+
+    .sites .site-row .work-desc {
+        min-width: unset;
+    }
+
+    .sites .site-nav .back .btn {
+        padding-left: 13px;
+    }
+
+    .sites .site-nav .back .btn span {
+        display: none;
+    }
+
+    .dragonfly .special-1 > div:nth-child(1) {
+        min-width: unset;
     }
 }
 

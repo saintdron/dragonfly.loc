@@ -1,7 +1,9 @@
 <?php
 
 return [
-    'e-mail' => 'dron.dragonfly@gmail.com',
+//    'e-mail' => 'dron@dragonfly.co.ua',
+//    'e-mail' => 'saintdronchik@gmail.com',
+	'e-mail' => 'dron.dragonfly@gmail.com',
 
     'branding_dir' => 'assets/portfolio/graphic-design/branding',
     'printing_dir' => 'assets/portfolio/graphic-design/printing',

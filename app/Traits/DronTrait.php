@@ -11,18 +11,29 @@ namespace App\Traits;
 
 trait DronTrait
 {
-    public function formatCreatedAtDate($template, $sec)
+    public function formatCreatedAtDate($sec)
     {
-        $currentLocal = setlocale(LC_TIME, 0);
-        setlocale(LC_TIME, 'rus', 'ru', 'ru_RU', 'rus', 'Russian_ru', 'ru_RU.UTF-8', 'ru_RU.utf8', 'ru_RU.1251', 'ru_RU.cp1251', 'ru_Russian', 'ru_RU.utf-8', 'Russian_Russia.utf-8');
+       /* $currentLocal = setlocale(LC_TIME, 0);
+        setlocale(LC_TIME, 'rus', 'ru', 'ru_RU', 'rus', 'Russian_ru', 'ru_RU.UTF-8', 'ru_RU.utf8', 'ru_RU.1251', 'ru_RU.cp1251', 'ru_Russian', 'ru_RU.utf-8', 'Russian_Russia.utf-8');*/
 
-        $result = strftime($template, $sec);
+//        $result = strftime($template, $sec);
+
+        $MONTHS = ['', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+
+        $m = strftime('%m', $sec);
+        $m = $MONTHS[(int)$m];
+        $y = strftime('%Y', $sec);
+        $result = $m . " " . $y;
+
+//        list($m, $y) = explode(' ', $result);
+
+
 
 //        for byethost:
 //        $result = iconv("ISO-8859-5", "utf-8", $result);
-        $result = iconv("Windows-1251", "utf-8", $result);
+//        $result = iconv("Windows-1251", "utf-8", $result);
 
-        setlocale(LC_TIME, $currentLocal);
+//        setlocale(LC_TIME, $currentLocal);
         return $result;
     }
 }
