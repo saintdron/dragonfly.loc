@@ -110,6 +110,33 @@ footer {
     box-shadow: 0 0 0 0.2rem rgba(52, 179, 160, 0.25);
 }
 
+#scroll-up {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    left: 25px;
+    bottom: 20px;
+    width: 42px;
+    height: 42px;
+    font-size: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    z-index: 200;
+    background: transparent;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+#scroll-up.showed {
+    opacity: 1;
+}
+
+#scroll-up a {
+    flex: 1;
+    text-align: center;
+}
+
 @media all and (max-width: 700px) {
     .nav-pills li {
         flex: 1 100%;
@@ -228,6 +255,7 @@ footer {
     font-family: Philosopher, serif;
     font-weight: bold;
     font-size: 32px;
+    line-height: 1;
     background-color: #565656;
     color: transparent;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
@@ -379,6 +407,10 @@ footer {
 }
 
 .skills .cut-in {
+    height: 185px;
+}
+
+.skills .cut-in div {
     border: 5px solid lightgray;
     border-radius: 50%;
     display: flex;
@@ -398,7 +430,7 @@ footer {
     line-height: 1.2rem;
 }
 
-.skills .cut-in p b {
+.skills .cut-in b {
     color: #34b3a0;
     font-size: 1.5rem;
     font-family: Philosopher, serif;
@@ -603,6 +635,7 @@ footer {
 .cv .resume .figure {
     position: relative;
     width: 100%;
+    max-width: 600px;
     padding: 1.5rem 40px 1.5rem 20px;
 }
 
@@ -633,7 +666,7 @@ footer {
 }
 
 .cv #feedback {
-    padding: 60px 0;
+    padding: 60px 0 80px;
 }
 
 .cv #feedback h3 {
@@ -1045,7 +1078,7 @@ footer {
     font-family: Philosopher, serif;
     font-weight: bold;
     font-size: 32px;
-    line-height: 40px;
+    line-height: 32px;
     background-color: #565656;
     color: transparent;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
@@ -1087,7 +1120,7 @@ footer {
     flex: 1;
     min-width: 400px;
     max-width: 870px;
-    margin: 25px 12px 0 12px;
+    margin: 25px 0 0 12px;
     position: relative;
     padding: 30px 25px;
     order: 2;
@@ -1365,6 +1398,10 @@ footer {
 
     .dragonfly .special-1 > div:nth-child(1) {
         min-width: unset;
+    }
+
+    .k-gallery .site-footer {
+        height: 200px;
     }
 }
 

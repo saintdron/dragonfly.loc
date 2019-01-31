@@ -64,7 +64,7 @@
                     <h2>{{ $selected->title }}
                         <a href="{{ asset(config('settings.webAnimations_dir')). '/' . $selected->alias . '/' . $selected->alias . '.js' }}"
                            title="Открыть код анимации">
-                            <span class="fas fa-external-link-alt external-link"></span>
+                            <span class="external-link">&lt;code&gt;</span>
                         </a>
                     </h2>
                 </div>

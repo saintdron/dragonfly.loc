@@ -129,18 +129,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <p>Текущий курс: <span id="current_rate"></span></p>
                             </div>
                             <p>Показать динамику за период: </p>
-                            <div class="period form-inline">
-                                <label for="from">с</label>
-                                <input class="form-control" name="from" id="from" type="text"
+                            <div class="form-inline">
+                                <label for="from">c</label>
+                                <input type="text" class="form-control" name="from" id="from"
                                        value="<?= $dateFrom->format('d.m.Y')?>">
                                 <label for="to">по</label>
-                                <input class="form-control" name="to" id="to" type="text"
+                                <input type="text" class="form-control" name="to" id="to"
                                        value="<?= $dateTo->format('d.m.Y')?>">
                                 <input class="btn btn-d" type="submit" value="Показать">
                             </div>
                             <p class="help-block">Доступны данные за последних 20 лет. Для получения более точных
-                                значений
-                                рекомендуется сузить временной диапазон</p>
+                                значений рекомендуется сузить временной диапазон</p>
                             <div class='alert alert-danger' id="status" style="display: none;">
                                 <p>{{ $msg }}</p>
                             </div>

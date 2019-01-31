@@ -1059,7 +1059,7 @@ jQuery(document).ready(function ($) {
                 let beforeCloseQuotesNumber = m ? m.length : 0;
 
                 // "открывающая кавычка
-                reg = /(^|\s)([\u00AB\u2039\u201E\u201A\u201C\u201F\u2018\u201B\u0022]+) ?(?=[\w\u0400-\u04FF$§#({\[<])/g;
+                reg = /(^|\s|[/\\])([\u00AB\u2039\u201E\u201A\u201C\u201F\u2018\u201B\u0022])(?=[\w\u0400-\u04FF$§#({\[<])/g;
                 r(reg, "$1" + oQuote);
 
                 // закрывающая кавычка"

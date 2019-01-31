@@ -35,6 +35,15 @@
     margin-bottom: 5px;
 }
 
+.currency .form-inline label[for="from"],
+.currency .form-inline label[for="to"] {
+    margin-right: 10px;
+}
+
+.currency .form-inline label[for="to"] {
+    margin-left: 20px;
+}
+
 .currency .current-currency {
     flex-flow: row nowrap;
     width: 100%;
@@ -264,5 +273,38 @@
 
     .currency .current-currency {
         margin-bottom: 0;
+    }
+
+    .currency #currency-button {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .currency .current_rate {
+        margin-left: 0;
+        margin-bottom: 40px;
+    }
+
+    .currency .form-inline {
+        margin-bottom: 10px;
+    }
+
+    .currency .form-inline label[for="to"],
+    .currency [type="submit"]{
+        margin-left: 0;
+    }
+
+    .currency .form-inline label[for="to"] {
+        margin-top: 10px;
+    }
+
+    .currency [type="submit"]{
+        margin-top: 15px;
+    }
+
+    .currency .form-inline #from,
+    .currency .form-inline #to {
+        margin-left: 0;
+        margin-right: 0;
     }
 }

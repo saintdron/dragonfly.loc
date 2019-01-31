@@ -2,9 +2,9 @@
     <div class="load-block">
         <img src="{{ asset(config('settings.brand_dir')) . '/dragonfly_logo.png'}}">
         <div class="load">
-            <a href="#" class="load__pdf" title="Скачать в формате .pdf"></a>
+            <a href="{{ asset(config('settings.resume_dir')) }}/AndriiSemianovych.pdf" download class="load__pdf" title="Скачать в формате .pdf"></a>
             <a class="load__sign">Скачать резюме</a>
-            <a href="#" class="load__doc" title="Скачать в формате .doc"></a>
+            <a href="{{ asset(config('settings.resume_dir')) }}/AndriiSemianovych.doc" download class="load__doc" title="Скачать в формате .doc"></a>
         </div>
     </div>
     <header>

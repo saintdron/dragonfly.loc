@@ -303,6 +303,7 @@
 .mailing #selectTo {
     margin-left: 5px;
     margin-right: 5px;
+    width: 60px;
 }
 
 .mailing .table {
@@ -554,6 +555,7 @@
     .mailing_note .desc_header {
         margin-bottom: 5px;
     }
+
     .mailing_note .desc_common {
         margin-bottom: 25px;
     }
@@ -561,4 +563,20 @@
     .mailing_note .desc_demonstration {
         flex: unset;
     }
+}
+
+@media all and (max-width: 500px) {
+    .mailing .upper-table,
+    .mailing .submitListDiv {
+        display: block;
+    }
+
+    .mailing .submitListDiv {
+        text-align: left;
+    }
+
+    .mailing .submitListDiv p {
+        padding-left: 0;
+    }
+
 }

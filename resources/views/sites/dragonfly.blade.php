@@ -46,7 +46,7 @@
             </div>
         </div>
         <div>
-            <div class="work-block">
+            <div class="work-block" style="margin-bottom: 30px;">
                 <div class="work-header"></div>
                 <div class="work">
                     <img src="{{ asset(config("settings.sites_dir")) }}/{{ $work->alias }}/DragonFly_7.jpg">

@@ -247,10 +247,11 @@
 }
 
 .text-cleaner .attention {
-    width: 65%;
     margin-top: 25px;
     background: #ffc;
     border-color: #e2d2a3;
+    width: 100%;
+    margin-bottom: 150px;
 }
 
 .text-cleaner .attention h5 {
@@ -292,5 +293,6 @@
 
     .text-cleaner .attention {
         width: 80%;
+        margin-bottom: 0;
     }
 }

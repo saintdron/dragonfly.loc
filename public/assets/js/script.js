@@ -157,6 +157,19 @@ function checkRestAnimation() {
         $(this).removeClass('animate');
         $wing.hide().removeClass('animate');
     });
+
+    $('#scroll-up').click(function () {
+        $('html, body').animate({scrollTop: 0}, 1000);
+    });
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop() >= 2000) {
+            $('#scroll-up').addClass('showed');
+        } else {
+            $('#scroll-up').removeClass('showed');
+        }
+    });
+
 }
 
 jQuery(document).ready(function ($) {

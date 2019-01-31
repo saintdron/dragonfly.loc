@@ -43,6 +43,12 @@
 <div id="content">
     @yield('content')
 </div>
+<!-- ScrollUp -->
+<div id="scroll-up">
+    <a href="#">
+        <i class="fas fa-chevron-circle-up"></i>
+    </a>
+</div>
 <!-- Navigation -->
 @yield('navigation')
 <!-- Script -->

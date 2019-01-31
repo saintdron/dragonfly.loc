@@ -1,8 +1,6 @@
 <?php
 
 return [
-//    'e-mail' => 'dron@dragonfly.co.ua',
-//    'e-mail' => 'saintdronchik@gmail.com',
 	'e-mail' => 'dron.dragonfly@gmail.com',
 
     'branding_dir' => 'assets/portfolio/graphic-design/branding',
@@ -17,5 +15,6 @@ return [
     'extra_dir' => 'assets/extra',
     'gif_dir' => 'assets/images/gif',
     'video_dir' => 'assets/video',
+    'resume_dir' => 'assets/resume',
 
 ];
