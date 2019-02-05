@@ -43,7 +43,8 @@
                     <p><strong>Дата:</strong> {{ $work->created_at }}</p>
                 @endif
                 @if($work->live_version)
-                    <a class="btn-d btn-site" href="{{ $work->live_version }}"><i class="fas fa-external-link-alt"></i>
+                    <a class="btn-d btn-site" href="{{ $work->live_version }}">
+                        <i class="fas fa-external-link-alt"></i>
                         Перейти на сайт</a>
                 @endif
             </div>

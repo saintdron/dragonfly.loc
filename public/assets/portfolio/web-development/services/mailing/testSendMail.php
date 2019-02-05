@@ -4,12 +4,10 @@ date_default_timezone_set("Europe/Kiev");
 define("PASSWORD", '$2y$10$SyXC5yI2NyitRZCgScMLmOiaEzFZSV6pxY0JqMMGfI.kd3G1DpXFG');
 define("FILE", 'log/sending.log');
 
-//    header("location:sendMailProcess.php");
 if (empty($_REQUEST['to']) or empty($_REQUEST['bodyMail']) or empty($_REQUEST['senderEmail'])) {
     header("location: /web-development/services/mailing");
 }
 
-//var_dump($_FILES);
 $firstname = $_REQUEST['firstname'] ?: '';
 $surname = $_REQUEST['surname'] ?: '';
 $senderEmail = $_REQUEST['senderEmail'];
@@ -73,10 +71,6 @@ $multipart .= "\r\n--$boundary--\r\n";
 $mailing = function ($email) use ($subject, $multipart, $headers) {
     // отправка письма
     $sent = mail($email, $subject, $multipart, $headers);
-    /*var_dump($email);
-    var_dump($subject);
-    var_dump($headers);
-    var_dump($multipart);*/
     file_put_contents(FILE, date('H:i d.m.Y', time()) . " "
         . ($sent ? 'Отправлено' : 'Не удалось отправить') . " "
         . $email . "\r\n", FILE_APPEND);

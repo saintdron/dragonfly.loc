@@ -177,7 +177,7 @@ class Diagram
             imageLine($this->img, $x + 11, CONT_RECT['bottom'] - 1,
                 $x + 11, $y, $this->column_shadow_color);
             imageTtfText($this->img, FONT_SIZE - 3, 45,
-                $x - mb_strlen($dateText) * 3 + 8, CONT_RECT['bottom'] + mb_strlen($dateText) * 3 + 28,
+                $x - mb_strlen($dateText) * 3 + 0, CONT_RECT['bottom'] + mb_strlen($dateText) * 3 + 32,
                 $this->axis_color, self::CUSTOM_FONT, $dateText);
         }
 

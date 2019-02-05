@@ -62,6 +62,7 @@ $('th>input[type="checkbox"]').on('change', function () {
 $('#selectFromTo').on('click', function () {
     let selectFrom = $('#selectFrom').val();
     let selectTo = $('#selectTo').val();
+    $('td>input[type="checkbox"]:checked').prop('checked', false);
     for (let i = selectFrom - 1; i < selectTo; i++) {
         let selector = 'td>input[type="checkbox"]:eq(' + i + ')';
         $(selector).prop('checked', true);
@@ -88,7 +89,7 @@ $('#selectTo').on('change', function () {
 $('#emaillist').on('submit', function (e) {
     e.preventDefault();
     let emaillist = [];
-    $('input[type=checkbox]:checked').each(function () {
+    $('tbody input[type=checkbox]:checked').each(function () {
         let mail = $(this).val().split(',').map(v => v.trim());
         emaillist = emaillist.concat(mail);
     });

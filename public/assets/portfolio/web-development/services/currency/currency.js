@@ -40,6 +40,10 @@ jQuery(document).ready(function ($) {
             $('#status').text("Неправильный выбор даты").slideDown();
             return false;
         }
+        if (dateFrom >= dateTo) {
+            $('#status').text("Неправильный выбор временного диапазона").slideDown();
+            return false;
+        }
         if (dateTo - dateFrom < 2 * 24 * 60 * 60 * 1000) {
             $('#status').text("Слишком короткий временной диапазон").slideDown();
             return false;
