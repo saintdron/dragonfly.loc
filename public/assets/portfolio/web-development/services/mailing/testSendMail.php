@@ -114,6 +114,7 @@ $sending = function ($email) use ($access, $mailing) {
         </thead>
         <tbody>
         <?php
+        ob_start();
         foreach ($emails as $key => $email) {
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 if ($sending($email)) {
@@ -143,7 +144,7 @@ $sending = function ($email) use ($access, $mailing) {
             работоспособности программы, копия письма будет отправлена на вашу почту (если только вы не сняли галочку
             «Отправить мне копию письма»). В случае, если письмо не оказалось во «входящих», проверьте спам.</p>
         <p>Если вы заметили ошибку или у вас есть предложение по улучшению данной программы, пожалуйста,
-            используйте <a href="{{ route('cv') . '#feedback' }}">форму&nbsp;обратной&nbsp;связи</a>.</p>
+            используйте <a href="/cv#feedback">форму&nbsp;обратной&nbsp;связи</a>.</p>
     </div>
     <a class="btn-d" href="/web-development/services/mailing"><i class="fas fa-arrow-left"></i> Вернуться</a>
 </div>
