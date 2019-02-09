@@ -150,11 +150,21 @@ footer {
     overflow: hidden;
 }
 
-.home-wrapper video {
+.home-wrapper video,
+.home-wrapper > img {
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
 
+.home-wrapper video {
+    display: none;
+}
+
+.home-wrapper > img {
+    position: fixed;
+    left: 0;
+    top: 0;
 }
 
 .home-wrapper .header,
@@ -173,6 +183,24 @@ footer {
 .home-wrapper .footer {
     bottom: 0;
     height: 82px;
+}
+
+@media all and (max-width: 500px) {
+    .home-wrapper .header {
+        padding-top: 13px;
+    }
+
+    .home-wrapper .header img {
+        height: 100px;
+    }
+
+    .home-wrapper .footer {
+        height: 60px;
+    }
+
+    .home-wrapper .footer img {
+        height: 50px;
+    }
 }
 
 /*Graphic-design*/
@@ -256,6 +284,7 @@ footer {
     font-weight: bold;
     font-size: 32px;
     line-height: 1;
+    padding-bottom: 3px;
     background-color: #565656;
     color: transparent;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
@@ -458,7 +487,7 @@ footer {
 
 @media all and (max-width: 429px) {
     .skills ul {
-        margin-top: -110px;
+        margin-top: -130px;
     }
 }
 
@@ -572,6 +601,7 @@ footer {
     font-size: 40px;
     line-height: 40px;
     font-weight: bold;
+    margin-bottom: 15px;
 }
 
 .cv header p {
@@ -1079,6 +1109,7 @@ footer {
     font-weight: bold;
     font-size: 32px;
     line-height: 32px;
+    padding-bottom: 3px;
     background-color: #565656;
     color: transparent;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);

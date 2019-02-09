@@ -123,6 +123,16 @@ function checkRestAnimation() {
         offset: 200, // default 0
     }).init();
 
+    // Home poster or video hide
+    if ($(window).width() > 500) {
+        $('.home-wrapper video').on('loadeddata', function () {
+            $(this).show();
+            $(this).next().hide();
+        });
+    } else {
+        $('.home-wrapper video').remove();
+    }
+
     // Hide sticky note
     $('.description_note').on('click', function () {
         let $desc = $(this);
