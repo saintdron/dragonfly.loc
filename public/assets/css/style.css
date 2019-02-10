@@ -649,15 +649,20 @@ footer {
     color: #9E9E9C;
 }
 
-.cv .resume ul {
+.cv .resume ul:not(.teachers) {
+    list-style: none;
+    padding-left: 0;
+}
+
+.cv .resume .teachers {
     list-style-image: url('../images/teacher.png');
 }
 
-.cv .resume li {
+.cv .resume .teachers li {
     font-size: 14px;
 }
 
-.cv .resume li strong {
+.cv .resume .teachers li strong {
     font-size: 14px;
     color: #565656;
 }
@@ -1002,6 +1007,10 @@ footer {
 }
 
 /*Sites*/
+.sites {
+    overflow-x: hidden;
+}
+
 .sites .works {
     display: flex;
     padding: 10px 0 0;

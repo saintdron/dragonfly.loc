@@ -2,9 +2,11 @@
     <div class="load-block">
         <img src="{{ asset(config('settings.brand_dir')) . '/dragonfly_logo.png'}}">
         <div class="load">
-            <a href="{{ asset(config('settings.resume_dir')) }}/AndriiSemianovych.pdf" download class="load__pdf" title="Скачать в формате .pdf"></a>
+            <a href="{{ asset(config('settings.resume_dir')) }}/{{ asset(config('settings.resume_name')) }}.pdf"
+               download class="load__pdf" title="Скачать в формате .pdf"></a>
             <a class="load__sign">Скачать резюме</a>
-            <a href="{{ asset(config('settings.resume_dir')) }}/AndriiSemianovych.doc" download class="load__doc" title="Скачать в формате .doc"></a>
+            <a href="{{ asset(config('settings.resume_dir')) }}/{{ asset(config('settings.resume_name')) }}.doc"
+               download class="load__doc" title="Скачать в формате .doc"></a>
         </div>
     </div>
     <header>
@@ -19,16 +21,20 @@
         <div class="left">
             <h3>Опыт работы</h3>
             <h4>В качестве Web-разработчика:</h4>
-            <p>
-                05.2013 – фан-сайт «Inquisition» на шаблоне CMS Joomla<br/>
-                06.2013 – сайт под ключ «Catering Rinaldy» на шаблоне CMS Joomla<br/>
-                12.2013 – сайт под ключ <a href="{{ route('sites', 'k-gallery') }}">«K-Gallery»</a> на шаблоне CMS Joomla<br/>
-                07.2018 – landing page <a href="{{ route('sites', 'unique') }}">«Unique»</a><br/>
-                09.2018 – корпоративный сайт <a href="{{ route('sites', 'tproger') }}">«Tproger»</a><br/>
-                01.2019 – сайт-портфолио <a href="{{ route('sites', 'dragonfly') }}">«DragonFly»</a><br/>
-            </p>
-            <h5>Мои преподаватели:</h5>
             <ul>
+                <li>05.2013 – фан-сайт «Inquisition» на шаблоне CMS Joomla</li>
+                <li>06.2013 – сайт под ключ «Catering Rinaldy» на шаблоне CMS Joomla</li>
+                <li>12.2013 – сайт под ключ <a href="{{ route('sites', 'k-gallery') }}">«K-Gallery»</a> на шаблоне CMS
+                    Joomla
+                </li>
+                <li>07.2018 – landing page <a href="{{ route('sites', 'unique') }}">«Unique»</a></li>
+                <li>09.2018 – корпоративный сайт <a href="{{ route('sites', 'tproger') }}">«Tproger»</a></li>
+                <li>01.2019 – сайт-портфолио <a href="{{ route('sites', 'dragonfly') }}">«DragonFly»</a></li>
+                <li>c 02.2019 – ООО <a href="https://autoline.com.ua">«ЛайнМедиа»</a></li>
+            </ul>
+
+            <h5>Мои преподаватели:</h5>
+            <ul class="teachers">
                 <li>Мак-Дональд М. – <strong>HTML5</strong>. Недостающее руководство: Пер. с англ. – 480 с.</li>
                 <li>Лоусон Б., Шарп Р. – Изучаем <strong>HTML5</strong>. Библиотека специалиста. 2-е изд. – 304 с.</li>
                 <li>Макфарланд Д. – Новая большая книга <strong>CSS</strong>. – 720 с.</li>
@@ -55,19 +61,19 @@
             </ul>
 
             <h4>В качестве дизайнера:</h4>
-            <p>
-                08.2008 – 03.2010 – газета «Международный курьер»<br/>
-                03.2010 – 01.2011 – издательский дом «Секретные материалы»<br/>
-                01.2011 – 06.2017 – журнал «Ковальська Майстерня»<br/>
-                04.2012 – 07.2016 – редакция «Каталог К-Галерея»<br/>
-                06.2013 – 08.2015 – издательское объединение «Юстiнiан»<br/>
-                с 07.2014 – редакция <a href="http://yur-gazeta.com">«Юридична Газета»</a>
-            </p>
+            <ul>
+                <li>08.2008 – 03.2010 – газета «Международный курьер»</li>
+                <li>03.2010 – 01.2011 – издательский дом «Секретные материалы»</li>
+                <li>01.2011 – 06.2017 – журнал «Ковальська Майстерня»</li>
+                <li>04.2012 – 07.2016 – редакция «Каталог К-Галерея»</li>
+                <li>06.2013 – 08.2015 – издательское объединение «Юстiнiан»</li>
+                <li>07.2014 – 02.2019 – редакция <a href="http://yur-gazeta.com">«Юридична Газета</a></li>
+            </ul>
+
             <h5>Обязанности:</h5>
-            <p>Дизайн и верстка <a href="{{ route('printing') }}">полиграфической продукции</a>, создание иллюстраций и
-                <a href="{{ route('graphicAnimations') }}">анимаций</a> для сайтов и
-                соц. сетей, контент-менеджмент, создание <a href="{{ route('branding') }}">корпоративного стиля</a>
-                компаний</p>
+            <p>Дизайн и верстка <a href="{{ route('printing') }}">полиграфической продукции</a>, создание иллюстраций
+                и <a href="{{ route('graphicAnimations') }}">анимаций</a> для сайтов и соц. сетей, контент-менеджмент,
+                создание <a href="{{ route('branding') }}">корпоративного стиля</a> компаний</p>
         </div>
         <div class="right">
             <div>
@@ -89,13 +95,10 @@
                     CMS: Joomla
                 </p>
                 <h3>Дополнительная информация</h3>
-                <p>
-                    Коммуникабельный, ответственный, старательный, целеустремленный, умеющий работать в команде,
-                    склонный к
-                    самообучению, некурящий, имеющий слабость к математическим и логическим задачам, среди лучших
+                <p>Коммуникабельный, ответственный, старательный, целеустремленный, умеющий работать в команде, склонный
+                    к самообучению, некурящий, имеющий слабость к математическим и логическим задачам, среди лучших
                     программистов по <a href="https://js.checkio.org/profile/leaderboard/full">рейтингу «js.checkiO»</a>
-                    (ник: SaintDron)
-                </p>
+                    (ник: SaintDron)</p>
             </div>
             <div class="figure">
                 <img src="{{ asset(config('settings.gif_dir')) }}/dragonfly2.gif">
@@ -124,14 +127,16 @@
                 <div class="form-group col-md">
                     <label for="name">Имя</label>
                     <div class="input-prepend">
-                        <input class="form-control" id="name" name="name" value="{{ old('name') }}" contenteditable="true" spellcheck="false" required>
+                        <input class="form-control" id="name" name="name" value="{{ old('name') }}"
+                               contenteditable="true" spellcheck="false" required>
                         <span class="add-on"><i class="fas fa-user"></i></span>
                     </div>
                 </div>
                 <div class="form-group col-md">
                     <label for="email">E-mail</label>
                     <div class="input-prepend">
-                        <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" contenteditable="true" spellcheck="false" required>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}"
+                               contenteditable="true" spellcheck="false" required>
                         <span class="add-on"><i class="fas fa-at"></i></span>
                     </div>
                 </div>

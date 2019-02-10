@@ -15,6 +15,7 @@ return [
     'extra_dir' => 'assets/extra',
     'gif_dir' => 'assets/images/gif',
     'video_dir' => 'assets/video',
-    'resume_dir' => 'assets/resume',
 
+    'resume_dir' => 'assets/resume',
+    'resume_name' => 'AndriiSemianovych'
 ];
