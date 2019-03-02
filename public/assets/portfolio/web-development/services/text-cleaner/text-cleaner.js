@@ -928,25 +928,6 @@ jQuery(document).ready(function ($) {
                 // e.g. забыли,зажали.Даже так
                 r(/(\D)([.,;:?!»%)])([\d\u0400-\u04FF])/g, '$1$2 $3');
 
-                // Удалил из-за проблем с видео-, аудио- и другим словами, заканчивающимися на дефис
-                /*                // e.g. потерянный– пробел с тире
-                                reg = /([^\s\d])([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63])\s/g;
-                                if (reg.test(text)) {
-                                    if (options.dashes) {
-                                        if (options.non_breaking_spaces) {
-                                            r(reg, "$1\u00A0\u2014 ");
-                                        } else {
-                                            r(reg, "$1 \u2014 ");
-                                        }
-                                    } else {
-                                        if (options.non_breaking_spaces) {
-                                            r(reg, "$1\u00A0$2 ");
-                                        } else {
-                                            r(reg, "$1 $2 ");
-                                        }
-                                    }
-                                }*/
-
                 // e.g. потерянный –пробел с тире
                 reg = /(\s)([-\u2010\u2012\u2013\u2014\u2043\u2212\u2796\u2E3A\u2E3B\uFE63])([^\d ])/g;
                 if (reg.test(text)) {
@@ -1010,8 +991,8 @@ jQuery(document).ready(function ($) {
                     r(reg, "$1$2. ");
                 }
 
-                // 74000
-                reg = /(^|[^\d№/])(\d{2,3})(\d{3})(?=\D|$)/g;
+                // 74000 -> 74 000
+                reg = /(^|[^\d№/=])(\d{2,3})(\d{3})(?=\D|$)/g;
                 if (options.non_breaking_spaces) {
                     r(reg, "$1$2\u00A0$3");
                 } else {
