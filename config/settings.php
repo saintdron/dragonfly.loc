@@ -15,6 +15,7 @@ return [
     'extra_dir' => 'assets/extra',
     'gif_dir' => 'assets/images/gif',
     'video_dir' => 'assets/video',
+//    'video_dir' => 'http://qjwpzprxupczttj4reyyago5d3ufn1o5.cdn-freehost.com.ua/assets/video',
 
     'resume_dir' => 'assets/resume',
     'resume_name' => 'AndriiSemianovych'
