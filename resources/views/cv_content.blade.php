@@ -30,7 +30,7 @@
                 <li>07.2018 – landing page <a href="{{ route('sites', 'unique') }}">«Unique»</a></li>
                 <li>09.2018 – корпоративный сайт <a href="{{ route('sites', 'tproger') }}">«Tproger»</a></li>
                 <li>01.2019 – сайт-портфолио <a href="{{ route('sites', 'dragonfly') }}">«DragonFly»</a></li>
-                <li>c 02.2019 – ООО <a href="https://autoline.com.ua">«ЛайнМедиа»</a></li>
+                <li>c 02.2019 – ООО <a href="https://autoline.com.ua" rel="nofollow">«ЛайнМедиа»</a></li>
             </ul>
 
             <h5>Мои преподаватели:</h5>
